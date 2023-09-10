@@ -68,8 +68,24 @@ export default function Home() {
       })
   );
 
+  const {
+    data: testimonies,
+    error: testiDataError,
+    isLoading: testiDataLoading,
+  } = useSWR(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2022_testimonies`,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+        },
+      })
+  );
+
   if (repoDataLoading) return <div>loading..</div>;
-  console.log(repos);
+  // console.log(repos);
+  console.log(testimonies);
   return (
     <PageLayout>
       <PageContent>
@@ -178,10 +194,30 @@ export default function Home() {
                         {repo.fields.descriptions}
                       </div>
                       <div className="flex flex-col">
-                        <div className="text-sm font-light">Built by</div>
+                        <div className="text-xs font-light">Built by</div>
                         <div className="font-medium">
                           {repo.fields.team_name}
                         </div>
+                        <div className="flex gap-2 mx-auto pt-2">
+                          {repo.fields.members_image ? (
+                            repo.fields.members_image.map((member, i) => (
+                              <div
+                                key={i}
+                                className="rounded-full w-7 h-7 overflow-hidden"
+                              >
+                                <Image
+                                  src={member.url}
+                                  width={300}
+                                  height={300}
+                                  alt={member.filename}
+                                />
+                              </div>
+                            ))
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                        <div className="inline-flex gap-2 mx-auto"></div>
                       </div>
                       <div className="font-medium">
                         <a
@@ -199,7 +235,40 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div>Testimonies</div>
+            <div className="flex flex-col w-full gap-4 py-20">
+              <div className="text-4xl font-bold mx-auto">
+                What they say about ShrimpHack
+              </div>
+              <div className="flex overflow-x-scroll w-full no-scrollbar scroll-pl-4 snap-x gap-4 py-6">
+                {testimonies?.records ? (
+                  testimonies?.records?.map((testi, i) => (
+                    <div
+                      key={i}
+                      className="p-6 flex flex-col w-[30rem] shrink-0 gap-4 border border-slate-700 rounded-lg"
+                    >
+                      <div className="text-sm font-light">
+                        {testi.fields.comments}
+                      </div>
+                      <div className="flex gap-3 items-center">
+                        <div className="overflow-hidden w-10 h-10 rounded-full ">
+                          <Image
+                            src={testi.fields.image[0].url}
+                            alt={testi.fields.name}
+                            height={300}
+                            width={300}
+                          />
+                        </div>
+                        <div className="text-base font-medium">
+                          {testi.fields.name}
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
             <div>Galleries</div>
             <div>FAQ</div>
             <div>CTA</div>
