@@ -1,33 +1,36 @@
 import { PageLayout } from "@/components/layouts/page";
 import { PageContent } from "@/components/layouts/page-contents";
+import Container from "@/components/layouts/container";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Container from "@/components/layouts/container";
+import { SHWhite } from "@/components/logo/shlogo";
+import { Navbar } from "@/components/layouts/navbar";
+
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
-const tracks = [
-  {
-    name: "🦐 Aquaculture and Sustainability",
-    descriptions:
-      "Any ideas and project that helpful for farmers and shrimp industry.",
-    image: "",
-  },
-  {
-    name: "🏢 What’s around the office",
-    descriptions:
-      "Make our office better place to work, collaborate, and hang out",
-    image: "",
-  },
-  {
-    name: "🧠 Anything on your mind",
-    descriptions:
-      "Hackathon is about having fun! Make any project that will lift your mood and brighten your day",
-    image: "",
-  },
-];
+// const tracks = [
+//   {
+//     name: "🦐 Aquaculture and Sustainability",
+//     descriptions:
+//       "Any ideas and project that helpful for farmers and shrimp industry.",
+//     image: "",
+//   },
+//   {
+//     name: "🏢 What’s around the office",
+//     descriptions:
+//       "Make our office better place to work, collaborate, and hang out",
+//     image: "",
+//   },
+//   {
+//     name: "🧠 Anything on your mind",
+//     descriptions:
+//       "Hackathon is about having fun! Make any project that will lift your mood and brighten your day",
+//     image: "",
+//   },
+// ];
 
 const prizes = [
   {
@@ -69,6 +72,19 @@ export default function Home() {
   );
 
   const {
+    data: galleries,
+    error: galleryDataError,
+    isLoading: galleryDataLoading,
+  } = useSWR(`${process.env.NEXT_PUBLIC_AIRTABLE_URI}/galleries`, (url) =>
+    fetcher(url, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+      },
+    })
+  );
+
+  const {
     data: testimonies,
     error: testiDataError,
     isLoading: testiDataLoading,
@@ -83,16 +99,45 @@ export default function Home() {
       })
   );
 
-  if (repoDataLoading) return <div>loading..</div>;
+  const {
+    data: tracks,
+    error: tracksDataError,
+    isLoading: tracksDataLoading,
+  } = useSWR(`${process.env.NEXT_PUBLIC_AIRTABLE_URI}/tracks`, (url) =>
+    fetcher(url, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+      },
+    })
+  );
+
+  const headerImage = galleries
+    ? galleries.records.find((r) => {
+        return r.fields.name == "header";
+      })
+    : null;
+
+  const aboutImage = galleries
+    ? galleries.records.find((r) => {
+        return r.fields.name == "about";
+      })
+    : null;
+
+  if (repoDataLoading || testiDataLoading || galleryDataLoading)
+    return <div>loading..</div>;
   // console.log(repos);
-  console.log(testimonies);
+  // console.log(testimonies);
+  // console.log(galleries);
+  console.log(tracks);
+  // console.log(headerImage, aboutImage);
   return (
     <PageLayout>
       <PageContent>
-        <div>Navbar</div>
+        <Navbar />
         <Container>
           <div className="flex flex-col">
-            <div className="grid grid-cols-2 mx-auto py-20 gap-10 h-screen items-center">
+            <div className="grid grid-cols-2 mx-auto py-20 gap-5 h-screen items-center px-16">
               <div className="flex flex-col gap-10">
                 <div className="text-xl md:text-6xl font-extrabold">
                   ShrimpHack &apos;23
@@ -107,10 +152,21 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <div>Gambar</div>
+              <div className="">
+                <Image
+                  src={headerImage.fields.image[0].url}
+                  height={headerImage.fields.image[0].height}
+                  width={headerImage.fields.image[0].width}
+                  alt={"header shrimphack"}
+                  className="rounded-lg"
+                />
+              </div>
             </div>
-            <div className="mx-auto grid grid-cols-2 py-20 gap-10 items-center">
-              <div className="text-lg font-medium leading-relaxed w-auto">
+            <div
+              className="mx-auto grid grid-cols-2 py-20 gap-10 items-center scroll-mt-10 px-16"
+              id="about"
+            >
+              <div className="text-xl font-medium leading-relaxed w-auto">
                 ShrimpHack is a competitive weekend-long internal event of JALA
                 where WargaJALA come together to work on cool projects.
                 You&apos;ll have the freedom to create a product, learn new
@@ -119,16 +175,37 @@ export default function Home() {
                 inclusive collaborative work environment and drive the
                 innovation culture.
               </div>
-              <div>Gambar</div>
+              <div className="">
+                <Image
+                  src={aboutImage.fields.image[0].url}
+                  height={aboutImage.fields.image[0].height}
+                  width={aboutImage.fields.image[0].width}
+                  alt={"header shrimphack"}
+                  className="rounded-lg"
+                />
+              </div>
             </div>
-            <div className="flex flex-col gap-4 py-20">
+            <div
+              className="flex flex-col gap-4 py-20 scroll-mt-10 px-16"
+              id="tracks"
+            >
               <div className="text-4xl font-bold mx-auto">Tracks</div>
               <div className="grid grid-cols-3 gap-4 mx-auto text-center py-6">
-                {tracks ? (
-                  tracks.map((track, i) => (
+                {tracks?.records ? (
+                  tracks?.records?.map((track, i) => (
                     <div key={i} className="flex flex-col gap-2 p-4 w-80">
-                      <div className="text-lg font-semibold">{track.name}</div>
-                      <div>{track.descriptions}</div>
+                      <div className="max-w-[20rem] max-h-[20rem] overflow-hidden rounded-lg ">
+                        <Image
+                          src={track.fields.image[0].url}
+                          alt={track.fields.name}
+                          height={track.fields.image[0].height}
+                          width={track.fields.image[0].width}
+                        />
+                      </div>
+                      <div className="text-lg font-semibold">
+                        {track.fields.name}
+                      </div>
+                      <div>{track.fields.descriptions}</div>
                     </div>
                   ))
                 ) : (
@@ -136,14 +213,17 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="flex flex-col gap-4 py-20">
+            <div
+              className="flex flex-col gap-4 py-20 scroll-mt-10 px-16"
+              id="prizes"
+            >
               <div className="text-4xl font-bold mx-auto">Prizes</div>
-              <div className="flex flex-row gap-4 mx-auto py-6">
+              <div className="flex flex-row gap-2 mx-auto py-6">
                 {prizes ? (
                   prizes.map((prize, i) => (
                     <div
                       key={i}
-                      className="flex flex-col gap-2 p-4 text-center w-52"
+                      className="flex flex-col gap-2 p-4 text-center w-40"
                     >
                       <div className="text-5xl">{prize.logo}</div>
                       <div className="text-lg font-semibold">{prize.name}</div>
@@ -155,19 +235,22 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="flex flex-col gap-4 py-20">
+            <div
+              className="flex flex-col gap-4 py-20 scroll-mt-10"
+              id="projects"
+            >
               <div className="text-4xl font-bold mx-auto">Past Projects</div>
-              <div className="grid grid-flow-col gap-4 mx-auto py-6">
+              <div className="flex flex-wrap gap-4 mx-auto px-16 justify-center">
                 {repos?.records[0] ? (
                   repos?.records.map((repo, i) => (
                     <div
                       key={repo.id}
-                      className="flex flex-col gap-3 text-center p-6 w-80 border-slate-600 border rounded-lg"
+                      className="flex flex-col shrink-0 gap-3 text-center p-4 w-72 border-slate-600 border rounded-lg items-center"
                     >
                       <div className="text-lg font-bold">
                         {repo.fields.project_name}
                       </div>
-                      <div className="overflow-hidden max-w-[20rem] max-h-[10rem] rounded-lg ">
+                      <div className="overflow-hidden max-w-[15rem] max-h-[10rem] rounded-lg ">
                         {repo.fields?.image ? (
                           <Image
                             src={
@@ -185,7 +268,7 @@ export default function Home() {
                             className=""
                           />
                         ) : (
-                          <div className="w-full h-[10rem] bg-slate-400 text-center font-bold text-slate-500 items-center justify-center flex">
+                          <div className="w-[15rem] h-[10rem] bg-slate-400 text-center font-bold text-slate-500 items-center justify-center flex">
                             No Image
                           </div>
                         )}
@@ -235,11 +318,14 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="flex flex-col w-full gap-4 py-20">
+            <div
+              className="flex flex-col w-full gap-4 py-20 scroll-mt-10"
+              id="testimonies"
+            >
               <div className="text-4xl font-bold mx-auto">
                 What they say about ShrimpHack
               </div>
-              <div className="flex overflow-x-scroll w-full no-scrollbar scroll-pl-4 snap-x gap-4 py-6">
+              <div className="flex overflow-x-scroll w-full no-scrollbar scroll-pl-4 snap-x gap-4 py-6 px-16">
                 {testimonies?.records ? (
                   testimonies?.records?.map((testi, i) => (
                     <div
