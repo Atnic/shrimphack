@@ -28,3 +28,29 @@ a {
     background: black;
   }
 } */
+
+.ticket-visual:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 130px;
+  left: -30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #0f172a;
+  z-index: 2;
+}
+
+.ticket-visual:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 130px;
+  right: -30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #0f172a;
+  z-index: 2;
+}

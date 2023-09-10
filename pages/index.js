@@ -4,33 +4,12 @@ import Container from "@/components/layouts/container";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { SHWhite } from "@/components/logo/shlogo";
+// import { SHWhite } from "@/components/logo/shlogo";
 import { Navbar } from "@/components/layouts/navbar";
 
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-
-// const tracks = [
-//   {
-//     name: "🦐 Aquaculture and Sustainability",
-//     descriptions:
-//       "Any ideas and project that helpful for farmers and shrimp industry.",
-//     image: "",
-//   },
-//   {
-//     name: "🏢 What’s around the office",
-//     descriptions:
-//       "Make our office better place to work, collaborate, and hang out",
-//     image: "",
-//   },
-//   {
-//     name: "🧠 Anything on your mind",
-//     descriptions:
-//       "Hackathon is about having fun! Make any project that will lift your mood and brighten your day",
-//     image: "",
-//   },
-// ];
 
 const prizes = [
   {
@@ -103,13 +82,15 @@ export default function Home() {
     data: tracks,
     error: tracksDataError,
     isLoading: tracksDataLoading,
-  } = useSWR(`${process.env.NEXT_PUBLIC_AIRTABLE_URI}/tracks`, (url) =>
-    fetcher(url, {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-      },
-    })
+  } = useSWR(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/tracks?sort%5B0%5D%5Bfield%5D=sort`,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+        },
+      })
   );
 
   const headerImage = galleries
@@ -190,11 +171,14 @@ export default function Home() {
               id="tracks"
             >
               <div className="text-4xl font-bold mx-auto">Tracks</div>
-              <div className="grid grid-cols-3 gap-4 mx-auto text-center py-6">
+              <div className="grid grid-cols-3 gap-2 mx-auto text-center py-6">
                 {tracks?.records ? (
                   tracks?.records?.map((track, i) => (
-                    <div key={i} className="flex flex-col gap-2 p-4 w-80">
-                      <div className="max-w-[20rem] max-h-[20rem] overflow-hidden rounded-lg ">
+                    <div
+                      key={i}
+                      className="flex flex-col gap-2 px-2 py-4 lg:px-4 lg:w-72"
+                    >
+                      <div className="max-w-[14rem] max-h-[10rem] lg:max-w-[18rem] lg:max-h-[18rem] overflow-hidden rounded-lg ">
                         <Image
                           src={track.fields.image[0].url}
                           alt={track.fields.name}
@@ -218,7 +202,7 @@ export default function Home() {
               id="prizes"
             >
               <div className="text-4xl font-bold mx-auto">Prizes</div>
-              <div className="flex flex-row gap-2 mx-auto py-6">
+              <div className="flex flex-row flex-wrap justify-center gap-2 mx-auto py-6">
                 {prizes ? (
                   prizes.map((prize, i) => (
                     <div
