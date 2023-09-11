@@ -271,10 +271,9 @@ export default function Home() {
                             repo.fields.members_image.map((member, i) => (
                               <div
                                 key={i}
-                                className={clsx(
-                                  "border-slate-900 border-2 rounded-full w-10 h-10 overflow-hidden",
-                                  ``
-                                )}
+                                className={
+                                  "border-slate-900 border-2 rounded-full w-10 h-10 overflow-hidden"
+                                }
                                 style={{ zIndex: i }}
                               >
                                 <Image
