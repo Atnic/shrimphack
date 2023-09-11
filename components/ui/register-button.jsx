@@ -1,12 +1,38 @@
 import React from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import useSWR from "swr";
+import qs from "qs";
 
 export default function RegisterButton() {
   const { data: session } = useSession();
   const router = useRouter();
+
+  const paramAccount = session?.user
+    ? qs.stringify({
+        filterByFormula: `email="${session?.user?.email}"`,
+        maxRecords: 1,
+      })
+    : "";
+
+  const {
+    data: account,
+    error: accountDataError,
+    isLoading: accountDataLoading,
+  } = useSWR(
+    paramAccount
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`
+      : null,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+        },
+      })
+  );
   //   console.log(session);
-  if (session) {
+  if (session && account?.records) {
     return (
       <button
         className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold"
@@ -14,6 +40,16 @@ export default function RegisterButton() {
       >
         Login
       </button>
+    );
+  }
+  if (session) {
+    return (
+      <a
+        className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold"
+        href="/register"
+      >
+        Complete Registration
+      </a>
     );
   }
   return (

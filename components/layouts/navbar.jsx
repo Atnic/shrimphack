@@ -1,13 +1,40 @@
 import React from "react";
 import { SHWhite } from "@/components/logo/shlogo";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import RegisterButton from "../ui/register-button";
+import useSWR from "swr";
+import qs from "qs";
 
 export function Navbar() {
   const { data: session } = useSession();
   const router = useRouter();
+
+  const paramAccount = session?.user
+    ? qs.stringify({
+        filterByFormula: `email="${session?.user?.email}"`,
+        maxRecords: 1,
+      })
+    : "";
+
+  const {
+    data: account,
+    error: accountDataError,
+    isLoading: accountDataLoading,
+  } = useSWR(
+    paramAccount
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`
+      : null,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+        },
+      })
+  );
+
+  console.log(session?.user?.email, account);
 
   return (
     <div className="flex flex-row w-full justify-between fixed px-16 py-4 bg-slate-900 bg-opacity-80 z-10">
@@ -34,12 +61,18 @@ export function Navbar() {
         </div>
         <div>
           {session ? (
-            <button
-              className="px-4 py-1 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75"
-              onClick={() => router.push("/2023")}
-            >
-              Login
-            </button>
+            account?.records ? (
+              <button
+                className="px-4 py-1 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75"
+                onClick={() => router.push("/2023")}
+              >
+                Login
+              </button>
+            ) : (
+              <a href="/register" className="hover:-translate-y-1 delay-75">
+                Register
+              </a>
+            )
           ) : (
             <button
               onClick={() => signIn("google", { callbackUrl: "/2023" })}

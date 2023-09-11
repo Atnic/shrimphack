@@ -10,7 +10,7 @@ export const authOptions = {
     }),
   ],
   pages: {
-    signIn: "/",
+    signIn: "/register",
     error: "/",
   },
 

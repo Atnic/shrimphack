@@ -112,7 +112,7 @@ export default function Home() {
   // console.log(repos);
   // console.log(testimonies);
   // console.log(galleries);
-  console.log(tracks);
+  // console.log(tracks);
   // console.log(headerImage, aboutImage);
   return (
     <PageLayout>

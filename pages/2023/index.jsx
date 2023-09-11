@@ -49,7 +49,11 @@ export default function SH2023() {
         ticket.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
       });
     }
-    if (!session && status == "unauthenticated") {
+    if (
+      (!session && status == "unauthenticated") ||
+      account?.records?.length == 0
+    ) {
+      console.log("masuk");
       // router.push("/login");
       signIn();
     }
@@ -95,7 +99,7 @@ export default function SH2023() {
                         </div>
                         <div className="text-sm font-light">
                           /
-                          {account?.records[0]?.fields.name ||
+                          {account?.records[0]?.fields.email ||
                             session?.user?.email}
                         </div>
                       </div>
