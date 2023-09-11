@@ -6,6 +6,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 // import { SHWhite } from "@/components/logo/shlogo";
 import { Navbar } from "@/components/layouts/navbar";
+import RegisterButton from "@/components/ui/register-button";
 import clsx from "clsx";
 
 import useSWR from "swr";
@@ -129,9 +130,7 @@ export default function Home() {
                   <div className="text-xl md:text-2xl">JALA HQ - Sahid</div>
                 </div>
                 <div>
-                  <button className="px-4 py-2 bg-white text-slate-800 rounded-lg text-lg">
-                    Register with JALA&apos;s email
-                  </button>
+                  <RegisterButton />
                 </div>
               </div>
               <div className="">

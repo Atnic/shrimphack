@@ -1,12 +1,18 @@
 import React from "react";
 import { SHWhite } from "@/components/logo/shlogo";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
+import RegisterButton from "../ui/register-button";
 
 export function Navbar() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
   return (
-    <div className="flex flex-row w-full justify-between fixed px-6 py-4 bg-slate-900 bg-opacity-80 z-10">
+    <div className="flex flex-row w-full justify-between fixed px-16 py-4 bg-slate-900 bg-opacity-80 z-10">
       <Link href="/">
-        <div>
+        <div className="cursor-pointer">
           <SHWhite width={100} height={50} />
         </div>
       </Link>
@@ -27,7 +33,16 @@ export function Navbar() {
           <a href="#testimonies">Testimonies</a>
         </div>
         <div>
-          <a href="#about">Register</a>
+          {session ? (
+            <button
+              className="px-4 py-1 border-white border-2 text-white rounded-xl"
+              onClick={() => router.push("/2023")}
+            >
+              Login
+            </button>
+          ) : (
+            <a href="#about">Register</a>
+          )}
         </div>
       </div>
     </div>
