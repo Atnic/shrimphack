@@ -17,31 +17,36 @@ export function Navbar() {
         </div>
       </Link>
       <div className="flex flex-row gap-4 items-center text-lg">
-        <div>
+        <div className="hover:-translate-y-1 delay-75">
           <a href="#about">About</a>
         </div>
-        <div>
+        <div className="hover:-translate-y-1 delay-75">
           <a href="#tracks">Tracks</a>
         </div>
-        <div>
+        <div className="hover:-translate-y-1 delay-75">
           <a href="#prizes">Prizes</a>
         </div>
-        <div>
+        <div className="hover:-translate-y-1 delay-75">
           <a href="#projects">Past Projects</a>
         </div>
-        <div>
+        <div className="hover:-translate-y-1 delay-75">
           <a href="#testimonies">Testimonies</a>
         </div>
         <div>
           {session ? (
             <button
-              className="px-4 py-1 border-white border-2 text-white rounded-xl"
+              className="px-4 py-1 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75"
               onClick={() => router.push("/2023")}
             >
               Login
             </button>
           ) : (
-            <a href="#about">Register</a>
+            <button
+              onClick={() => signIn("google", { callbackUrl: "/2023" })}
+              className="hover:-translate-y-1 delay-75"
+            >
+              Register
+            </button>
           )}
         </div>
       </div>

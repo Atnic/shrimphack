@@ -18,8 +18,8 @@ export default function RegisterButton() {
   }
   return (
     <button
-      className="px-4 py-2 bg-white text-slate-800 rounded-xl text-lg"
-      onClick={() => signIn()}
+      className="px-4 py-2 bg-white text-slate-800 rounded-xl text-lg border-2 hover:border-2 hover:border-white hover:text-white hover:bg-transparent"
+      onClick={() => signIn("google", { callbackUrl: "/2023" })}
     >
       Register with JALA&apos;s email
     </button>
