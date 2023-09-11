@@ -6,6 +6,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 // import { SHWhite } from "@/components/logo/shlogo";
 import { Navbar } from "@/components/layouts/navbar";
+import clsx from "clsx";
 
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
@@ -265,12 +266,16 @@ export default function Home() {
                         <div className="font-medium">
                           {repo.fields.team_name}
                         </div>
-                        <div className="flex gap-2 mx-auto pt-2">
+                        <div className="flex mx-auto pt-2 -space-x-2">
                           {repo.fields.members_image ? (
                             repo.fields.members_image.map((member, i) => (
                               <div
                                 key={i}
-                                className="rounded-full w-7 h-7 overflow-hidden"
+                                className={clsx(
+                                  "border-slate-900 border-2 rounded-full w-10 h-10 overflow-hidden",
+                                  ``
+                                )}
+                                style={{ zIndex: i }}
                               >
                                 <Image
                                   src={member.url}

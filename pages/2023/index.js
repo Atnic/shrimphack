@@ -33,7 +33,7 @@ export default function SH2023() {
         <Container>
           <div className="flex flex-col">
             <div className="flex flex-col mx-auto py-20 gap-5 h-screen items-center px-16">
-              <div className="relative flex flex-row border-2 border-slate-600 rounded-xl bg-gradient-to-r from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual">
+              <div className="relative flex flex-row border-2 border-slate-600 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual">
                 <div className="flex flex-col justify-between h-[20rem] px-10 py-10">
                   <div className="flex flex-row items-center gap-4">
                     {user?.records && (
