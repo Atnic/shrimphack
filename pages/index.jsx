@@ -6,6 +6,8 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 // import { SHWhite } from "@/components/logo/shlogo";
 import { Navbar } from "@/components/layouts/navbar";
+import RegisterButton from "@/components/ui/register-button";
+import clsx from "clsx";
 
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
@@ -110,7 +112,7 @@ export default function Home() {
   // console.log(repos);
   // console.log(testimonies);
   // console.log(galleries);
-  console.log(tracks);
+  // console.log(tracks);
   // console.log(headerImage, aboutImage);
   return (
     <PageLayout>
@@ -128,9 +130,7 @@ export default function Home() {
                   <div className="text-xl md:text-2xl">JALA HQ - Sahid</div>
                 </div>
                 <div>
-                  <button className="px-4 py-2 bg-white text-slate-800 rounded-lg text-lg">
-                    Register with JALA&apos;s email
-                  </button>
+                  <RegisterButton />
                 </div>
               </div>
               <div className="">
@@ -265,12 +265,15 @@ export default function Home() {
                         <div className="font-medium">
                           {repo.fields.team_name}
                         </div>
-                        <div className="flex gap-2 mx-auto pt-2">
+                        <div className="flex mx-auto pt-2 -space-x-2">
                           {repo.fields.members_image ? (
                             repo.fields.members_image.map((member, i) => (
                               <div
                                 key={i}
-                                className="rounded-full w-7 h-7 overflow-hidden"
+                                className={
+                                  "border-slate-900 border-2 rounded-full w-10 h-10 overflow-hidden"
+                                }
+                                style={{ zIndex: i }}
                               >
                                 <Image
                                   src={member.url}
