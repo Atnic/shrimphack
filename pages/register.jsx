@@ -179,7 +179,7 @@ export default function Register() {
             "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 28 - 29 October, 2023.",
           images: [
             {
-              url: "/shrimphack-800.jpg",
+              url: "https://shrimphack.com/shrimphack-800.jpg",
               width: 800,
               height: 450,
               alt: "ShrimpHack 2023",
