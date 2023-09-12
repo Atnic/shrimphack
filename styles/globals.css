@@ -54,3 +54,29 @@ a {
   background: #0f172a;
   z-index: 2;
 }
+
+.ticket-visual-mobile:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -45px;
+  right: 115px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #0f172a;
+  z-index: 2;
+}
+
+.ticket-visual-mobile:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -45px;
+  right: 115px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #0f172a;
+  z-index: 2;
+}
