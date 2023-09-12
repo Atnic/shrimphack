@@ -18,9 +18,9 @@ export default function Register() {
   const [formFilled, setFormFilled] = useState(false);
   const [profileData, setProfileData] = useState({
     name: session?.user?.name,
-    expectation: " ",
+    expectation: "",
     email: session?.user?.email,
-    phone_number: " ",
+    phone_number: "",
     gender: "Male",
     shirt: "M",
     role: "Techies",

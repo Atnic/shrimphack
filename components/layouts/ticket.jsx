@@ -15,18 +15,23 @@ export function Ticket({ account, session }) {
 
         ticket.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
       });
+    }
+  }, [account]);
 
-      const ticket2 = document.getElementById("ticket-2");
-      const { x2, y2, width2, height2 } = ticket.getBoundingClientRect();
-      const centerPoint2 = { x: x2 + width2 / 2, y: y2 + height2 / 2 };
+  useEffect(() => {
+    if (account) {
+      const ticket = document.getElementById("ticket-2");
+      const { x, y, width, height } = ticket.getBoundingClientRect();
+      const centerPoint = { x: x + width / 2, y: y + height / 2 };
       window.addEventListener("mousemove", (e) => {
-        const degreeX = (e.clientY - centerPoint2.y) * 0.008;
-        const degreeY = (e.clientX - centerPoint2.x) * -0.008;
+        const degreeX = (e.clientY - centerPoint.y) * 0.008;
+        const degreeY = (e.clientX - centerPoint.x) * -0.008;
 
-        ticket2.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
+        ticket.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
       });
     }
   }, [account]);
+
   return (
     <div className="flex flex-col mx-auto py-24 gap-5 items-center px-10 md:px-16 ">
       <div
