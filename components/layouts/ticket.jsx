@@ -92,12 +92,13 @@ export function Ticket({ account, session }) {
         <div className="relative flex flex-col justify-between px-6 py-10 pb-12 overflow-hidden">
           <div className="flex flex-row items-center gap-4">
             {account && session?.user && (
-              <div className="rounded-full w-16 h-16 overflow-hidden border-2 border-black">
+              <div className="rounded-full w-14 h-14 overflow-hidden">
                 <Image
                   src={account?.fields?.image?.url || session?.user?.image}
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}
+                  className="rounded-full"
                 />
               </div>
             )}
