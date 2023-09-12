@@ -69,9 +69,9 @@ export function Navbar() {
                 Login
               </button>
             ) : (
-              <a href="/register" className="hover:-translate-y-1 delay-75">
+              <Link href="/register" className="hover:-translate-y-1 delay-75">
                 Register
-              </a>
+              </Link>
             )
           ) : (
             <button

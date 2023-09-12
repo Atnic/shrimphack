@@ -10,6 +10,7 @@ import { SHWhite, JalaLogo } from "@/components/logo/shlogo";
 import { useSession, signIn, signOut } from "next-auth/react";
 import qs from "qs";
 import { CommandLineIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { Ticket } from "@/components/layouts/ticket";
 import {
   TimeConverter,
   DateNumericConverter,
@@ -59,17 +60,17 @@ export default function SH2023() {
   );
 
   useEffect(() => {
-    if (account) {
-      const ticket = document.getElementById("ticket");
-      const { x, y, width, height } = ticket.getBoundingClientRect();
-      const centerPoint = { x: x + width / 2, y: y + height / 2 };
-      window.addEventListener("mousemove", (e) => {
-        const degreeX = (e.clientY - centerPoint.y) * 0.008;
-        const degreeY = (e.clientX - centerPoint.x) * -0.008;
+    // if (account) {
+    //   const ticket = document.getElementById("ticket");
+    //   const { x, y, width, height } = ticket.getBoundingClientRect();
+    //   const centerPoint = { x: x + width / 2, y: y + height / 2 };
+    //   window.addEventListener("mousemove", (e) => {
+    //     const degreeX = (e.clientY - centerPoint.y) * 0.008;
+    //     const degreeY = (e.clientX - centerPoint.x) * -0.008;
 
-        ticket.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
-      });
-    }
+    //     ticket.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
+    //   });
+    // }
     if (
       !session &&
       status == "unauthenticated"
@@ -91,75 +92,9 @@ export default function SH2023() {
         <Container>
           {account?.records && session?.user && !loading && (
             <div className="flex flex-col">
-              <div className="flex flex-col mx-auto py-24 gap-5 items-center px-16">
-                <div
-                  id="ticket"
-                  className=" flex flex-row border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual"
-                >
-                  <div className="relative flex flex-col justify-between h-[20rem] px-10 py-10 overflow-hidden">
-                    {account?.records[0]?.fields.role == "Techies" ? (
-                      <CommandLineIcon className="w-60 h-60 absolute right-10 bottom-10 text-slate-700 text-opacity-5" />
-                    ) : (
-                      <SparklesIcon className="w-60 h-60 absolute right-10 bottom-10 text-slate-700 text-opacity-5" />
-                    )}
-
-                    <div className="flex flex-row items-center gap-4">
-                      {account?.records && session?.user && (
-                        <div className="rounded-full w-20 h-20 overflow-hidden border-2 border-black">
-                          <Image
-                            src={
-                              account?.records[0]?.fields?.image?.url ||
-                              session?.user?.image
-                            }
-                            width={
-                              account?.records[0]?.fields?.image?.width || 300
-                            }
-                            height={
-                              account?.records[0]?.fields?.image?.height || 300
-                            }
-                            alt={"account-profile"}
-                          />
-                        </div>
-                      )}
-                      <div className="flex flex-col gap-1.5 text-black">
-                        <div className="text-4xl font-bold ">
-                          {account?.records[0]?.fields.name ||
-                            session?.user?.name}
-                        </div>
-                        <div className="text-sm font-light">
-                          /
-                          {account?.records[0]?.fields.email ||
-                            session?.user?.email}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-row gap-4 items-center">
-                      <div>
-                        <SHWhite width={100} height={50} fill={"#000"} />
-                      </div>
-                      <div className="flex flex-col text-black">
-                        <div className="text-sm font-medium">
-                          22 - 23 October, 2023 &bull; JALA HQ - Sahid, YK
-                        </div>
-                        <div className="text-sm inline-flex">
-                          Hosted by{" "}
-                          <span className="ml-2">
-                            <JalaLogo width={50} height={20} />
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col justify-center p-6">
-                    <div className="text-6xl font-extrabold text-black rotate-90">
-                      {account?.records[0]?.fields.number || "#000"}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Ticket account={account?.records[0]} session={session} />
               <div
-                className="flex flex-col gap-4 py-20 scroll-mt-10 px-16"
+                className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
                 id="events"
               >
                 <div className="text-4xl font-bold mx-auto">Events</div>
