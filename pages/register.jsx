@@ -85,7 +85,7 @@ export default function Register() {
         ],
       };
 
-      console.log(JSON.stringify(airtableBody));
+      // console.log(JSON.stringify(airtableBody));
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration`,
