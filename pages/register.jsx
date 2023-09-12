@@ -158,7 +158,7 @@ export default function Register() {
     await submitForm(profileData);
   };
 
-  console.log(profileData);
+  // console.log(profileData);
   //   console.log(formFilled);
 
   return (

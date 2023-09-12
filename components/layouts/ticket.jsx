@@ -1,14 +1,6 @@
 import React, { useEffect } from "react";
-import { PageLayout } from "@/components/layouts/page";
-import { PageContent } from "@/components/layouts/page-contents";
-import Container from "@/components/layouts/container";
-import { NavbarAgenda } from "@/components/layouts/navbar-agenda";
 import Image from "next/image";
-import useSWR from "swr";
-import { fetcher } from "@/utils/fetcher";
 import { SHWhite, JalaLogo } from "@/components/logo/shlogo";
-import { useSession, signIn, signOut } from "next-auth/react";
-import qs from "qs";
 import { CommandLineIcon, SparklesIcon } from "@heroicons/react/24/outline";
 
 export function Ticket({ account, session }) {
@@ -23,13 +15,23 @@ export function Ticket({ account, session }) {
 
         ticket.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
       });
+
+      const ticket2 = document.getElementById("ticket-2");
+      const { x2, y2, width2, height2 } = ticket.getBoundingClientRect();
+      const centerPoint2 = { x: x2 + width2 / 2, y: y2 + height2 / 2 };
+      window.addEventListener("mousemove", (e) => {
+        const degreeX = (e.clientY - centerPoint2.y) * 0.008;
+        const degreeY = (e.clientX - centerPoint2.x) * -0.008;
+
+        ticket2.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
+      });
     }
   }, [account]);
   return (
     <div className="flex flex-col mx-auto py-24 gap-5 items-center px-10 md:px-16 ">
       <div
         id="ticket"
-        className="scroll-mt-10 hidden relative md:flex flex-row border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual"
+        className="scroll-mt-20 hidden relative md:flex flex-row border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual"
       >
         <div className="relative flex flex-col justify-between h-[20rem] px-10 py-10 overflow-hidden">
           {account?.fields.role == "Techies" ? (
@@ -40,12 +42,13 @@ export function Ticket({ account, session }) {
 
           <div className="flex flex-row items-center gap-4">
             {account && session?.user && (
-              <div className="rounded-full w-20 h-20 overflow-hidden border-2 border-black">
+              <div className="rounded-full w-20 h-20 overflow-hidden">
                 <Image
                   src={account?.fields?.image?.url || session?.user?.image}
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}
+                  className="rounded-full border-2 border-black "
                 />
               </div>
             )}
@@ -65,7 +68,7 @@ export function Ticket({ account, session }) {
             </div>
             <div className="flex flex-col text-black">
               <div className="text-sm font-medium">
-                22 - 23 October, 2023 &bull; JALA HQ - Sahid, YK
+                28 - 29 October, 2023 &bull; JALA HQ - Sahid, YK
               </div>
               <div className="text-sm inline-flex">
                 Hosted by{" "}
@@ -83,8 +86,8 @@ export function Ticket({ account, session }) {
         </div>
       </div>
       <div
-        id="ticket"
-        className="scroll-mt-10 relative flex md:hidden flex-col border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-y divide-dashed divide-slate-900 ticket-visual-mobile"
+        id="ticket-2"
+        className="scroll-mt-20 relative flex md:hidden flex-col border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-y divide-dashed divide-slate-900 ticket-visual-mobile"
       >
         <div className="relative flex flex-col justify-between px-6 py-10 pb-12 overflow-hidden">
           <div className="flex flex-row items-center gap-4">
@@ -114,7 +117,7 @@ export function Ticket({ account, session }) {
           <div className="flex flex-col gap-4 items-center">
             <div className="flex flex-col gap-2 text-black text-center items-center">
               <div>
-                <div className="text-sm font-medium">22 - 23 October, 2023</div>
+                <div className="text-sm font-medium">28 - 29 October, 2023</div>
                 <div className="text-sm font-medium">JALA HQ - Sahid, YK</div>
               </div>
               <div className="inline-flex items-center text-lg font-semibold">

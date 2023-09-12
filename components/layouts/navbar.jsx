@@ -5,6 +5,8 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import qs from "qs";
+import { fetcher } from "@/utils/fetcher";
+import Image from "next/image";
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -34,7 +36,7 @@ export function Navbar() {
       })
   );
 
-  console.log(session?.user?.email, account);
+  // console.log(session?.user?.email, account);
 
   return (
     <div className="flex flex-row w-full justify-between fixed px-8 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center">
@@ -47,15 +49,22 @@ export function Navbar() {
         {session ? (
           account?.records ? (
             <button
-              className="px-4 py-2 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 md:hidden"
+              className="px-4 py-2 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 md:hidden inline-flex items-center gap-2"
               onClick={() => router.push("/2023")}
             >
-              Login
+              Your Profile
+              <Image
+                src={session?.user?.image}
+                width={30}
+                height={30}
+                alt={session?.user?.name}
+                className="rounded-full"
+              />
             </button>
           ) : (
             <Link href="/register">
               <div className="hover:-translate-y-1 delay-75 px-4 py-2 border-white border-2 rounded-xl">
-                Register
+                Complete Registration
               </div>
             </Link>
           )
@@ -88,10 +97,17 @@ export function Navbar() {
           {session ? (
             account?.records ? (
               <button
-                className="px-4 py-1 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75"
+                className="px-4 py-1 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 inline-flex items-center gap-2"
                 onClick={() => router.push("/2023")}
               >
-                Login
+                Your Profile
+                <Image
+                  src={session?.user?.image}
+                  width={30}
+                  height={30}
+                  alt={session?.user?.name}
+                  className="rounded-full"
+                />
               </button>
             ) : (
               <Link href="/register" className="hover:-translate-y-1 delay-75">

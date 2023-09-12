@@ -73,7 +73,8 @@ export default function SH2023() {
     // }
     if (
       !session &&
-      status == "unauthenticated"
+      status == "unauthenticated" &&
+      !account
       // ||
       // account?.records?.length == 0
     ) {

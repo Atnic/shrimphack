@@ -11,10 +11,13 @@ export function NavbarAgenda() {
         </div>
       </Link>
       <div className="flex flex-row gap-4 items-center text-lg">
-        <div>
+        <div className="hidden md:flex hover:-translate-y-1 delay-75">
           <a href="#ticket">Ticket</a>
         </div>
-        <div>
+        <div className="md:hidden hover:-translate-y-1 delay-75">
+          <a href="#ticket-2">Ticket</a>
+        </div>
+        <div className="hover:-translate-y-1 delay-75">
           <a href="#events">Events</a>
         </div>
         {/* <div>

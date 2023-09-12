@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import Link from "next/link";
 import qs from "qs";
+import { fetcher } from "@/utils/fetcher";
 
 export default function RegisterButton() {
   const { data: session } = useSession();
@@ -32,6 +33,7 @@ export default function RegisterButton() {
         },
       })
   );
+  // console.log(account, paramAccount, session?.user, accountDataError);
   //   console.log(session);
   if (session && account?.records) {
     return (
@@ -39,7 +41,7 @@ export default function RegisterButton() {
         className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit"
         onClick={() => router.push("/2023")}
       >
-        Login
+        Your Profile
       </button>
     );
   }

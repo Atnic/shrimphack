@@ -9,6 +9,7 @@ import "@splidejs/react-splide/css/skyblue";
 import { Navbar } from "@/components/layouts/navbar";
 import RegisterButton from "@/components/ui/register-button";
 import clsx from "clsx";
+import qs from "qs";
 
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
@@ -39,6 +40,7 @@ const prizes = [
 ];
 
 export default function Home() {
+  const year = new Date();
   const {
     data: repos,
     error: repoDataError,
@@ -51,20 +53,32 @@ export default function Home() {
           Accept: "application/json",
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
         },
-      })
+      }),
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   );
 
   const {
     data: galleries,
     error: galleryDataError,
     isLoading: galleryDataLoading,
-  } = useSWR(`${process.env.NEXT_PUBLIC_AIRTABLE_URI}/galleries`, (url) =>
-    fetcher(url, {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-      },
-    })
+  } = useSWR(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/galleries`,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+        },
+      }),
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   );
 
   const {
@@ -79,7 +93,12 @@ export default function Home() {
           Accept: "application/json",
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
         },
-      })
+      }),
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   );
 
   const {
@@ -94,7 +113,12 @@ export default function Home() {
           Accept: "application/json",
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
         },
-      })
+      }),
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
   );
 
   const options = {
@@ -104,9 +128,6 @@ export default function Home() {
     autoplay: true,
     pauseOnHover: true,
     resetProgress: false,
-    // perPage: 2,
-    // perPage: 1,
-    // autoWidth: true,
   };
 
   const headerImage = galleries
@@ -121,13 +142,26 @@ export default function Home() {
       })
     : null;
 
-  if (repoDataLoading || testiDataLoading || galleryDataLoading)
+  const images = galleries
+    ? galleries.records.filter((g) => {
+        return g.fields.name == "galleries";
+      })
+    : null;
+
+  if (
+    repoDataLoading ||
+    testiDataLoading ||
+    galleryDataLoading ||
+    tracksDataLoading
+  )
     return <div>loading..</div>;
   // console.log(repos);
   // console.log(testimonies);
   // console.log(galleries);
   // console.log(tracks);
   // console.log(headerImage, aboutImage);
+
+  // console.log(images);
   return (
     <PageLayout>
       <PageContent>
@@ -140,7 +174,7 @@ export default function Home() {
                   ShrimpHack &apos;23
                 </div>
                 <div className="flex flex-col text-2xl lg:text-3xl">
-                  <div className="font-semibold">22 - 23 October</div>
+                  <div className="font-semibold">28 - 29 October</div>
                   <div className="text-xl lg:text-2xl">JALA HQ - Sahid</div>
                 </div>
                 <div>
@@ -328,39 +362,75 @@ export default function Home() {
               <div className="text-4xl font-bold text-center mx-auto">
                 What they say about ShrimpHack
               </div>
-              <Splide options={options}>
-                {testimonies?.records ? (
-                  testimonies?.records?.map((testi, i) => (
-                    <SplideSlide key={i}>
-                      <div className="p-6 flex flex-col gap-4 border border-slate-700 rounded-lg">
-                        <div className="text-sm text-center font-light">
-                          {testi.fields.comments}
-                        </div>
-                        <div className="flex justify-center gap-3 items-center">
-                          <div className="overflow-hidden w-12 h-12 rounded-full">
-                            <Image
-                              src={testi.fields.image[0].url}
-                              alt={testi.fields.name}
-                              height={300}
-                              width={300}
-                              className="rounded-full"
-                            />
+              <div className="py-6">
+                <Splide options={options}>
+                  {testimonies?.records ? (
+                    testimonies?.records?.map((testi, i) => (
+                      <SplideSlide key={i}>
+                        <div className="p-6 flex flex-col gap-4 border border-slate-700 rounded-lg">
+                          <div className="text-sm text-center font-light">
+                            {testi.fields.comments}
                           </div>
-                          <div className="text-base font-medium">
-                            {testi.fields.name} &bull; {testi.fields.year}
+                          <div className="flex justify-center gap-3 items-center">
+                            <div className="overflow-hidden w-12 h-12 rounded-full">
+                              <Image
+                                src={testi.fields.image[0].url}
+                                alt={testi.fields.name}
+                                height={300}
+                                width={300}
+                                className="rounded-full"
+                              />
+                            </div>
+                            <div className="text-base font-medium">
+                              {testi.fields.name} &bull; {testi.fields.year}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </SplideSlide>
+                      </SplideSlide>
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </Splide>
+              </div>
+            </div>
+            <div
+              className="flex flex-col gap-4 py-20 scroll-mt-10 mx-auto lg:px-16 px-8"
+              id="galleries"
+            >
+              <div className="text-4xl font-bold mx-auto text-center">
+                ShrimpHack 2022 Photos
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mx-auto py-6">
+                {images ? (
+                  images[0].fields.image.map((image, i) => (
+                    <div
+                      key={i}
+                      className="rounded-lg max-w-[45rem] max-h-[10rem] md:max-h-[13rem] lg:max-h-[15rem] xl:max-h-[20rem] overflow-hidden object-cover"
+                    >
+                      <Image
+                        className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 object-cover"
+                        src={image.url}
+                        alt={image.filename}
+                        height={image.thumbnails.large.height}
+                        width={image.thumbnails.large.width}
+                        // sizes="(max-width: 640px) 100vw,
+                        // (max-width: 1280px) 50vw,
+                        // (max-width: 1536px) 33vw,
+                        // 25vw"
+                      />
+                    </div>
                   ))
                 ) : (
                   <></>
                 )}
-              </Splide>
+              </div>
             </div>
-            <div>Galleries</div>
-            <div>FAQ</div>
-            <div>CTA</div>
+            {/* <div>FAQ</div> */}
+            {/* <div>CTA</div> */}
+            <div className="border-t border-slate-300 p-8 lg:px-16">
+              <div>Copyright © {year.getFullYear()} ShimpHack</div>
+            </div>
           </div>
         </Container>
       </PageContent>
