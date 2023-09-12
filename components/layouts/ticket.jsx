@@ -68,7 +68,7 @@ export function Ticket({ account, session }) {
             </div>
             <div className="flex flex-col text-black">
               <div className="text-sm font-medium">
-                28 - 29 October, 2023 &bull; JALA HQ - Sahid, YK
+                14 - 15 October, 2023 &bull; JALA HQ - Sahid, YK
               </div>
               <div className="text-sm inline-flex">
                 Hosted by{" "}
@@ -92,12 +92,13 @@ export function Ticket({ account, session }) {
         <div className="relative flex flex-col justify-between px-6 py-10 pb-12 overflow-hidden">
           <div className="flex flex-row items-center gap-4">
             {account && session?.user && (
-              <div className="rounded-full w-16 h-16 overflow-hidden border-2 border-black">
+              <div className="rounded-full w-14 h-14 overflow-hidden">
                 <Image
                   src={account?.fields?.image?.url || session?.user?.image}
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}
+                  className="rounded-full"
                 />
               </div>
             )}
@@ -117,7 +118,7 @@ export function Ticket({ account, session }) {
           <div className="flex flex-col gap-4 items-center">
             <div className="flex flex-col gap-2 text-black text-center items-center">
               <div>
-                <div className="text-sm font-medium">28 - 29 October, 2023</div>
+                <div className="text-sm font-medium">14 - 15 October, 2023</div>
                 <div className="text-sm font-medium">JALA HQ - Sahid, YK</div>
               </div>
               <div className="inline-flex items-center text-lg font-semibold">

@@ -161,8 +161,8 @@ export default function Home() {
           <Container>
             <div className="flex flex-col animate-pulse">
               <div className="grid grid-cols-1 md:grid-cols-2 mx-auto py-20 gap-5 lg:h-screen items-center px-8 lg:px-16">
-                <div className="flex flex-col gap-5 lg:gap-10">
-                  <div className="text-5xl lg:text-6xl font-bold bg-slate-600 h-20 w-96 rounded-lg"></div>
+                <div className="flex flex-col gap-5 lg:gap-10 w-full">
+                  <div className="bg-slate-600 h-20 w-80 md:w-96 rounded-lg"></div>
                   <div className="flex flex-col text-2xl lg:text-3xl gap-1 ">
                     <div className="bg-slate-600 h-10 lg:w-52 rounded-lg"></div>
                     <div className="bg-slate-600 h-8 w-40 rounded-lg"></div>
@@ -190,23 +190,28 @@ export default function Home() {
       <NextSeo
         title="ShrimpHack 2023 🍤"
         description="ShrimpHack is a competitive weekend-long internal event of JALA
-        where Warga JALA come together to work on cool projects. Join on 28 - 29 October, 2023."
+        where Warga JALA come together to work on cool projects. Join on 14 - 15 October, 2023."
         canonical="https://www.shrimphack.com/"
         openGraph={{
           url: "https://www.shrimphack.com/",
           title: "ShrimpHack 2023 🍤",
           description:
-            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 28 - 29 October, 2023.",
+            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
           images: [
             {
-              url: "https://shrimphack.com/shrimphack-800.jpg",
+              url: "https://www.shrimphack.com/shrimphack-800.jpg",
               width: 800,
-              height: 450,
+              height: 600,
               alt: "ShrimpHack 2023",
               type: "image/jpeg",
             },
           ],
           siteName: "ShrimpHack 2023 🍤",
+        }}
+        twitter={{
+          handle: "@jalaindonesia",
+          site: "@site",
+          cardType: "summary_large_image",
         }}
       />
       <PageContent>
@@ -219,7 +224,7 @@ export default function Home() {
                   ShrimpHack &apos;23
                 </div>
                 <div className="flex flex-col text-2xl lg:text-3xl">
-                  <div className="font-semibold">28 - 29 October</div>
+                  <div className="font-semibold">14 - 15 October</div>
                   <div className="text-xl lg:text-2xl">JALA HQ - Sahid</div>
                 </div>
                 <div>
@@ -302,7 +307,7 @@ export default function Home() {
                   prizes.map((prize, i) => (
                     <div
                       key={i}
-                      className="flex flex-col gap-2 p-4 text-center w-40"
+                      className="flex flex-col gap-2 p-4 text-center w-36 lg:w-40"
                     >
                       <div className="text-5xl">{prize.logo}</div>
                       <div className="text-lg font-semibold">{prize.name}</div>
@@ -451,7 +456,7 @@ export default function Home() {
                   images[0].fields.image.map((image, i) => (
                     <div
                       key={i}
-                      className="rounded-lg max-w-[45rem] max-h-[10rem] md:max-h-[13rem] lg:max-h-[15rem] xl:max-h-[20rem] overflow-hidden object-cover"
+                      className="rounded-lg max-w-[45rem] max-h-[9rem] md:max-h-[13rem] lg:max-h-[15rem] xl:max-h-[20rem] overflow-hidden object-cover"
                     >
                       <Image
                         className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110 object-cover"
