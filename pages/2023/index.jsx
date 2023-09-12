@@ -9,6 +9,12 @@ import { fetcher } from "@/utils/fetcher";
 import { SHWhite, JalaLogo } from "@/components/logo/shlogo";
 import { useSession, signIn, signOut } from "next-auth/react";
 import qs from "qs";
+import { CommandLineIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import {
+  TimeConverter,
+  DateNumericConverter,
+  DateMonthShortConverter,
+} from "@/utils";
 
 export default function SH2023() {
   const { data: session, status, loading } = useSession();
@@ -37,6 +43,21 @@ export default function SH2023() {
       })
   );
 
+  const {
+    data: events,
+    error: eventDataError,
+    isLoading: eventDataLoading,
+  } = useSWR(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/events?sort%5B0%5D%5Bfield%5D=date`,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+        },
+      })
+  );
+
   useEffect(() => {
     if (account) {
       const ticket = document.getElementById("ticket");
@@ -50,8 +71,10 @@ export default function SH2023() {
       });
     }
     if (
-      (!session && status == "unauthenticated") ||
-      account?.records?.length == 0
+      !session &&
+      status == "unauthenticated"
+      // ||
+      // account?.records?.length == 0
     ) {
       console.log("masuk");
       // router.push("/login");
@@ -59,7 +82,7 @@ export default function SH2023() {
     }
   }, [account, session, status]);
 
-  console.log(account, session?.user);
+  // console.log(events);
 
   return (
     <PageLayout>
@@ -68,12 +91,18 @@ export default function SH2023() {
         <Container>
           {account?.records && session?.user && !loading && (
             <div className="flex flex-col">
-              <div className="flex flex-col mx-auto py-20 gap-5 h-screen items-center px-16">
+              <div className="flex flex-col mx-auto py-24 gap-5 items-center px-16">
                 <div
                   id="ticket"
-                  className="relative flex flex-row border-2 border-slate-600 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual"
+                  className=" flex flex-row border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual"
                 >
-                  <div className="flex flex-col justify-between h-[20rem] px-10 py-10">
+                  <div className="relative flex flex-col justify-between h-[20rem] px-10 py-10 overflow-hidden">
+                    {account?.records[0]?.fields.role == "Techies" ? (
+                      <CommandLineIcon className="w-60 h-60 absolute right-10 bottom-10 text-slate-700 text-opacity-5" />
+                    ) : (
+                      <SparklesIcon className="w-60 h-60 absolute right-10 bottom-10 text-slate-700 text-opacity-5" />
+                    )}
+
                     <div className="flex flex-row items-center gap-4">
                       {account?.records && session?.user && (
                         <div className="rounded-full w-20 h-20 overflow-hidden border-2 border-black">
@@ -104,7 +133,7 @@ export default function SH2023() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-row"></div>
+
                     <div className="flex flex-row gap-4 items-center">
                       <div>
                         <SHWhite width={100} height={50} fill={"#000"} />
@@ -129,8 +158,43 @@ export default function SH2023() {
                   </div>
                 </div>
               </div>
-              <div>Events</div>
-              <div>Agenda</div>
+              <div
+                className="flex flex-col gap-4 py-20 scroll-mt-10 px-16"
+                id="events"
+              >
+                <div className="text-4xl font-bold mx-auto">Events</div>
+                <div className="flex flex-col flex-wrap justify-center gap-1 mx-auto py-6">
+                  {events?.records ? (
+                    events?.records?.map((event, i) => (
+                      <div
+                        key={i}
+                        className="flex flex-row gap-4 p-4 items-center"
+                      >
+                        <div className="flex flex-col justify-center text-center p-2 bg-white text-slate-900 w-20 rounded-xl">
+                          <div className="text-2xl font-bold">
+                            {DateNumericConverter(event.fields.date)}
+                          </div>
+                          <div className="uppercase">
+                            {DateMonthShortConverter(event.fields.date)}
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-1  w-full">
+                          <div className="text-lg font-semibold">
+                            {event.fields.name}
+                          </div>
+                          <div className="text-xs">
+                            {TimeConverter(event.fields.date)} &bull;{" "}
+                            {event.fields.location}
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </div>
+              {/* <div>Agenda</div> */}
             </div>
           )}
         </Container>

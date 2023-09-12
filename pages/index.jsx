@@ -224,7 +224,7 @@ export default function Home() {
               id="projects"
             >
               <div className="text-4xl font-bold mx-auto">Past Projects</div>
-              <div className="flex flex-wrap gap-4 mx-auto px-16 justify-center">
+              <div className="flex flex-wrap gap-4 mx-auto px-16 py-6 justify-center">
                 {repos?.records[0] ? (
                   repos?.records.map((repo, i) => (
                     <div

@@ -12,14 +12,14 @@ export function NavbarAgenda() {
       </Link>
       <div className="flex flex-row gap-4 items-center text-lg">
         <div>
-          <a href="#about">Ticket</a>
+          <a href="#ticket">Ticket</a>
         </div>
         <div>
-          <a href="#tracks">Events</a>
+          <a href="#events">Events</a>
         </div>
-        <div>
+        {/* <div>
           <a href="#prizes">Agenda</a>
-        </div>
+        </div> */}
       </div>
     </div>
   );

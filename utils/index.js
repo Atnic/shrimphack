@@ -20,7 +20,7 @@ export function CurrencyConverter(value, currency, digits) {
 }
 
 export function DateConverter(value) {
-  return new Intl.DateTimeFormat("id-ID", {
+  return new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Jakarta",
     weekday: "long",
     month: "long",
@@ -29,9 +29,23 @@ export function DateConverter(value) {
 }
 
 export function DateMonthConverter(value) {
-  return new Intl.DateTimeFormat("id-ID", {
+  return new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Jakarta",
     month: "long",
+  }).format(Date.parse(value));
+}
+
+export function DateMonthShortConverter(value) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Jakarta",
+    month: "short",
+  }).format(Date.parse(value));
+}
+
+export function DateNumericConverter(value) {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Jakarta",
+    day: "numeric",
   }).format(Date.parse(value));
 }
 
