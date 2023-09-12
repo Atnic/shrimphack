@@ -68,7 +68,7 @@ export function Ticket({ account, session }) {
             </div>
             <div className="flex flex-col text-black">
               <div className="text-sm font-medium">
-                28 - 29 October, 2023 &bull; JALA HQ - Sahid, YK
+                14 - 15 October, 2023 &bull; JALA HQ - Sahid, YK
               </div>
               <div className="text-sm inline-flex">
                 Hosted by{" "}
@@ -117,7 +117,7 @@ export function Ticket({ account, session }) {
           <div className="flex flex-col gap-4 items-center">
             <div className="flex flex-col gap-2 text-black text-center items-center">
               <div>
-                <div className="text-sm font-medium">28 - 29 October, 2023</div>
+                <div className="text-sm font-medium">14 - 15 October, 2023</div>
                 <div className="text-sm font-medium">JALA HQ - Sahid, YK</div>
               </div>
               <div className="inline-flex items-center text-lg font-semibold">

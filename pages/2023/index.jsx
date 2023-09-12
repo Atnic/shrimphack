@@ -93,16 +93,16 @@ export default function SH2023() {
       <NextSeo
         title="ShrimpHack 2023 🍤"
         description="ShrimpHack is a competitive weekend-long internal event of JALA
-        where Warga JALA come together to work on cool projects. Join on 28 - 29 October, 2023."
+        where Warga JALA come together to work on cool projects. Join on 14 - 15 October, 2023."
         canonical="https://www.shrimphack.com/"
         openGraph={{
           url: "https://www.shrimphack.com/",
           title: "ShrimpHack 2023 🍤",
           description:
-            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 28 - 29 October, 2023.",
+            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
           images: [
             {
-              url: "https://shrimphack.com/shrimphack-800.jpg",
+              url: "https://www.shrimphack.com/shrimphack-800.jpg",
               width: 800,
               height: 450,
               alt: "ShrimpHack 2023",
@@ -110,6 +110,11 @@ export default function SH2023() {
             },
           ],
           siteName: "ShrimpHack 2023 🍤",
+        }}
+        twitter={{
+          handle: "@jalaindonesia",
+          site: "@site",
+          cardType: "summary_large_image",
         }}
       />
       <PageContent>
