@@ -4,6 +4,7 @@ import Container from "@/components/layouts/container";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import "@splidejs/react-splide/css/skyblue";
 // import { SHWhite } from "@/components/logo/shlogo";
 import { Navbar } from "@/components/layouts/navbar";
 import RegisterButton from "@/components/ui/register-button";
@@ -12,6 +13,7 @@ import clsx from "clsx";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
 
 const prizes = [
   {
@@ -70,7 +72,7 @@ export default function Home() {
     error: testiDataError,
     isLoading: testiDataLoading,
   } = useSWR(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2022_testimonies`,
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/testimonies?filterByFormula=verified`,
     (url) =>
       fetcher(url, {
         headers: {
@@ -94,6 +96,18 @@ export default function Home() {
         },
       })
   );
+
+  const options = {
+    type: "loop",
+    arrows: false,
+    gap: "1rem",
+    autoplay: true,
+    pauseOnHover: true,
+    resetProgress: false,
+    // perPage: 2,
+    // perPage: 1,
+    // autoWidth: true,
+  };
 
   const headerImage = galleries
     ? galleries.records.find((r) => {
@@ -144,10 +158,10 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="mx-auto grid grid-cols-2 py-20 gap-10 items-center scroll-mt-10 px-16"
+              className="mx-auto grid grid-cols-1 md:grid-cols-2 py-20 gap-10 items-center scroll-mt-10 px-8 lg:px-16"
               id="about"
             >
-              <div className="text-xl font-medium leading-relaxed w-auto">
+              <div className="md:text-xl md:font-medium leading-relaxed w-auto">
                 ShrimpHack is a competitive weekend-long internal event of JALA
                 where WargaJALA come together to work on cool projects.
                 You&apos;ll have the freedom to create a product, learn new
@@ -167,16 +181,16 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10 px-16"
+              className="flex flex-col gap-4 py-20 scroll-mt-10 px-8 md:px-16"
               id="tracks"
             >
               <div className="text-4xl font-bold mx-auto">Tracks</div>
-              <div className="grid grid-cols-3 gap-2 mx-auto text-center py-6">
+              <div className="flex flex-row flex-wrap justify-center gap-4 mx-auto py-6">
                 {tracks?.records ? (
                   tracks?.records?.map((track, i) => (
                     <div
                       key={i}
-                      className="flex flex-col gap-2 px-2 py-4 lg:px-4 lg:w-72"
+                      className="flex flex-col gap-2 py-4 md:w-72 items-center"
                     >
                       <div className="max-w-[14rem] max-h-[10rem] lg:max-w-[18rem] lg:max-h-[18rem] overflow-hidden rounded-lg ">
                         <Image
@@ -186,10 +200,12 @@ export default function Home() {
                           width={track.fields.image[0].width}
                         />
                       </div>
-                      <div className="text-lg font-semibold">
+                      <div className="text-lg font-semibold text-center">
                         {track.fields.name}
                       </div>
-                      <div>{track.fields.descriptions}</div>
+                      <div className="text-center">
+                        {track.fields.descriptions}
+                      </div>
                     </div>
                   ))
                 ) : (
@@ -198,7 +214,7 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10 px-16"
+              className="flex flex-col gap-4 py-20 scroll-mt-10 px-8 lg:px-16"
               id="prizes"
             >
               <div className="text-4xl font-bold mx-auto">Prizes</div>
@@ -220,16 +236,16 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10"
+              className="flex flex-col gap-4 py-20 scroll-mt-10 "
               id="projects"
             >
               <div className="text-4xl font-bold mx-auto">Past Projects</div>
-              <div className="flex flex-wrap gap-4 mx-auto px-16 py-6 justify-center">
+              <div className="flex flex-wrap gap-4 mx-auto px-8 lg:px-16 py-6 justify-center">
                 {repos?.records[0] ? (
                   repos?.records.map((repo, i) => (
                     <div
                       key={repo.id}
-                      className="flex flex-col shrink-0 gap-3 text-center p-4 w-72 border-slate-600 border rounded-lg items-center"
+                      className="flex flex-col shrink-0 gap-3 text-center p-4 w-full md:w-72 border-slate-600 border rounded-lg items-center"
                     >
                       <div className="text-lg font-bold">
                         {repo.fields.project_name}
@@ -306,41 +322,41 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col w-full gap-4 py-20 scroll-mt-10"
+              className="flex flex-col w-full gap-4 py-20 scroll-mt-10 px-8 lg:px-16"
               id="testimonies"
             >
-              <div className="text-4xl font-bold mx-auto">
+              <div className="text-4xl font-bold text-center mx-auto">
                 What they say about ShrimpHack
               </div>
-              <div className="flex overflow-x-scroll w-full no-scrollbar scroll-pl-4 snap-x gap-4 py-6 px-16">
+              <Splide options={options}>
                 {testimonies?.records ? (
                   testimonies?.records?.map((testi, i) => (
-                    <div
-                      key={i}
-                      className="p-6 flex flex-col w-[30rem] shrink-0 gap-4 border border-slate-700 rounded-lg"
-                    >
-                      <div className="text-sm font-light">
-                        {testi.fields.comments}
-                      </div>
-                      <div className="flex gap-3 items-center">
-                        <div className="overflow-hidden w-10 h-10 rounded-full ">
-                          <Image
-                            src={testi.fields.image[0].url}
-                            alt={testi.fields.name}
-                            height={300}
-                            width={300}
-                          />
+                    <SplideSlide key={i}>
+                      <div className="p-6 flex flex-col gap-4 border border-slate-700 rounded-lg">
+                        <div className="text-sm text-center font-light">
+                          {testi.fields.comments}
                         </div>
-                        <div className="text-base font-medium">
-                          {testi.fields.name}
+                        <div className="flex justify-center gap-3 items-center">
+                          <div className="overflow-hidden w-12 h-12 rounded-full">
+                            <Image
+                              src={testi.fields.image[0].url}
+                              alt={testi.fields.name}
+                              height={300}
+                              width={300}
+                              className="rounded-full"
+                            />
+                          </div>
+                          <div className="text-base font-medium">
+                            {testi.fields.name} &bull; {testi.fields.year}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </SplideSlide>
                   ))
                 ) : (
                   <></>
                 )}
-              </div>
+              </Splide>
             </div>
             <div>Galleries</div>
             <div>FAQ</div>

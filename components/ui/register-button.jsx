@@ -45,11 +45,10 @@ export default function RegisterButton() {
   }
   if (session) {
     return (
-      <Link
-        className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit"
-        href="/register"
-      >
-        Complete Registration
+      <Link href="/register">
+        <div className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit text-center">
+          Complete Registration
+        </div>
       </Link>
     );
   }

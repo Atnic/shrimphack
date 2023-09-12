@@ -43,7 +43,7 @@ export function Navbar() {
           <SHWhite width={100} height={50} />
         </div>
       </Link>
-      <div>
+      <div className="md:hidden">
         {session ? (
           account?.records ? (
             <button
@@ -53,14 +53,16 @@ export function Navbar() {
               Login
             </button>
           ) : (
-            <Link href="/register" className="hover:-translate-y-1 delay-75">
-              Register
+            <Link href="/register">
+              <div className="hover:-translate-y-1 delay-75 px-4 py-2 border-white border-2 rounded-xl">
+                Register
+              </div>
             </Link>
           )
         ) : (
           <button
             onClick={() => signIn("google", { callbackUrl: "/2023" })}
-            className="hover:-translate-y-1 delay-75"
+            className="hover:-translate-y-1 delay-75 px-4 py-2 border-white border-2"
           >
             Register
           </button>
