@@ -120,20 +120,20 @@ export default function Home() {
         <Navbar />
         <Container>
           <div className="flex flex-col">
-            <div className="grid grid-cols-2 mx-auto py-20 gap-5 h-screen items-center px-16">
-              <div className="flex flex-col gap-10">
-                <div className="text-xl md:text-6xl font-extrabold">
+            <div className="grid grid-cols-1 md:grid-cols-2 mx-auto py-20 gap-5 lg:h-screen items-center px-8 lg:px-16">
+              <div className="flex flex-col gap-5 lg:gap-10">
+                <div className="text-5xl lg:text-6xl font-bold">
                   ShrimpHack &apos;23
                 </div>
-                <div className="flex flex-col text-2xl md:text-3xl">
+                <div className="flex flex-col text-2xl lg:text-3xl">
                   <div className="font-semibold">22 - 23 October</div>
-                  <div className="text-xl md:text-2xl">JALA HQ - Sahid</div>
+                  <div className="text-xl lg:text-2xl">JALA HQ - Sahid</div>
                 </div>
                 <div>
                   <RegisterButton />
                 </div>
               </div>
-              <div className="">
+              <div className="order-first md:order-last py-10">
                 <Image
                   src={headerImage.fields.image[0].url}
                   height={headerImage.fields.image[0].height}

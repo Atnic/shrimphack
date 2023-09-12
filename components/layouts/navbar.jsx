@@ -37,12 +37,35 @@ export function Navbar() {
   console.log(session?.user?.email, account);
 
   return (
-    <div className="flex flex-row w-full justify-between fixed px-8 md:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center">
+    <div className="flex flex-row w-full justify-between fixed px-8 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center">
       <Link href="/">
         <div className="cursor-pointer">
           <SHWhite width={100} height={50} />
         </div>
       </Link>
+      <div>
+        {session ? (
+          account?.records ? (
+            <button
+              className="px-4 py-2 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 md:hidden"
+              onClick={() => router.push("/2023")}
+            >
+              Login
+            </button>
+          ) : (
+            <Link href="/register" className="hover:-translate-y-1 delay-75">
+              Register
+            </Link>
+          )
+        ) : (
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/2023" })}
+            className="hover:-translate-y-1 delay-75"
+          >
+            Register
+          </button>
+        )}
+      </div>
       <div className="hidden md:flex flex-row gap-4 items-center text-lg">
         <div className="hover:-translate-y-1 delay-75">
           <a href="#about">About</a>
@@ -82,29 +105,6 @@ export function Navbar() {
             </button>
           )}
         </div>
-      </div>
-      <div>
-        {session ? (
-          account?.records ? (
-            <button
-              className="px-4 py-2 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75"
-              onClick={() => router.push("/2023")}
-            >
-              Login
-            </button>
-          ) : (
-            <Link href="/register" className="hover:-translate-y-1 delay-75">
-              Register
-            </Link>
-          )
-        ) : (
-          <button
-            onClick={() => signIn("google", { callbackUrl: "/2023" })}
-            className="hover:-translate-y-1 delay-75"
-          >
-            Register
-          </button>
-        )}
       </div>
     </div>
   );

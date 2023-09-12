@@ -2,6 +2,7 @@ import React from "react";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import Link from "next/link";
 import qs from "qs";
 
 export default function RegisterButton() {
@@ -35,7 +36,7 @@ export default function RegisterButton() {
   if (session && account?.records) {
     return (
       <button
-        className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold"
+        className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit"
         onClick={() => router.push("/2023")}
       >
         Login
@@ -44,17 +45,17 @@ export default function RegisterButton() {
   }
   if (session) {
     return (
-      <a
-        className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold"
+      <Link
+        className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit"
         href="/register"
       >
         Complete Registration
-      </a>
+      </Link>
     );
   }
   return (
     <button
-      className="px-4 py-2 bg-white text-slate-800 rounded-xl text-lg border-2 hover:border-2 hover:border-white hover:text-white hover:bg-transparent"
+      className="px-4 py-2 bg-white text-slate-800 rounded-xl text-lg border-2 hover:border-2 hover:border-white hover:text-white hover:bg-transparent w-full md:w-fit"
       onClick={() => signIn("google", { callbackUrl: "/2023" })}
     >
       Register with JALA&apos;s email
