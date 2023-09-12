@@ -9,6 +9,7 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Footer } from "@/components/layouts/footer";
+import { NextSeo } from "next-seo";
 
 export default function Register() {
   const router = useRouter();
@@ -166,6 +167,28 @@ export default function Register() {
 
   return (
     <PageLayout>
+      <NextSeo
+        title="Register | ShrimpHack 2023 🍤"
+        description="ShrimpHack is a competitive weekend-long internal event of JALA
+        where Warga JALA come together to work on cool projects. Join on 28 - 29 October, 2023."
+        canonical="https://www.shrimphack.com/register"
+        openGraph={{
+          url: "https://www.shrimphack.com/register",
+          title: "Register | ShrimpHack 2023 🍤",
+          description:
+            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 28 - 29 October, 2023.",
+          images: [
+            {
+              url: "/shrimphack-800.jpg",
+              width: 800,
+              height: 450,
+              alt: "ShrimpHack 2023",
+              type: "image/jpeg",
+            },
+          ],
+          siteName: "ShrimpHack 2023 🍤",
+        }}
+      />
       <PageContent>
         {/* <Navbar /> */}
         <Container>

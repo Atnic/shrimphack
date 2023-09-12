@@ -45,7 +45,7 @@ export function Navbar() {
     );
   }
 
-  console.log(session?.user?.email, account);
+  // console.log(session?.user?.email, account);
 
   return (
     <div className="flex flex-row w-full justify-between fixed px-8 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center">

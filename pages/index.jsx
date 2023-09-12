@@ -1,22 +1,22 @@
 import { PageLayout } from "@/components/layouts/page";
 import { PageContent } from "@/components/layouts/page-contents";
 import Container from "@/components/layouts/container";
-import Head from "next/head";
+// import Head from "next/head";
+import { NextSeo } from "next-seo";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
+// import styles from "../styles/Home.module.css";
 import "@splidejs/react-splide/css/skyblue";
 // import { SHWhite } from "@/components/logo/shlogo";
 import { Navbar } from "@/components/layouts/navbar";
 import RegisterButton from "@/components/ui/register-button";
-import clsx from "clsx";
-import qs from "qs";
+// import clsx from "clsx";
+// import qs from "qs";
 
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Footer } from "@/components/layouts/footer";
-import { InstagramLogo } from "@/components/logo/social-logo";
 
 const prizes = [
   {
@@ -42,7 +42,6 @@ const prizes = [
 ];
 
 export default function Home() {
-  const year = new Date();
   const {
     data: repos,
     error: repoDataError,
@@ -188,6 +187,28 @@ export default function Home() {
   // console.log(images);
   return (
     <PageLayout>
+      <NextSeo
+        title="ShrimpHack 2023 🍤"
+        description="ShrimpHack is a competitive weekend-long internal event of JALA
+        where Warga JALA come together to work on cool projects. Join on 28 - 29 October, 2023."
+        canonical="https://www.shrimphack.com/"
+        openGraph={{
+          url: "https://www.shrimphack.com/",
+          title: "ShrimpHack 2023 🍤",
+          description:
+            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 28 - 29 October, 2023.",
+          images: [
+            {
+              url: "/shrimphack-800.jpg",
+              width: 800,
+              height: 450,
+              alt: "ShrimpHack 2023",
+              type: "image/jpeg",
+            },
+          ],
+          siteName: "ShrimpHack 2023 🍤",
+        }}
+      />
       <PageContent>
         <Navbar />
         <Container>

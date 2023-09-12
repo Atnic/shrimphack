@@ -9,6 +9,7 @@ import { useSession, signIn } from "next-auth/react";
 import qs from "qs";
 import { Ticket } from "@/components/layouts/ticket";
 import { Footer } from "@/components/layouts/footer";
+import { NextSeo } from "next-seo";
 import {
   TimeConverter,
   DateNumericConverter,
@@ -89,6 +90,28 @@ export default function SH2023() {
 
   return (
     <PageLayout>
+      <NextSeo
+        title="ShrimpHack 2023 🍤"
+        description="ShrimpHack is a competitive weekend-long internal event of JALA
+        where Warga JALA come together to work on cool projects. Join on 28 - 29 October, 2023."
+        canonical="https://www.shrimphack.com/"
+        openGraph={{
+          url: "https://www.shrimphack.com/",
+          title: "ShrimpHack 2023 🍤",
+          description:
+            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 28 - 29 October, 2023.",
+          images: [
+            {
+              url: "/shrimphack-800.jpg",
+              width: 800,
+              height: 450,
+              alt: "ShrimpHack 2023",
+              type: "image/jpeg",
+            },
+          ],
+          siteName: "ShrimpHack 2023 🍤",
+        }}
+      />
       <PageContent>
         <NavbarAgenda />
         <Container>
