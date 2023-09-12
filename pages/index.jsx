@@ -15,6 +15,8 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Footer } from "@/components/layouts/footer";
+import { InstagramLogo } from "@/components/logo/social-logo";
 
 const prizes = [
   {
@@ -154,7 +156,29 @@ export default function Home() {
     galleryDataLoading ||
     tracksDataLoading
   )
-    return <div>loading..</div>;
+    return (
+      <PageLayout>
+        <PageContent>
+          <Container>
+            <div className="flex flex-col animate-pulse">
+              <div className="grid grid-cols-1 md:grid-cols-2 mx-auto py-20 gap-5 lg:h-screen items-center px-8 lg:px-16">
+                <div className="flex flex-col gap-5 lg:gap-10">
+                  <div className="text-5xl lg:text-6xl font-bold bg-slate-600 h-20 w-96 rounded-lg"></div>
+                  <div className="flex flex-col text-2xl lg:text-3xl gap-1 ">
+                    <div className="bg-slate-600 h-10 lg:w-52 rounded-lg"></div>
+                    <div className="bg-slate-600 h-8 w-40 rounded-lg"></div>
+                  </div>
+                  <div>
+                    <div className="bg-slate-600 h-8 lg:w-40 rounded-lg"></div>
+                  </div>
+                </div>
+                <div className="order-first md:order-last py-10 bg-slate-600 lg:w-[40rem] h-96 rounded-lg"></div>
+              </div>
+            </div>
+          </Container>
+        </PageContent>
+      </PageLayout>
+    );
   // console.log(repos);
   // console.log(testimonies);
   // console.log(galleries);
@@ -428,9 +452,7 @@ export default function Home() {
             </div>
             {/* <div>FAQ</div> */}
             {/* <div>CTA</div> */}
-            <div className="border-t border-slate-300 p-8 lg:px-16">
-              <div>Copyright © {year.getFullYear()} ShimpHack</div>
-            </div>
+            <Footer />
           </div>
         </Container>
       </PageContent>

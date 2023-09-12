@@ -3,14 +3,12 @@ import { PageLayout } from "@/components/layouts/page";
 import { PageContent } from "@/components/layouts/page-contents";
 import Container from "@/components/layouts/container";
 import { NavbarAgenda } from "@/components/layouts/navbar-agenda";
-import Image from "next/image";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
-import { SHWhite, JalaLogo } from "@/components/logo/shlogo";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import qs from "qs";
-import { CommandLineIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { Ticket } from "@/components/layouts/ticket";
+import { Footer } from "@/components/layouts/footer";
 import {
   TimeConverter,
   DateNumericConverter,
@@ -60,23 +58,10 @@ export default function SH2023() {
   );
 
   useEffect(() => {
-    // if (account) {
-    //   const ticket = document.getElementById("ticket");
-    //   const { x, y, width, height } = ticket.getBoundingClientRect();
-    //   const centerPoint = { x: x + width / 2, y: y + height / 2 };
-    //   window.addEventListener("mousemove", (e) => {
-    //     const degreeX = (e.clientY - centerPoint.y) * 0.008;
-    //     const degreeY = (e.clientX - centerPoint.x) * -0.008;
-
-    //     ticket.style.transform = `perspective(1000px) rotateX(${degreeX}deg) rotateY(${degreeY}deg)`;
-    //   });
-    // }
     if (
-      !session &&
-      status == "unauthenticated" &&
-      !account
-      // ||
-      // account?.records?.length == 0
+      (!session && status == "unauthenticated") ||
+      // account?.records[0] == undefined
+      account?.records?.length == 0
     ) {
       console.log("masuk");
       // router.push("/login");
@@ -84,14 +69,30 @@ export default function SH2023() {
     }
   }, [account, session, status]);
 
-  // console.log(events);
+  // console.log(account?.records[0]);
+
+  if (accountDataLoading || eventDataLoading)
+    return (
+      <PageLayout>
+        <PageContent>
+          <Container>
+            <div className="flex flex-col animate-pulse">
+              <div className="flex flex-col mx-auto py-24 gap-5 items-center px-10 md:px-16 ">
+                <div className="hidden relative md:flex flex-row bg-slate-600 h-80 w-[40rem] lg:w-[45rem] rounded-xl "></div>
+                <div className="relative flex md:hidden flex-col bg-slate-600 rounded-xl h-[35rem] w-72"></div>
+              </div>
+            </div>
+          </Container>
+        </PageContent>
+      </PageLayout>
+    );
 
   return (
     <PageLayout>
       <PageContent>
         <NavbarAgenda />
         <Container>
-          {account?.records && session?.user && !loading && (
+          {account?.records[0] && session?.user && !loading && (
             <div className="flex flex-col">
               <Ticket account={account?.records[0]} session={session} />
               <div
@@ -130,10 +131,10 @@ export default function SH2023() {
                   )}
                 </div>
               </div>
-              {/* <div>Agenda</div> */}
             </div>
           )}
         </Container>
+        <Footer />
       </PageContent>
     </PageLayout>
   );

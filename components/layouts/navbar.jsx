@@ -36,7 +36,16 @@ export function Navbar() {
       })
   );
 
-  // console.log(session?.user?.email, account);
+  if (accountDataLoading) {
+    return (
+      <div className="flex flex-row w-full justify-between fixed px-8 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center animate-pulse">
+        <div className="bg-slate-600 h-12 w-32 rounded-lg"></div>
+        <div className="bg-slate-600 h-12 w-52 rounded-lg"></div>
+      </div>
+    );
+  }
+
+  console.log(session?.user?.email, account);
 
   return (
     <div className="flex flex-row w-full justify-between fixed px-8 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center">
@@ -47,12 +56,12 @@ export function Navbar() {
       </Link>
       <div className="md:hidden">
         {session ? (
-          account?.records ? (
+          account?.records[0] ? (
             <button
               className="px-4 py-2 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 md:hidden inline-flex items-center gap-2"
               onClick={() => router.push("/2023")}
             >
-              Your Profile
+              Profile
               <Image
                 src={session?.user?.image}
                 width={30}
@@ -95,12 +104,12 @@ export function Navbar() {
         </div>
         <div>
           {session ? (
-            account?.records ? (
+            account?.records[0] ? (
               <button
                 className="px-4 py-1 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 inline-flex items-center gap-2"
                 onClick={() => router.push("/2023")}
               >
-                Your Profile
+                Profile
                 <Image
                   src={session?.user?.image}
                   width={30}

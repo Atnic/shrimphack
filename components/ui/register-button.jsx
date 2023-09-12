@@ -35,7 +35,7 @@ export default function RegisterButton() {
   );
   // console.log(account, paramAccount, session?.user, accountDataError);
   //   console.log(session);
-  if (session && account?.records) {
+  if (session && account?.records[0]) {
     return (
       <button
         className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit"

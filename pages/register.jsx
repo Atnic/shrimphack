@@ -8,6 +8,7 @@ import { SHWhite } from "@/components/logo/shlogo";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { Footer } from "@/components/layouts/footer";
 
 export default function Register() {
   const router = useRouter();
@@ -16,12 +17,12 @@ export default function Register() {
   const [formFilled, setFormFilled] = useState(false);
   const [profileData, setProfileData] = useState({
     name: session?.user?.name,
-    expectation: undefined,
+    expectation: " ",
     email: session?.user?.email,
-    phone_number: undefined,
-    gender: undefined,
-    shirt: undefined,
-    role: undefined,
+    phone_number: " ",
+    gender: "Male",
+    shirt: "M",
+    role: "Techies",
   });
 
   const shirt = [
@@ -53,6 +54,8 @@ export default function Register() {
       role: "Non-tech",
     },
   ];
+
+  // console.log(profileData.role);
 
   const gender = [
     {
@@ -238,7 +241,6 @@ export default function Register() {
                           Gender
                         </div>
                         <select
-                          defaultValue={0}
                           name="gender"
                           onChange={handleInputChange}
                           value={profileData.gender}
@@ -263,7 +265,7 @@ export default function Register() {
                           Shirt Size
                         </div>
                         <select
-                          defaultValue={0}
+                          // defaultValue={0}
                           name="shirt"
                           onChange={handleInputChange}
                           value={profileData.shirt}
@@ -288,7 +290,7 @@ export default function Register() {
                           Role
                         </div>
                         <select
-                          defaultValue={0}
+                          // defaultValue={0}
                           name="role"
                           onChange={handleInputChange}
                           value={profileData.role}
@@ -322,7 +324,7 @@ export default function Register() {
                       <textarea
                         className="mt-1 text-slate-800 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                         name="expectation"
-                        value={profileData.expectation}
+                        value={profileData.expectation || ""}
                         onChange={handleInputChange}
                         rows={4}
                       ></textarea>
@@ -348,6 +350,7 @@ export default function Register() {
             </div>
           </div>
         </Container>
+        <Footer />
       </PageContent>
     </PageLayout>
   );
