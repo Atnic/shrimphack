@@ -38,6 +38,7 @@ export default function RegisterButton() {
 
   const paramRegistered = qs.stringify({
     fields: ["name", "image", "image_url"],
+    sort: [{ field: "autonumber", direction: "desc" }],
   });
 
   const {
