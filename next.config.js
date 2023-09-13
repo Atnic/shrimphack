@@ -10,6 +10,10 @@ const nextConfig = {
       "v5.airtableusercontent.com",
     ],
   },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
 };
 
 module.exports = nextConfig;

@@ -12,7 +12,12 @@ export function Footer() {
           target="_blank"
           rel="noreferrer"
         >
-          <InstagramLogo width={30} height={30} fill={"white"} />
+          <InstagramLogo
+            width={30}
+            height={30}
+            fill={"white"}
+            aria-label={"Instagram Life at Jala"}
+          />
         </a>
       </div>
     </div>

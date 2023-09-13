@@ -56,6 +56,7 @@ export default function Home({
     autoplay: true,
     pauseOnHover: true,
     resetProgress: false,
+    pagination: false,
   };
 
   // console.log(image);
@@ -160,6 +161,7 @@ export default function Home({
                   width={headerImage?.fields.image[0].width}
                   alt={"header shrimphack"}
                   className="rounded-lg"
+                  priority
                 />
               </div>
             </div>
