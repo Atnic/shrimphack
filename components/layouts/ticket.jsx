@@ -32,6 +32,8 @@ export function Ticket({ account, session }) {
     }
   }, [account]);
 
+  console.log(account);
+
   return (
     <div className="flex flex-col mx-auto py-24 gap-5 items-center px-4 md:px-16 ">
       <div
@@ -49,7 +51,7 @@ export function Ticket({ account, session }) {
             {account && session?.user && (
               <div className="rounded-full w-20 h-20 overflow-hidden">
                 <Image
-                  src={account?.fields?.image?.url || session?.user?.image}
+                  src={account?.fields?.image[0]?.url || session?.user?.image}
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}
@@ -99,7 +101,7 @@ export function Ticket({ account, session }) {
             {account && session?.user && (
               <div className="rounded-full w-14 h-14 overflow-hidden">
                 <Image
-                  src={account?.fields?.image?.url || session?.user?.image}
+                  src={account?.fields?.image[0]?.url || session?.user?.image}
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}
