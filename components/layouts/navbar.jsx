@@ -63,7 +63,12 @@ export function Navbar() {
             >
               Profile
               <Image
-                src={session?.user?.image}
+                src={
+                  account?.records[0]?.fields?.image
+                    ? account?.records[0]?.fields?.image[0]?.url
+                    : account?.records[0]?.fields?.image_url ||
+                      session?.user?.image
+                }
                 width={30}
                 height={30}
                 alt={session?.user?.name}
@@ -111,7 +116,12 @@ export function Navbar() {
               >
                 Profile
                 <Image
-                  src={session?.user?.image}
+                  src={
+                    account?.records[0]?.fields?.image
+                      ? account?.records[0]?.fields?.image[0]?.url
+                      : account?.records[0]?.fields?.image_url ||
+                        session?.user?.image
+                  }
                   width={30}
                   height={30}
                   alt={session?.user?.name}
