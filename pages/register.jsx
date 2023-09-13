@@ -24,7 +24,10 @@ export default function Register() {
     gender: "Male",
     shirt: "M",
     role: "Techies",
+    image_url: session?.user?.image,
   });
+
+  console.log(session?.user?.image);
 
   const shirt = [
     {
@@ -80,6 +83,7 @@ export default function Register() {
               shirt: data.shirt || undefined,
               role: data.role || undefined,
               expectation: data.expectation || undefined,
+              image_url: profileData.image_url || undefined,
             },
           },
         ],
@@ -128,6 +132,7 @@ export default function Register() {
           gender: profileData.gender,
           shirt: profileData.shirt,
           role: profileData.role,
+          image_url: session?.user?.image,
         });
       }
     }
@@ -162,7 +167,7 @@ export default function Register() {
     await submitForm(profileData);
   };
 
-  // console.log(profileData);
+  console.log(profileData);
   //   console.log(formFilled);
 
   return (

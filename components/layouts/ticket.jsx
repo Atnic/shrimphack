@@ -51,7 +51,11 @@ export function Ticket({ account, session }) {
             {account && session?.user && (
               <div className="rounded-full w-20 h-20 overflow-hidden">
                 <Image
-                  src={account?.fields?.image[0]?.url || session?.user?.image}
+                  src={
+                    account?.fields?.image
+                      ? account?.fields?.image[0]?.url
+                      : account?.fields?.image_url || session?.user?.image
+                  }
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}
@@ -101,7 +105,11 @@ export function Ticket({ account, session }) {
             {account && session?.user && (
               <div className="rounded-full w-14 h-14 overflow-hidden">
                 <Image
-                  src={account?.fields?.image[0]?.url || session?.user?.image}
+                  src={
+                    account?.fields?.image
+                      ? account?.fields?.image[0]?.url
+                      : account?.fields?.image_url || session?.user?.image
+                  }
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}

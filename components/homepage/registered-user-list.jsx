@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 export function RegisterUsersList({ registeredUsers, registered }) {
-  console.log(registeredUsers, registered);
+  //   console.log(registeredUsers, registered);
   return (
     <>
       <div className="inline-flex">
