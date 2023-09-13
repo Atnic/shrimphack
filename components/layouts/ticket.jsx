@@ -32,7 +32,7 @@ export function Ticket({ account, session }) {
     }
   }, [account]);
 
-  console.log(account);
+  // console.log(account);
 
   return (
     <div className="flex flex-col mx-auto py-24 gap-5 items-center px-4 md:px-16 ">

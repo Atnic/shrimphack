@@ -5,9 +5,11 @@ import useSWR from "swr";
 import Link from "next/link";
 import qs from "qs";
 import { fetcher } from "@/utils/fetcher";
+import { RegisterUsersList } from "../homepage/registered-user-list";
+import Image from "next/image";
 
 export default function RegisterButton() {
-  const { data: session } = useSession();
+  const { data: session, loading, status } = useSession();
   const router = useRouter();
 
   const paramAccount = session?.user
@@ -33,8 +35,40 @@ export default function RegisterButton() {
         },
       })
   );
+
+  const paramRegistered = qs.stringify({
+    fields: ["name", "image"],
+  });
+
+  const {
+    data: registered,
+    error: registeredDataError,
+    isLoading: registeredDataLoading,
+  } = useSWR(
+    paramRegistered
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramRegistered}`
+      : null,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+        },
+      })
+  );
+
+  if (accountDataLoading || loading || registeredDataLoading) {
+    return (
+      <div className="animate-pulse">
+        <div className="px-8 py-2  rounded-xl w-full md:w-fit h-10 bg-slate-600"></div>
+      </div>
+    );
+  }
   // console.log(account, paramAccount, session?.user, accountDataError);
   //   console.log(session);
+  console.log(registered);
+  const registeredUsers = registered?.records.length;
+
   if (session && account?.records[0]) {
     return (
       <button
@@ -45,21 +79,33 @@ export default function RegisterButton() {
       </button>
     );
   }
-  if (session) {
+  if (session?.user && !account?.records[0]) {
     return (
-      <Link href="/register">
-        <div className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit text-center">
-          Complete Registration
-        </div>
-      </Link>
+      <div className="flex flex-col gap-2">
+        <RegisterUsersList
+          registered={registered}
+          registeredUsers={registeredUsers}
+        />
+        <Link href="/register">
+          <div className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit text-center">
+            Complete Registration
+          </div>
+        </Link>
+      </div>
     );
   }
   return (
-    <button
-      className="px-4 py-2 bg-white text-slate-800 rounded-xl text-lg border-2 hover:border-2 hover:border-white hover:text-white hover:bg-transparent w-full md:w-fit"
-      onClick={() => signIn("google", { callbackUrl: "/2023" })}
-    >
-      Register with JALA&apos;s email
-    </button>
+    <div className="flex flex-col gap-2">
+      <RegisterUsersList
+        registered={registered}
+        registeredUsers={registeredUsers}
+      />
+      <button
+        className="px-4 py-2 bg-white text-slate-800 rounded-xl text-lg border-2 hover:border-2 hover:border-white hover:text-white hover:bg-transparent w-full md:w-fit"
+        onClick={() => signIn("google", { callbackUrl: "/2023" })}
+      >
+        Register with JALA&apos;s email
+      </button>
+    </div>
   );
 }
