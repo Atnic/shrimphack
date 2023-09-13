@@ -12,8 +12,8 @@ import RegisterButton from "@/components/ui/register-button";
 // import clsx from "clsx";
 // import qs from "qs";
 
-import useSWR from "swr";
-import { fetcher } from "@/utils/fetcher";
+// import useSWR from "swr";
+// import { fetcher } from "@/utils/fetcher";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Footer } from "@/components/layouts/footer";
