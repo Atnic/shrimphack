@@ -41,108 +41,14 @@ const prizes = [
   },
 ];
 
-export default function Home({ seo }) {
-  // console.log(seo);
-  const {
-    data: repos,
-    error: repoDataError,
-    isLoading: repoDataLoading,
-  } = useSWR(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2022_repositories`,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      }),
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
-
-  const {
-    data: galleries,
-    error: galleryDataError,
-    isLoading: galleryDataLoading,
-  } = useSWR(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/galleries`,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      }),
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
-
-  const {
-    data: image,
-    error: imageDataError,
-    isLoading: imageDataLoading,
-  } = useSWR(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/content_image`,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      }),
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
-
-  const {
-    data: testimonies,
-    error: testiDataError,
-    isLoading: testiDataLoading,
-  } = useSWR(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/testimonies?filterByFormula=verified`,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      }),
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
-
-  const {
-    data: tracks,
-    error: tracksDataError,
-    isLoading: tracksDataLoading,
-  } = useSWR(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/tracks?sort%5B0%5D%5Bfield%5D=sort`,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      }),
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
-
+export default function Home({
+  seo,
+  repos,
+  galleries,
+  contentImages,
+  testimonies,
+  tracks,
+}) {
   const options = {
     type: "loop",
     arrows: false,
@@ -154,14 +60,14 @@ export default function Home({ seo }) {
 
   // console.log(image);
 
-  const headerImage = image
-    ? image.records.find((r) => {
+  const headerImage = contentImages
+    ? contentImages.records.find((r) => {
         return r.fields.name == "header";
       })
     : null;
 
-  const aboutImage = image
-    ? image.records.find((r) => {
+  const aboutImage = contentImages
+    ? contentImages.records.find((r) => {
         return r.fields.name == "about";
       })
     : null;
@@ -172,7 +78,7 @@ export default function Home({ seo }) {
       })
     : null;
 
-  if (imageDataLoading)
+  if (!contentImages || !galleries)
     return (
       <PageLayout>
         <PageContent>
@@ -505,6 +411,66 @@ export default function Home({ seo }) {
 export async function getStaticProps() {
   // const res = await fetch('https://api.github.com/repos/vercel/next.js')
   // const repo = await res.json()
+
+  const repoRes = await fetch(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2022_repositories`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+      },
+    }
+  );
+  const repos = await repoRes.json();
+
+  const galleriesRes = await fetch(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/galleries`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+      },
+    }
+  );
+
+  const galleries = await galleriesRes.json();
+
+  const contentImageRes = await fetch(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/content_image`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+      },
+    }
+  );
+
+  const contentImages = await contentImageRes.json();
+
+  const testimoniesRes = await fetch(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/testimonies?filterByFormula=verified`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+      },
+    }
+  );
+
+  const testimonies = await testimoniesRes.json();
+
+  const trackRes = await fetch(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/tracks?sort%5B0%5D%5Bfield%5D=sort`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+      },
+    }
+  );
+
+  const tracks = await trackRes.json();
+
   return {
     props: {
       seo: {
@@ -534,6 +500,11 @@ export async function getStaticProps() {
           cardType: "summary_large_image",
         },
       },
+      repos: repos,
+      galleries: galleries,
+      contentImages: contentImages,
+      testimonies: testimonies,
+      tracks: tracks,
     },
   };
 }
