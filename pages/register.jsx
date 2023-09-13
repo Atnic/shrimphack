@@ -27,7 +27,7 @@ export default function Register() {
     image_url: session?.user?.image,
   });
 
-  console.log(session?.user?.image);
+  // console.log(session?.user?.image);
 
   const shirt = [
     {

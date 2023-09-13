@@ -64,7 +64,7 @@ export default function SH2023() {
       // account?.records[0] == undefined
       account?.records?.length == 0
     ) {
-      console.log("masuk");
+      // console.log("masuk");
       // router.push("/login");
       signIn();
     }

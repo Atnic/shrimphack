@@ -65,8 +65,8 @@ export default function RegisterButton() {
     );
   }
   // console.log(account, paramAccount, session?.user, accountDataError);
-  console.log(session?.user?.image);
-  console.log(registered);
+  // console.log(session?.user?.image);
+  // console.log(registered);
   const registeredUsers = registered?.records.length;
 
   if (session && account?.records[0]) {
