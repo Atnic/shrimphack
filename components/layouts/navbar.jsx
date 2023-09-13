@@ -72,7 +72,7 @@ export function Navbar() {
                 width={30}
                 height={30}
                 alt={session?.user?.name}
-                className="rounded-full"
+                className="rounded-full bg-blue-100"
               />
             </button>
           ) : (
@@ -125,7 +125,7 @@ export function Navbar() {
                   width={30}
                   height={30}
                   alt={session?.user?.name}
-                  className="rounded-full"
+                  className="rounded-full bg-blue-100"
                 />
               </button>
             ) : (

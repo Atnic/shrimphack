@@ -59,7 +59,7 @@ export function Ticket({ account, session }) {
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}
-                  className="rounded-full border-2 border-black "
+                  className="rounded-full border-2 border-black bg-blue-100"
                 />
               </div>
             )}
@@ -113,7 +113,7 @@ export function Ticket({ account, session }) {
                   width={account?.fields?.image?.width || 300}
                   height={account?.fields?.image?.height || 300}
                   alt={"account-profile"}
-                  className="rounded-full"
+                  className="rounded-full bg-blue-100"
                 />
               </div>
             )}

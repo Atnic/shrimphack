@@ -37,7 +37,7 @@ export default function RegisterButton() {
   );
 
   const paramRegistered = qs.stringify({
-    fields: ["name", "image"],
+    fields: ["name", "image", "image_url"],
   });
 
   const {
@@ -65,8 +65,8 @@ export default function RegisterButton() {
     );
   }
   // console.log(account, paramAccount, session?.user, accountDataError);
-  //   console.log(session);
-  // console.log(registered);
+  console.log(session?.user?.image);
+  console.log(registered);
   const registeredUsers = registered?.records.length;
 
   if (session && account?.records[0]) {

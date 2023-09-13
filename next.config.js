@@ -8,6 +8,7 @@ const nextConfig = {
       "strapi.jala.tech",
       "app.jala.tech",
       "v5.airtableusercontent.com",
+      "lh3.google.com",
     ],
   },
   i18n: {

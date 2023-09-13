@@ -20,11 +20,12 @@ export function RegisterUsersList({ registeredUsers, registered }) {
                   src={
                     member.fields.image
                       ? member.fields.image[0]?.url
-                      : "/shlogo.jpg"
+                      : member.fields.image_url || "/shlogo.jpg"
                   }
                   width={300}
                   height={300}
                   alt={member.fields.name}
+                  className="bg-blue-100"
                 />
               </div>
             ))
