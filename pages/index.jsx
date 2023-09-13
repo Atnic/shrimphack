@@ -41,7 +41,8 @@ const prizes = [
   },
 ];
 
-export default function Home() {
+export default function Home({ seo }) {
+  // console.log(seo);
   const {
     data: repos,
     error: repoDataError,
@@ -68,6 +69,26 @@ export default function Home() {
     isLoading: galleryDataLoading,
   } = useSWR(
     `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/galleries`,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+        },
+      }),
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
+
+  const {
+    data: image,
+    error: imageDataError,
+    isLoading: imageDataLoading,
+  } = useSWR(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/content_image`,
     (url) =>
       fetcher(url, {
         headers: {
@@ -131,14 +152,16 @@ export default function Home() {
     resetProgress: false,
   };
 
-  const headerImage = galleries
-    ? galleries.records.find((r) => {
+  // console.log(image);
+
+  const headerImage = image
+    ? image.records.find((r) => {
         return r.fields.name == "header";
       })
     : null;
 
-  const aboutImage = galleries
-    ? galleries.records.find((r) => {
+  const aboutImage = image
+    ? image.records.find((r) => {
         return r.fields.name == "about";
       })
     : null;
@@ -149,18 +172,13 @@ export default function Home() {
       })
     : null;
 
-  if (
-    repoDataLoading ||
-    testiDataLoading ||
-    galleryDataLoading ||
-    tracksDataLoading
-  )
+  if (imageDataLoading)
     return (
       <PageLayout>
         <PageContent>
           <Container>
             <div className="flex flex-col animate-pulse">
-              <div className="grid grid-cols-1 md:grid-cols-2 mx-auto py-20 gap-5 lg:h-screen items-center px-8 lg:px-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 mx-auto py-20 gap-5 lg:h-screen items-center px-4 lg:px-16">
                 <div className="flex flex-col gap-5 lg:gap-10 w-full">
                   <div className="bg-slate-600 h-20 w-80 md:w-96 rounded-lg"></div>
                   <div className="flex flex-col text-2xl lg:text-3xl gap-1 ">
@@ -188,20 +206,18 @@ export default function Home() {
   return (
     <PageLayout>
       <NextSeo
-        title="ShrimpHack 2023 🍤"
-        description="ShrimpHack is a competitive weekend-long internal event of JALA
-        where Warga JALA come together to work on cool projects. Join on 14 - 15 October, 2023."
-        canonical="https://www.shrimphack.com/"
+        title={seo.title}
+        description={seo.description}
+        canonical={seo.canonical}
         openGraph={{
-          url: "https://www.shrimphack.com/",
-          title: "ShrimpHack 2023 🍤",
-          description:
-            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
+          url: seo.openGraph.url,
+          title: seo.openGraph.title,
+          description: seo.openGraph.description,
           images: [
             {
-              url: "https://www.shrimphack.com/shrimphack-800.jpg",
+              url: seo.openGraph.images[0].url,
               width: 800,
-              height: 600,
+              height: 450,
               alt: "ShrimpHack 2023",
               type: "image/jpeg",
             },
@@ -209,7 +225,7 @@ export default function Home() {
           siteName: "ShrimpHack 2023 🍤",
         }}
         twitter={{
-          handle: "@jalaindonesia",
+          handle: seo.twitter.handle,
           site: "@site",
           cardType: "summary_large_image",
         }}
@@ -218,7 +234,7 @@ export default function Home() {
         <Navbar />
         <Container>
           <div className="flex flex-col">
-            <div className="grid grid-cols-1 md:grid-cols-2 mx-auto py-20 gap-5 lg:h-screen items-center px-8 lg:px-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 mx-auto py-20 gap-5 lg:h-screen items-center px-4 lg:px-16">
               <div className="flex flex-col gap-5 lg:gap-10">
                 <div className="text-5xl lg:text-6xl font-bold">
                   ShrimpHack &apos;23
@@ -233,16 +249,16 @@ export default function Home() {
               </div>
               <div className="order-first md:order-last py-10">
                 <Image
-                  src={headerImage.fields.image[0].url}
-                  height={headerImage.fields.image[0].height}
-                  width={headerImage.fields.image[0].width}
+                  src={headerImage?.fields.image[0].url}
+                  height={headerImage?.fields.image[0].height}
+                  width={headerImage?.fields.image[0].width}
                   alt={"header shrimphack"}
                   className="rounded-lg"
                 />
               </div>
             </div>
             <div
-              className="mx-auto grid grid-cols-1 md:grid-cols-2 py-20 gap-10 items-center scroll-mt-10 px-8 lg:px-16"
+              className="mx-auto grid grid-cols-1 md:grid-cols-2 py-20 gap-10 items-center scroll-mt-10 px-4 lg:px-16"
               id="about"
             >
               <div className="md:text-xl md:font-medium leading-relaxed w-auto">
@@ -256,16 +272,16 @@ export default function Home() {
               </div>
               <div className="">
                 <Image
-                  src={aboutImage.fields.image[0].url}
-                  height={aboutImage.fields.image[0].height}
-                  width={aboutImage.fields.image[0].width}
+                  src={aboutImage?.fields.image[0].url}
+                  height={aboutImage?.fields.image[0].height}
+                  width={aboutImage?.fields.image[0].width}
                   alt={"header shrimphack"}
                   className="rounded-lg"
                 />
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10 px-8 md:px-16"
+              className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
               id="tracks"
             >
               <div className="text-4xl font-bold mx-auto">Tracks</div>
@@ -298,7 +314,7 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10 px-8 lg:px-16"
+              className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16"
               id="prizes"
             >
               <div className="text-4xl font-bold mx-auto">Prizes</div>
@@ -324,7 +340,7 @@ export default function Home() {
               id="projects"
             >
               <div className="text-4xl font-bold mx-auto">Past Projects</div>
-              <div className="flex flex-wrap gap-4 mx-auto px-8 lg:px-16 py-6 justify-center">
+              <div className="flex flex-wrap gap-4 mx-auto px-4 lg:px-16 py-6 justify-center">
                 {repos?.records[0] ? (
                   repos?.records.map((repo, i) => (
                     <div
@@ -406,7 +422,7 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col w-full gap-4 py-20 scroll-mt-10 px-8 lg:px-16"
+              className="flex flex-col w-full gap-4 py-20 scroll-mt-10 px-4 lg:px-16"
               id="testimonies"
             >
               <div className="text-4xl font-bold text-center mx-auto">
@@ -445,7 +461,7 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10 mx-auto lg:px-16 px-8"
+              className="flex flex-col gap-4 py-20 scroll-mt-10 mx-auto lg:px-16 px-4"
               id="galleries"
             >
               <div className="text-4xl font-bold mx-auto text-center">
@@ -484,4 +500,40 @@ export default function Home() {
       </PageContent>
     </PageLayout>
   );
+}
+
+export async function getStaticProps() {
+  // const res = await fetch('https://api.github.com/repos/vercel/next.js')
+  // const repo = await res.json()
+  return {
+    props: {
+      seo: {
+        title: "ShrimpHack 2023 🍤",
+        description:
+          "ShrimpHack is a competitive weekend-long internal event of JALA where Warga JALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
+        canonical: "https://www.shrimphack.com/",
+        openGraph: {
+          url: "https://www.shrimphack.com/",
+          title: "ShrimpHack 2023 🍤",
+          description:
+            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
+          images: [
+            {
+              url: "https://www.shrimphack.com/shrimphack-800.jpg",
+              width: 800,
+              height: 600,
+              alt: "ShrimpHack 2023",
+              type: "image/jpeg",
+            },
+          ],
+          siteName: "ShrimpHack 2023 🍤",
+        },
+        twitter: {
+          handle: "@jalaindonesia",
+          site: "@site",
+          cardType: "summary_large_image",
+        },
+      },
+    },
+  };
 }

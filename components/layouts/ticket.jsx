@@ -33,7 +33,7 @@ export function Ticket({ account, session }) {
   }, [account]);
 
   return (
-    <div className="flex flex-col mx-auto py-24 gap-5 items-center px-10 md:px-16 ">
+    <div className="flex flex-col mx-auto py-24 gap-5 items-center px-4 md:px-16 ">
       <div
         id="ticket"
         className="scroll-mt-20 hidden relative md:flex flex-row border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual"
@@ -94,7 +94,7 @@ export function Ticket({ account, session }) {
         id="ticket-2"
         className="scroll-mt-20 relative flex md:hidden flex-col border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-y divide-dashed divide-slate-900 ticket-visual-mobile"
       >
-        <div className="relative flex flex-col w-[15rem] justify-between px-6 py-10 pb-12 overflow-hidden">
+        <div className="relative flex flex-col w-[17rem] justify-between px-6 py-10 pb-12 overflow-hidden">
           <div className="flex flex-row items-center gap-4">
             {account && session?.user && (
               <div className="rounded-full w-14 h-14 overflow-hidden">
