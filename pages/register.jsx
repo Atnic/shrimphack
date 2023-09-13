@@ -168,7 +168,7 @@ export default function Register() {
   return (
     <PageLayout>
       <NextSeo
-        title="Register | ShrimpHack 2023 🍤"
+        title="Pendaftaran | ShrimpHack 2023 🍤"
         description="ShrimpHack is a competitive weekend-long internal event of JALA
         where Warga JALA come together to work on cool projects. Join on 14 - 15 October, 2023."
         canonical="https://www.shrimphack.com/register"

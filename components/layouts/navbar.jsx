@@ -38,7 +38,7 @@ export function Navbar() {
 
   if (accountDataLoading) {
     return (
-      <div className="flex flex-row w-full justify-between fixed px-8 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center animate-pulse">
+      <div className="flex flex-row w-full justify-between fixed px-4 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center animate-pulse">
         <div className="bg-slate-600 h-12 w-32 rounded-lg"></div>
         <div className="bg-slate-600 h-12 w-52 rounded-lg"></div>
       </div>
@@ -48,7 +48,7 @@ export function Navbar() {
   // console.log(session?.user?.email, account);
 
   return (
-    <div className="flex flex-row w-full justify-between fixed px-8 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center">
+    <div className="flex flex-row w-full justify-between fixed px-4 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center">
       <Link href="/">
         <div className="cursor-pointer">
           <SHWhite width={100} height={50} />
