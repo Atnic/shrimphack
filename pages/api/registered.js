@@ -1,10 +1,23 @@
 import qs from "qs";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export default async function handler(req, res) {
-  const paramAccount = qs.stringify(req.query);
+  const session = await getServerSession(req, res, authOptions).catch();
+  if (!session) {
+    res.status(401).json({ message: "Unauthenticated" });
+    return;
+  }
+
+  const paramRegistered = qs.stringify({
+    fields: ["name", "image", "image_url"],
+    sort: [{ field: "autonumber", direction: "desc" }],
+  });
 
   const peserta = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`,
+    paramRegistered
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramRegistered}`
+      : null,
     {
       method: "GET",
       headers: {

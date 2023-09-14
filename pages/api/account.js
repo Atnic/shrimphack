@@ -1,10 +1,26 @@
 import qs from "qs";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export default async function handler(req, res) {
-  const paramAccount = qs.stringify(req.query);
+  // const paramAccount = qs.stringify(req.query);
+  const session = await getServerSession(req, res, authOptions).catch();
+  if (!session) {
+    res.status(401).json({ message: "Unauthenticated" });
+    return;
+  }
+
+  const paramAccount = session?.user
+    ? qs.stringify({
+        filterByFormula: `email="${session?.user?.email}"`,
+        maxRecords: 1,
+      })
+    : "";
 
   const peserta = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`,
+    paramAccount
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`
+      : null,
     {
       method: "GET",
       headers: {
@@ -15,7 +31,9 @@ export default async function handler(req, res) {
   );
 
   const panitia = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/panitia?${paramAccount}`,
+    paramAccount
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/panitia?${paramAccount}`
+      : null,
     {
       method: "GET",
       headers: {

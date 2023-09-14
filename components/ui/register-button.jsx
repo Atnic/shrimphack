@@ -3,7 +3,6 @@ import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Link from "next/link";
-import qs from "qs";
 import { fetcher } from "@/utils/fetcher";
 import { RegisterUsersList } from "../homepage/registered-user-list";
 // import Image from "next/image";
@@ -12,36 +11,17 @@ export default function RegisterButton() {
   const { data: session, loading, status } = useSession();
   const router = useRouter();
 
-  const paramAccount = session?.user
-    ? qs.stringify({
-        filterByFormula: `email="${session?.user?.email}"`,
-        maxRecords: 1,
-      })
-    : "";
-
   const {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(paramAccount ? `/api/account?${paramAccount}` : null, (url) =>
-    fetcher(url)
-  );
-
-  // console.log(account);
-
-  const paramRegistered = qs.stringify({
-    fields: ["name", "image", "image_url"],
-    sort: [{ field: "autonumber", direction: "desc" }],
-  });
+  } = useSWR(`/api/account?`, (url) => fetcher(url));
 
   const {
     data: registered,
     error: registeredDataError,
     isLoading: registeredDataLoading,
-  } = useSWR(
-    paramRegistered ? `api/registered?${paramRegistered}` : null,
-    (url) => fetcher(url)
-  );
+  } = useSWR(`api/registered`, (url) => fetcher(url));
 
   if (accountDataLoading || loading || registeredDataLoading) {
     return (

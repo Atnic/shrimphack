@@ -3,41 +3,23 @@ import { SHWhite } from "@/components/logo/shlogo";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
-import qs from "qs";
 import { fetcher } from "@/utils/fetcher";
 import { RegisterNavbarButton } from "../ui/register-navbar-button";
 
 export function Navbar() {
   const { data: session } = useSession();
 
-  const paramAccount = session?.user
-    ? qs.stringify({
-        filterByFormula: `email="${session?.user?.email}"`,
-        maxRecords: 1,
-      })
-    : "";
-
   const {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(paramAccount ? `/api/account?${paramAccount}` : null, (url) =>
-    fetcher(url)
-  );
-
-  const paramRegistered = qs.stringify({
-    fields: ["name", "image", "image_url"],
-    sort: [{ field: "autonumber", direction: "desc" }],
-  });
+  } = useSWR(`/api/account?`, (url) => fetcher(url));
 
   const {
     data: registered,
     error: registeredDataError,
     isLoading: registeredDataLoading,
-  } = useSWR(
-    paramRegistered ? `api/registered?${paramRegistered}` : null,
-    (url) => fetcher(url)
-  );
+  } = useSWR(`api/registered`, (url) => fetcher(url));
 
   const registeredUsers = registered?.records.length;
 

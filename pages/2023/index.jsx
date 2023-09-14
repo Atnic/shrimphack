@@ -6,7 +6,6 @@ import { NavbarAgenda } from "@/components/layouts/navbar-agenda";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { useSession, signIn } from "next-auth/react";
-import qs from "qs";
 import { Ticket } from "@/components/layouts/ticket";
 import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
@@ -19,20 +18,11 @@ import {
 export default function SH2023() {
   const { data: session, status, loading } = useSession();
 
-  const paramAccount = session?.user
-    ? qs.stringify({
-        filterByFormula: `email="${session?.user?.email}"`,
-        maxRecords: 1,
-      })
-    : "";
-
   const {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(paramAccount ? `/api/account?${paramAccount}` : null, (url) =>
-    fetcher(url)
-  );
+  } = useSWR(`/api/account`, (url) => fetcher(url));
 
   const {
     data: events,
@@ -43,11 +33,8 @@ export default function SH2023() {
   useEffect(() => {
     if (
       (!session && status == "unauthenticated") ||
-      // account?.records[0] == undefined
       account?.records?.length == 0
     ) {
-      // console.log("masuk");
-      // router.push("/login");
       signIn();
     }
   }, [account, session, status]);
