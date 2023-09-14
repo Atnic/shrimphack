@@ -132,7 +132,7 @@ export default function Register() {
           gender: profileData.gender,
           shirt: profileData.shirt,
           role: profileData.role,
-          image_url: session?.user?.image,
+          image_url: user?.user?.image,
         });
       }
     }
@@ -229,20 +229,8 @@ export default function Register() {
                 >
                   <div className="flex flex-col gap-3">
                     <div className="text-lg font-semibold">Profile</div>
-                    <div className="flex flex-col gap-2">
-                      <div className="text-white text-sm font-medium">
-                        Full Name
-                      </div>
-                      <input
-                        type="text"
-                        name="name"
-                        className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        value={profileData.name}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                    <div className="flex flex-row gap-4">
-                      <div className="flex flex-1 flex-col gap-2">
+                    <div className="flex flex-1 gap-4">
+                      {/* <div className="flex flex-1 flex-col gap-2">
                         <div className="text-white text-sm font-medium">
                           E-mail
                         </div>
@@ -251,6 +239,18 @@ export default function Register() {
                           name="email"
                           className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                           value={profileData.email}
+                          onChange={handleInputChange}
+                        />
+                      </div> */}
+                      <div className="flex flex-col w-3/5 gap-2">
+                        <div className="text-white text-sm font-medium">
+                          Full Name
+                        </div>
+                        <input
+                          type="text"
+                          name="name"
+                          className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                          value={profileData.name}
                           onChange={handleInputChange}
                         />
                       </div>

@@ -6,7 +6,7 @@ import Link from "next/link";
 import qs from "qs";
 import { fetcher } from "@/utils/fetcher";
 import { RegisterUsersList } from "../homepage/registered-user-list";
-import Image from "next/image";
+// import Image from "next/image";
 
 export default function RegisterButton() {
   const { data: session, loading, status } = useSession();
@@ -69,7 +69,19 @@ export default function RegisterButton() {
   // console.log(session?.user?.image);
   // console.log(registered);
   const registeredUsers = registered?.records.length;
-
+  if (registeredUsers > 40) {
+    return (
+      <div className="flex flex-col gap-2">
+        <RegisterUsersList
+          registered={registered}
+          registeredUsers={registeredUsers}
+        />
+        <div className="font-semibold text-lg px-4 py-2 rounded-xl bg-red-500 text-white w-full md:w-fit text-center">
+          Registration Closed! 😢
+        </div>
+      </div>
+    );
+  }
   if (session && account?.records[0]) {
     return (
       <button
@@ -88,13 +100,14 @@ export default function RegisterButton() {
           registeredUsers={registeredUsers}
         />
         <Link href="/register">
-          <div className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit text-center">
+          <div className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit text-center cursor-pointer">
             Complete Registration
           </div>
         </Link>
       </div>
     );
   }
+
   return (
     <div className="flex flex-col gap-2">
       <RegisterUsersList
