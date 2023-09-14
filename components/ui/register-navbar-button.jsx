@@ -1,14 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export function RegisterNavbarButton({ session, account, className }) {
+  // console.log(session, account);
+  const router = useRouter();
   return (
     <div className={className}>
       {session ? (
         account?.records[0] ? (
           <button
-            className="px-4 py-2 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 md:hidden inline-flex items-center gap-2"
+            className="px-4 py-2 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 inline-flex items-center gap-2"
             onClick={() => router.push("/2023")}
           >
             Profile

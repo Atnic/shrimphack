@@ -23,18 +23,11 @@ export default function RegisterButton() {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(
-    paramAccount
-      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`
-      : null,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      })
+  } = useSWR(paramAccount ? `/api/account?${paramAccount}` : null, (url) =>
+    fetcher(url)
   );
+
+  // console.log(account);
 
   const paramRegistered = qs.stringify({
     fields: ["name", "image", "image_url"],
@@ -46,16 +39,8 @@ export default function RegisterButton() {
     error: registeredDataError,
     isLoading: registeredDataLoading,
   } = useSWR(
-    paramRegistered
-      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramRegistered}`
-      : null,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      })
+    paramRegistered ? `api/registered?${paramRegistered}` : null,
+    (url) => fetcher(url)
   );
 
   if (accountDataLoading || loading || registeredDataLoading) {

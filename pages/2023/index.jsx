@@ -30,33 +30,15 @@ export default function SH2023() {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(
-    paramAccount
-      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`
-      : null,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      })
+  } = useSWR(paramAccount ? `/api/account?${paramAccount}` : null, (url) =>
+    fetcher(url)
   );
 
   const {
     data: events,
     error: eventDataError,
     isLoading: eventDataLoading,
-  } = useSWR(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/events?sort%5B0%5D%5Bfield%5D=date`,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      })
-  );
+  } = useSWR(`/api/events`, (url) => fetcher(url));
 
   useEffect(() => {
     if (

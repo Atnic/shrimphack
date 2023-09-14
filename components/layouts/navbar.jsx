@@ -1,17 +1,14 @@
 import React from "react";
 import { SHWhite } from "@/components/logo/shlogo";
 import Link from "next/link";
-import { useSession, signIn } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import qs from "qs";
 import { fetcher } from "@/utils/fetcher";
-import Image from "next/image";
 import { RegisterNavbarButton } from "../ui/register-navbar-button";
 
 export function Navbar() {
   const { data: session } = useSession();
-  const router = useRouter();
 
   const paramAccount = session?.user
     ? qs.stringify({
@@ -24,17 +21,8 @@ export function Navbar() {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(
-    paramAccount
-      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`
-      : null,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      })
+  } = useSWR(paramAccount ? `/api/account?${paramAccount}` : null, (url) =>
+    fetcher(url)
   );
 
   const paramRegistered = qs.stringify({
@@ -47,16 +35,8 @@ export function Navbar() {
     error: registeredDataError,
     isLoading: registeredDataLoading,
   } = useSWR(
-    paramRegistered
-      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramRegistered}`
-      : null,
-    (url) =>
-      fetcher(url, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-        },
-      })
+    paramRegistered ? `api/registered?${paramRegistered}` : null,
+    (url) => fetcher(url)
   );
 
   const registeredUsers = registered?.records.length;
@@ -105,7 +85,11 @@ export function Navbar() {
             <a href="#testimonies">Testimonies</a>
           </div>
           {registeredUsers < 40 && (
-            <RegisterNavbarButton account={account} session={session} />
+            <RegisterNavbarButton
+              className={"lg:block"}
+              account={account}
+              session={session}
+            />
           )}
 
           {/* <div>
