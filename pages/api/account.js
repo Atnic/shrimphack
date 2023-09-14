@@ -6,7 +6,9 @@ export default async function handler(req, res) {
   // const paramAccount = qs.stringify(req.query);
   const session = await getServerSession(req, res, authOptions).catch();
   if (!session) {
-    res.status(401).json({ message: "Unauthenticated" });
+    res
+      .status(401)
+      .json({ message: "Unauthenticated, please login or register" });
     return;
   }
 

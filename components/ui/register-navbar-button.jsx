@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 export function RegisterNavbarButton({ session, account, className }) {
   // console.log(session, account);
+  // console.log(session);
   const router = useRouter();
   return (
     <div className={className}>

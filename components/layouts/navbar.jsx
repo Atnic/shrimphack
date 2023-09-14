@@ -13,13 +13,13 @@ export function Navbar() {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(`/api/account?`, (url) => fetcher(url));
+  } = useSWR(session ? `/api/account?` : null, (url) => fetcher(url));
 
   const {
     data: registered,
     error: registeredDataError,
     isLoading: registeredDataLoading,
-  } = useSWR(`api/registered`, (url) => fetcher(url));
+  } = useSWR(session ? `api/registered` : null, (url) => fetcher(url));
 
   const registeredUsers = registered?.records.length;
 
@@ -63,12 +63,12 @@ export function Navbar() {
           <div className="hover:-translate-y-1 delay-75">
             <a href="#projects">Past Projects</a>
           </div>
-          <div className="hover:-translate-y-1 delay-75">
+          <div className="hover:-translate-y-1 delay-75 md:hidden lg:flex">
             <a href="#testimonies">Testimonies</a>
           </div>
           {registeredUsers < 40 && (
             <RegisterNavbarButton
-              className={"lg:block"}
+              className={"md:block"}
               account={account}
               session={session}
             />

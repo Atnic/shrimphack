@@ -15,7 +15,7 @@ export default function RegisterButton() {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(`/api/account?`, (url) => fetcher(url));
+  } = useSWR(session ? `/api/account?` : null, (url) => fetcher(url));
 
   const {
     data: registered,

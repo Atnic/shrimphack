@@ -3,11 +3,13 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 export default async function handler(req, res) {
-  const session = await getServerSession(req, res, authOptions).catch();
-  if (!session) {
-    res.status(401).json({ message: "Unauthenticated" });
-    return;
-  }
+  // const session = await getServerSession(req, res, authOptions).catch();
+  // if (!session) {
+  //   res
+  //     .status(401)
+  //     .json({ message: "Unauthenticated, please login or register" });
+  //   return;
+  // }
 
   const paramRegistered = qs.stringify({
     fields: ["name", "image", "image_url"],
