@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { storage } from "@/utils/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useRouter } from "next/router";
 import { PageLayout } from "@/components/layouts/page";
 import { PageContent } from "@/components/layouts/page-contents";
@@ -10,10 +12,14 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
+import { useDropzone } from "react-dropzone";
+import Image from "next/image";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Register() {
   const router = useRouter();
   const { data: session, status, loading } = useSession();
+  const [imageUpload, setImageUpload] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formFilled, setFormFilled] = useState(false);
   const [profileData, setProfileData] = useState({
@@ -25,6 +31,7 @@ export default function Register() {
     shirt: "M",
     role: "Techies",
     image_url: session?.user?.image,
+    image: "",
   });
 
   // console.log(session?.user?.image);
@@ -69,6 +76,48 @@ export default function Register() {
       name: "Female",
     },
   ];
+
+  const onDrop = useCallback((acceptedFiles) => {
+    // console.log(acceptedFiles);
+    if (acceptedFiles.length > 0) {
+      const file = acceptedFiles[0];
+      uploadImageToFirebase(file);
+    }
+  }, []);
+
+  const uploadImageToFirebase = async (file) => {
+    try {
+      // Create a reference to Firebase Storage with a unique name for the image
+      // const imageRef = storage.ref().child(`images/${file.name}`);
+      const image_id = uuidv4();
+      const imageRef = ref(storage, `2023/${image_id + file.name}`);
+      const image = await uploadBytes(imageRef, file);
+      // console.log(image);
+
+      const donwloadUrl = await getDownloadURL(
+        ref(storage, image.ref.fullPath)
+      );
+
+      setImageUpload(donwloadUrl);
+      // console.log(donwloadUrl);
+      setProfileData((prevSettings) => ({
+        ...prevSettings,
+        image_url: donwloadUrl,
+      }));
+
+      // You can now use the downloadURL to display the uploaded image or store it in your database
+      console.log("Image uploaded");
+    } catch (error) {
+      console.error("Error uploading image", error);
+    }
+  };
+
+  // console.log(imageUpload);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: "image/*",
+  });
 
   const submitForm = async (data) => {
     try {
@@ -132,12 +181,29 @@ export default function Register() {
           gender: profileData.gender,
           shirt: profileData.shirt,
           role: profileData.role,
-          image_url: user?.user?.image,
+          image_url: imageUpload || user?.user?.image,
         });
       }
     }
     fetchAndSetProfileData();
   }, [session]);
+
+  useEffect(() => {
+    if (
+      profileData.name &&
+      profileData.expectation &&
+      profileData.email &&
+      profileData.phone_number &&
+      profileData.gender &&
+      profileData.shirt &&
+      profileData.role &&
+      profileData.image_url
+    ) {
+      setFormFilled(true);
+    } else {
+      setFormFilled(false);
+    }
+  }, [profileData]);
 
   const handleInputChange = (event) => {
     // console.log(event);
@@ -146,19 +212,6 @@ export default function Register() {
       ...prevSettings,
       [name]: value,
     }));
-    if (
-      profileData.name &&
-      profileData.expectation &&
-      profileData.email &&
-      profileData.phone_number &&
-      profileData.gender &&
-      profileData.shirt &&
-      profileData.role
-    ) {
-      setFormFilled(true);
-    } else {
-      setFormFilled(false);
-    }
   };
 
   const handleSubmit = async (e) => {
@@ -169,6 +222,7 @@ export default function Register() {
 
   // console.log(profileData);
   //   console.log(formFilled);
+  // console.log(session?.user);
 
   return (
     <PageLayout>
@@ -229,19 +283,37 @@ export default function Register() {
                 >
                   <div className="flex flex-col gap-3">
                     <div className="text-lg font-semibold">Profile</div>
-                    <div className="flex flex-1 gap-4">
-                      {/* <div className="flex flex-1 flex-col gap-2">
-                        <div className="text-white text-sm font-medium">
-                          E-mail
-                        </div>
-                        <input
-                          type="email"
-                          name="email"
-                          className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                          value={profileData.email}
-                          onChange={handleInputChange}
-                        />
-                      </div> */}
+                    <div className="flex flex-col gap-2">
+                      <div className="text-white text-sm font-medium">
+                        Profile Picture
+                      </div>
+
+                      <div
+                        {...getRootProps()}
+                        className={clsx(
+                          session?.user?.image || imageUpload
+                            ? "overflow-hidden"
+                            : "p-3 border border-dashed",
+                          "flex flex-col items-center justify-center text-center  border-gray-400 w-[6rem] h-[6rem] rounded-full cursor-pointer"
+                        )}
+                      >
+                        {session?.user?.image || imageUpload ? (
+                          <Image
+                            src={imageUpload || session?.user?.image}
+                            width={100}
+                            height={100}
+                            alt="profile picture"
+                          />
+                        ) : (
+                          <p className="text-gray-400 text-xs">
+                            Drag n drop a profile picture or click.
+                          </p>
+                        )}
+                        <input {...getInputProps()} accept="image/*" />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-row gap-4">
                       <div className="flex flex-col w-3/5 gap-2">
                         <div className="text-white text-sm font-medium">
                           Full Name
@@ -254,6 +326,7 @@ export default function Register() {
                           onChange={handleInputChange}
                         />
                       </div>
+
                       <div className="flex flex-1 flex-col gap-2">
                         <div className="text-white text-sm font-medium">
                           Mobile
@@ -267,6 +340,22 @@ export default function Register() {
                         />
                       </div>
                     </div>
+                    {!session?.user && (
+                      <div className="flex flex-row gap-4">
+                        <div className="flex flex-1 flex-col gap-2">
+                          <div className="text-white text-sm font-medium">
+                            E-mail
+                          </div>
+                          <input
+                            type="email"
+                            name="email"
+                            className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            value={profileData.email}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex flex-row gap-4">
                       <div className="flex flex-col gap-2">

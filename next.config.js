@@ -9,6 +9,7 @@ const nextConfig = {
       "app.jala.tech",
       "v5.airtableusercontent.com",
       "lh3.google.com",
+      "firebasestorage.googleapis.com",
     ],
   },
   i18n: {
