@@ -9,6 +9,7 @@ import { useSession, signIn } from "next-auth/react";
 import { Ticket } from "@/components/layouts/ticket";
 import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
+import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
 import {
   TimeConverter,
   DateNumericConverter,
@@ -92,6 +93,7 @@ export default function SH2023() {
           {account?.records[0] && session?.user && !loading && (
             <div className="flex flex-col">
               <Ticket account={account?.records[0]} session={session} />
+              <RegisteredUserGroups />
               <div
                 className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
                 id="events"

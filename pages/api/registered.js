@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   // }
 
   const paramRegistered = qs.stringify({
-    fields: ["name", "image", "image_url"],
+    fields: ["name", "image", "image_url", "role"],
     sort: [{ field: "autonumber", direction: "desc" }],
   });
 

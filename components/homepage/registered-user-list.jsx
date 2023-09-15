@@ -34,7 +34,7 @@ export function RegisterUsersList({ registeredUsers, registered }) {
           )}
           {registeredUsers >= 8 && (
             <div
-              className="flex border-slate-900 border-2 rounded-full w-10 h-10 bg-red-500 text-white p-1 font-medium text-lg text-center items-center justify-center"
+              className="flex border-slate-900 border-2 rounded-full w-10 h-10 bg-red-600 text-white p-1 font-medium text-lg text-center items-center justify-center"
               style={{ zIndex: 9 }}
             >
               {registeredUsers - 8}

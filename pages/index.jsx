@@ -1,19 +1,11 @@
 import { PageLayout } from "@/components/layouts/page";
 import { PageContent } from "@/components/layouts/page-contents";
 import Container from "@/components/layouts/container";
-// import Head from "next/head";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
-// import styles from "../styles/Home.module.css";
 import "@splidejs/react-splide/css/skyblue";
-// import { SHWhite } from "@/components/logo/shlogo";
 import { Navbar } from "@/components/layouts/navbar";
 import RegisterButton from "@/components/ui/register-button";
-// import clsx from "clsx";
-// import qs from "qs";
-
-// import useSWR from "swr";
-// import { fetcher } from "@/utils/fetcher";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Footer } from "@/components/layouts/footer";
@@ -161,10 +153,12 @@ export default function Home({
                   width={headerImage?.fields.image[0].width}
                   alt={"header shrimphack"}
                   className="rounded-lg"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
                   priority
                 />
               </div>
             </div>
+
             <div
               className="mx-auto grid grid-cols-1 md:grid-cols-2 py-20 gap-10 items-center scroll-mt-10 px-4 lg:px-16"
               id="about"
@@ -206,6 +200,7 @@ export default function Home({
                           alt={track.fields.name}
                           height={track.fields.image[0].height}
                           width={track.fields.image[0].width}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
                         />
                       </div>
                       <div className="text-lg font-semibold text-center">
@@ -396,8 +391,6 @@ export default function Home({
                 )}
               </div>
             </div>
-            {/* <div>FAQ</div> */}
-            {/* <div>CTA</div> */}
             <Footer />
           </div>
         </Container>
