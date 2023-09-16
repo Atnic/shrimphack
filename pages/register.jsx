@@ -15,11 +15,11 @@ import { NextSeo } from "next-seo";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
-import { getCsrfToken } from "next-auth/react";
+// import { getCsrfToken } from "next-auth/react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 
-export default function Register({ csrfToken }) {
+export default function Register() {
   const router = useRouter();
   const { data: session, status, loading } = useSession();
   const [imageUpload, setImageUpload] = useState(null);
@@ -99,18 +99,22 @@ export default function Register({ csrfToken }) {
     // console.log(acceptedFiles);
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
+      // console.log("image react dropzone");
       uploadImageToFirebase(file);
     }
   }, []);
 
   const uploadImageToFirebase = async (file) => {
+    // console.log(storage.app);
     try {
       const image_id = uuidv4();
       const imageRef = ref(storage, `2023/${image_id + file.name}`);
-      const image = await uploadBytes(imageRef, file);
+      const uploadTask = await uploadBytes(imageRef, file);
+
+      // console.log("image ke firebase");
 
       const donwloadUrl = await getDownloadURL(
-        ref(storage, image.ref.fullPath)
+        ref(storage, uploadTask.ref.fullPath)
       );
 
       setImageUpload(donwloadUrl);
@@ -149,16 +153,16 @@ export default function Register({ csrfToken }) {
         ],
       };
 
-      const loginBody = {
-        csrfToken: csrfToken,
-        username: data.email,
-        password: data.phone_number,
-      };
+      // const loginBody = {
+      //   csrfToken: csrfToken,
+      //   username: data.email,
+      //   password: data.phone_number,
+      // };
 
-      const loginData = new URLSearchParams();
-      for (const key in loginBody) {
-        loginData.append(key, loginBody[key]);
-      }
+      // const loginData = new URLSearchParams();
+      // for (const key in loginBody) {
+      //   loginData.append(key, loginBody[key]);
+      // }
       // console.log(loginData.toString());
 
       // console.log(JSON.stringify(airtableBody));
@@ -522,10 +526,10 @@ export default function Register({ csrfToken }) {
   );
 }
 
-export async function getServerSideProps() {
-  return {
-    props: {
-      csrfToken: await getCsrfToken(),
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   return {
+//     props: {
+//       csrfToken: await getCsrfToken(),
+//     },
+//   };
+// }
