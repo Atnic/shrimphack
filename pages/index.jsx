@@ -1,5 +1,6 @@
 import { PageLayout } from "@/components/layouts/page";
 import { PageContent } from "@/components/layouts/page-contents";
+import Link from "next/link";
 import Container from "@/components/layouts/container";
 import { NextSeo } from "next-seo";
 import Image from "next/image";

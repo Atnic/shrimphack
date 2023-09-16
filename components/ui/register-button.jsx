@@ -85,6 +85,12 @@ export default function RegisterButton() {
       >
         Continue with JALA&apos;s email
       </button>
+      <Link href={"/register"}>
+        <div className="cursor-pointer font-semibold text-white">
+          Don&apos;t have JALA&apos;s email?{" "}
+          <span className="text-red-500">Register here!</span>
+        </div>
+      </Link>
     </div>
   );
 }

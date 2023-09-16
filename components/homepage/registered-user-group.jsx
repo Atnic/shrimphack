@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 
 export function RegisteredUserGroups() {
   const {
@@ -20,7 +21,8 @@ export function RegisteredUserGroups() {
         return r.fields.role == "Non-tech";
       })
     : null;
-  //   console.log(techies, nontech);
+  // console.log(techies, nontech);
+  // console.log(registered);
 
   if (registeredDataLoading) {
     return (

@@ -80,6 +80,21 @@ export default function Register({ csrfToken }) {
     },
   ];
 
+  const {
+    data: account,
+    error: accountDataError,
+    isLoading: accountDataLoading,
+  } = useSWR(session ? `/api/account` : null, (url) => fetcher(url));
+
+  useEffect(() => {
+    if (
+      (!session && status == "authenticated") ||
+      account?.records?.length == 1
+    ) {
+      router.push("/2023");
+    }
+  }, [account, session, status]);
+
   const onDrop = useCallback((acceptedFiles) => {
     // console.log(acceptedFiles);
     if (acceptedFiles.length > 0) {
@@ -90,25 +105,19 @@ export default function Register({ csrfToken }) {
 
   const uploadImageToFirebase = async (file) => {
     try {
-      // Create a reference to Firebase Storage with a unique name for the image
-      // const imageRef = storage.ref().child(`images/${file.name}`);
       const image_id = uuidv4();
       const imageRef = ref(storage, `2023/${image_id + file.name}`);
       const image = await uploadBytes(imageRef, file);
-      // console.log(image);
 
       const donwloadUrl = await getDownloadURL(
         ref(storage, image.ref.fullPath)
       );
 
       setImageUpload(donwloadUrl);
-      // console.log(donwloadUrl);
       setProfileData((prevSettings) => ({
         ...prevSettings,
         image_url: donwloadUrl,
       }));
-
-      // You can now use the downloadURL to display the uploaded image or store it in your database
       console.log("Image uploaded");
     } catch (error) {
       console.error("Error uploading image", error);
@@ -223,21 +232,6 @@ export default function Register({ csrfToken }) {
     }
   }, [profileData]);
 
-  const {
-    data: account,
-    error: accountDataError,
-    isLoading: accountDataLoading,
-  } = useSWR(`/api/account`, (url) => fetcher(url));
-
-  useEffect(() => {
-    if (
-      (!session && status == "authenticated") ||
-      account?.records?.length == 1
-    ) {
-      router.push("/2023");
-    }
-  }, [account, session, status]);
-
   const handleInputChange = (event) => {
     // console.log(event);
     const { name, value } = event.target;
@@ -253,9 +247,19 @@ export default function Register({ csrfToken }) {
     await submitForm(profileData);
   };
 
+  if (accountDataLoading || loading) {
+    return (
+      <PageLayout>
+        <PageContent>
+          <Container></Container>
+        </PageContent>
+      </PageLayout>
+    );
+  }
+
   // console.log(profileData);
   //   console.log(formFilled);
-  console.log(session);
+  // console.log(session);
 
   return (
     <PageLayout>

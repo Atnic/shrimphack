@@ -59,20 +59,11 @@ export const authOptions = {
   pages: {
     signIn: "/register",
     error: "/",
+    newUser: "/2023",
   },
 
   callbacks: {
     async signIn({ account, profile, credentials }) {
-      // console.log(account.provider, credentials);
-      // const isAllowedToSignIn = true;
-      // if (isAllowedToSignIn) {
-      //   return true;
-      // } else {
-      //   // Return false to display a default error message
-      //   return false;
-      //   // Or you can return a URL to redirect to:
-      //   // return '/unauthorized'
-      // }
       if (account.provider === "google") {
         return profile.email_verified && profile.email.endsWith("@jala.tech");
       }
