@@ -133,7 +133,7 @@ export default function Home({
         <Navbar />
         <Container>
           <div className="flex flex-col">
-            <div className="grid grid-cols-1 md:grid-cols-2 mx-auto py-20 gap-5 lg:h-screen items-center px-4 lg:px-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 py-20 gap-5 lg:h-screen items-center px-4 lg:px-16">
               <div className="flex flex-col gap-5 lg:gap-10">
                 <div className="text-5xl lg:text-6xl font-bold">
                   ShrimpHack &apos;23
@@ -142,7 +142,7 @@ export default function Home({
                   <div className="font-semibold">14 - 15 October</div>
                   <div className="text-xl lg:text-2xl">JALA HQ - Sahid</div>
                 </div>
-                <div>
+                <div className="flex flex-col gap-2">
                   <RegisterButton />
                 </div>
               </div>

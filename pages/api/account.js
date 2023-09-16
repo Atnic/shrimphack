@@ -12,6 +12,8 @@ export default async function handler(req, res) {
     return;
   }
 
+  let account;
+
   const paramAccount = session?.user
     ? qs.stringify({
         filterByFormula: `email="${session?.user?.email}"`,
@@ -21,7 +23,7 @@ export default async function handler(req, res) {
 
   const peserta = await fetch(
     paramAccount
-      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramAccount}`
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/registration?${paramAccount}`
       : null,
     {
       method: "GET",
@@ -44,11 +46,12 @@ export default async function handler(req, res) {
       },
     }
   );
-  let account;
-  if (peserta.size !== 0) {
-    account = await peserta.json();
-  } else {
+
+  account = await peserta.json();
+
+  if (!account?.records[0]) {
     account = await panitia.json();
+    console.log("panitia");
   }
 
   res.status(200).json(account);

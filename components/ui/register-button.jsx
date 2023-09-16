@@ -47,7 +47,7 @@ export default function RegisterButton() {
       </div>
     );
   }
-  if (session && account?.records[0]) {
+  if (session && account?.records) {
     return (
       <button
         className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit"
@@ -57,7 +57,7 @@ export default function RegisterButton() {
       </button>
     );
   }
-  if (session?.user && !account?.records[0]) {
+  if (session?.user && !account?.records) {
     return (
       <div className="flex flex-col gap-2">
         <RegisterUsersList
@@ -83,7 +83,7 @@ export default function RegisterButton() {
         className="px-4 py-2 bg-white text-slate-800 rounded-xl text-lg border-2 hover:border-2 hover:border-white hover:text-white hover:bg-transparent w-full md:w-fit"
         onClick={() => signIn("google", { callbackUrl: "/2023" })}
       >
-        Register with JALA&apos;s email
+        Continue with JALA&apos;s email
       </button>
     </div>
   );

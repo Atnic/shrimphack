@@ -7,16 +7,17 @@ import { PageContent } from "@/components/layouts/page-contents";
 import Container from "@/components/layouts/container";
 import clsx from "clsx";
 import { SHWhite } from "@/components/logo/shlogo";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
+import { getCsrfToken } from "next-auth/react";
 
-export default function Register() {
+export default function Register({ csrfToken }) {
   const router = useRouter();
   const { data: session, status, loading } = useSession();
   const [imageUpload, setImageUpload] = useState(null);
@@ -33,6 +34,8 @@ export default function Register() {
     image_url: session?.user?.image,
     image: "",
   });
+
+  // console.log(csrfToken);
 
   // console.log(session?.user?.image);
 
@@ -65,8 +68,6 @@ export default function Register() {
       role: "Non-tech",
     },
   ];
-
-  // console.log(profileData.role);
 
   const gender = [
     {
@@ -116,7 +117,6 @@ export default function Register() {
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: "image/*",
   });
 
   const submitForm = async (data) => {
@@ -138,10 +138,22 @@ export default function Register() {
         ],
       };
 
+      const loginBody = {
+        csrfToken: csrfToken,
+        username: data.email,
+        password: data.phone_number,
+      };
+
+      const loginData = new URLSearchParams();
+      for (const key in loginBody) {
+        loginData.append(key, loginBody[key]);
+      }
+      // console.log(loginData.toString());
+
       // console.log(JSON.stringify(airtableBody));
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration`,
+        `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/registration`,
         {
           method: "POST",
           headers: {
@@ -156,7 +168,11 @@ export default function Register() {
 
       if (response.ok) {
         if (response.status == 200) {
-          router.push(`/2023`);
+          //belum ada session, login dulu
+          signIn("credentials", {
+            username: data.email,
+            password: data.phone_number,
+          });
         }
       } else {
         // Handle error
@@ -222,7 +238,7 @@ export default function Register() {
 
   // console.log(profileData);
   //   console.log(formFilled);
-  // console.log(session?.user);
+  console.log(session);
 
   return (
     <PageLayout>
@@ -287,29 +303,36 @@ export default function Register() {
                       <div className="text-white text-sm font-medium">
                         Profile Picture
                       </div>
-
-                      <div
-                        {...getRootProps()}
-                        className={clsx(
-                          session?.user?.image || imageUpload
-                            ? "overflow-hidden"
-                            : "p-3 border border-dashed",
-                          "flex flex-col items-center justify-center text-center  border-gray-400 w-[6rem] h-[6rem] rounded-full cursor-pointer"
-                        )}
-                      >
-                        {session?.user?.image || imageUpload ? (
-                          <Image
-                            src={imageUpload || session?.user?.image}
-                            width={100}
-                            height={100}
-                            alt="profile picture"
-                          />
-                        ) : (
-                          <p className="text-gray-400 text-xs">
-                            Drag n drop a profile picture or click.
-                          </p>
-                        )}
-                        <input {...getInputProps()} accept="image/*" />
+                      <div className="flex flex-row gap-4 items-center">
+                        <div
+                          {...getRootProps()}
+                          className={clsx(
+                            session?.user?.image || imageUpload
+                              ? "overflow-hidden"
+                              : "p-3 border border-dashed",
+                            "flex flex-col items-center justify-center text-center  border-gray-400 w-[6rem] h-[6rem] rounded-full cursor-pointer"
+                          )}
+                        >
+                          {session?.user?.image || imageUpload ? (
+                            <Image
+                              src={
+                                imageUpload ? imageUpload : session?.user?.image
+                              }
+                              width={100}
+                              height={100}
+                              alt="profile picture"
+                            />
+                          ) : (
+                            <div className="text-gray-400">
+                              <PlusCircleIcon className="h-10 w-10" />
+                            </div>
+                          )}
+                          <input {...getInputProps()} accept="image/*" />
+                        </div>
+                        <p className="text-gray-400 text-xs w-[10rem]">
+                          Drag n drop your profile picture or click to choose
+                          one.
+                        </p>
                       </div>
                     </div>
 
@@ -476,4 +499,12 @@ export default function Register() {
       </PageContent>
     </PageLayout>
   );
+}
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(),
+    },
+  };
 }

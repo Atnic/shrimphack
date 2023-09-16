@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
-import { RegisterNavbarButton } from "../ui/register-navbar-button";
+import { ProfileButton } from "../homepage/profile-button";
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -13,7 +13,9 @@ export function Navbar() {
     data: account,
     error: accountDataError,
     isLoading: accountDataLoading,
-  } = useSWR(session ? `/api/account?` : null, (url) => fetcher(url));
+  } = useSWR(session?.user?.email ? `/api/account?` : null, (url) =>
+    fetcher(url)
+  );
 
   const {
     data: registered,
@@ -34,6 +36,8 @@ export function Navbar() {
 
   // console.log(session?.user?.email, account);
 
+  // console.log(session?.user?.email, account);
+
   return (
     <div className="flex flex-row w-full justify-between fixed px-4 lg:px-16 py-4 bg-slate-900 bg-opacity-80 z-10 items-center">
       <Link href="/">
@@ -41,79 +45,26 @@ export function Navbar() {
           <SHWhite width={100} height={50} />
         </div>
       </Link>
-      <>
-        {registeredUsers < 40 && (
-          <RegisterNavbarButton
-            className={"md:hidden"}
-            account={account}
-            session={session}
-          />
-        )}
-
-        <div className="hidden md:flex flex-row gap-4 items-center text-lg">
-          <div className="hover:-translate-y-1 delay-75">
+      <div className="flex flex-row">
+        <div className="md:flex flex-row gap-4 items-center text-lg">
+          <div className="hover:-translate-y-1 delay-75 hidden md:block">
             <a href="#about">About</a>
           </div>
-          <div className="hover:-translate-y-1 delay-75">
+          <div className="hover:-translate-y-1 delay-75 hidden md:block">
             <a href="#tracks">Tracks</a>
           </div>
-          <div className="hover:-translate-y-1 delay-75">
+          <div className="hover:-translate-y-1 delay-75 hidden md:block">
             <a href="#prizes">Prizes</a>
           </div>
-          <div className="hover:-translate-y-1 delay-75">
+          <div className="hover:-translate-y-1 delay-75 hidden md:block">
             <a href="#projects">Past Projects</a>
           </div>
-          <div className="hover:-translate-y-1 delay-75 md:hidden lg:flex">
+          <div className="hover:-translate-y-1 delay-75 hidden lg:flex">
             <a href="#testimonies">Testimonies</a>
           </div>
-          {registeredUsers < 40 && (
-            <RegisterNavbarButton
-              className={"md:block"}
-              account={account}
-              session={session}
-            />
-          )}
-
-          {/* <div>
-              {session ? (
-                account?.records[0] ? (
-                  <button
-                    className="px-4 py-1 border-white border-2 text-white rounded-xl hover:-translate-y-1 delay-75 inline-flex items-center gap-2"
-                    onClick={() => router.push("/2023")}
-                  >
-                    Profile
-                    <Image
-                      src={
-                        account?.records[0]?.fields?.image
-                          ? account?.records[0]?.fields?.image[0]?.url
-                          : account?.records[0]?.fields?.image_url ||
-                            session?.user?.image
-                      }
-                      width={30}
-                      height={30}
-                      alt={session?.user?.name}
-                      className="rounded-full bg-blue-100"
-                    />
-                  </button>
-                ) : (
-                  <Link
-                    href="/register"
-                    className="hover:-translate-y-1 delay-75"
-                  >
-                    Register
-                  </Link>
-                )
-              ) : (
-                <button
-                  onClick={() => signIn("google", { callbackUrl: "/2023" })}
-                  className="hover:-translate-y-1 delay-75"
-                >
-                  Register
-                </button>
-              )}
-            </div> */}
+          {<ProfileButton account={account} session={session} />}
         </div>
-      </>
+      </div>
     </div>
   );
 }
