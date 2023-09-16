@@ -16,6 +16,8 @@ import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 import { getCsrfToken } from "next-auth/react";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 
 export default function Register({ csrfToken }) {
   const router = useRouter();
@@ -153,7 +155,7 @@ export default function Register({ csrfToken }) {
       // console.log(JSON.stringify(airtableBody));
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/registration`,
+        `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration`,
         {
           method: "POST",
           headers: {
@@ -220,6 +222,21 @@ export default function Register({ csrfToken }) {
       setFormFilled(false);
     }
   }, [profileData]);
+
+  const {
+    data: account,
+    error: accountDataError,
+    isLoading: accountDataLoading,
+  } = useSWR(`/api/account`, (url) => fetcher(url));
+
+  useEffect(() => {
+    if (
+      (!session && status == "authenticated") ||
+      account?.records?.length == 1
+    ) {
+      router.push("/2023");
+    }
+  }, [account, session, status]);
 
   const handleInputChange = (event) => {
     // console.log(event);

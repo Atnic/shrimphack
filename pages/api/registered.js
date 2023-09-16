@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
   const peserta = await fetch(
     paramRegistered
-      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/registration?${paramRegistered}`
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?${paramRegistered}`
       : null,
     {
       method: "GET",
