@@ -35,7 +35,7 @@ export default function Register() {
     phone_number: "",
     gender: "Male",
     shirt: "M",
-    role: "Techies",
+    role: "Hipster",
     image_url: session?.user?.image,
     image: "",
   });
