@@ -7,7 +7,11 @@ import { PageContent } from "@/components/layouts/page-contents";
 import Container from "@/components/layouts/container";
 import clsx from "clsx";
 import { SHWhite } from "@/components/logo/shlogo";
-import { ArrowLeftIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowLeftIcon,
+  PlusCircleIcon,
+  CameraIcon,
+} from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { Footer } from "@/components/layouts/footer";
@@ -15,7 +19,6 @@ import { NextSeo } from "next-seo";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
-// import { getCsrfToken } from "next-auth/react";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 
@@ -87,10 +90,7 @@ export default function Register() {
   } = useSWR(session ? `/api/account` : null, (url) => fetcher(url));
 
   useEffect(() => {
-    if (
-      (!session && status == "authenticated") ||
-      account?.records?.length == 1
-    ) {
+    if (account?.records?.length == 1) {
       router.push("/2023");
     }
   }, [account, session, status]);
@@ -122,13 +122,14 @@ export default function Register() {
         ...prevSettings,
         image_url: donwloadUrl,
       }));
-      console.log("Image uploaded");
+      // console.log("Image uploaded");
     } catch (error) {
       console.error("Error uploading image", error);
     }
   };
 
   // console.log(imageUpload);
+  console.log(session, !session);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -153,44 +154,36 @@ export default function Register() {
         ],
       };
 
-      // const loginBody = {
-      //   csrfToken: csrfToken,
-      //   username: data.email,
-      //   password: data.phone_number,
-      // };
+      // const response = await fetch(
+      //   `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify(airtableBody),
+      //   }
+      // );
 
-      // const loginData = new URLSearchParams();
-      // for (const key in loginBody) {
-      //   loginData.append(key, loginBody[key]);
-      // }
-      // console.log(loginData.toString());
-
-      // console.log(JSON.stringify(airtableBody));
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(airtableBody),
-        }
-      );
-
-      //     // console.log(response);
+      const response = await fetch(`/api/register`, {
+        method: "POST",
+        body: JSON.stringify(airtableBody),
+      });
 
       if (response.ok) {
         if (response.status == 200) {
-          //belum ada session, login dulu
-          signIn("credentials", {
-            username: data.email,
-            password: data.phone_number,
-          });
+          if (!session) {
+            //belum ada session, login dulu
+            signIn("credentials", {
+              username: data.email,
+              password: data.phone_number,
+            });
+          } else {
+            router.push("/2023");
+          }
         }
       } else {
-        // Handle error
         console.error("Registration Failed");
       }
     } catch (error) {
@@ -349,7 +342,7 @@ export default function Register() {
                             />
                           ) : (
                             <div className="text-gray-400">
-                              <PlusCircleIcon className="h-10 w-10" />
+                              <CameraIcon className="h-10 w-10" />
                             </div>
                           )}
                           <input {...getInputProps()} accept="image/*" />
@@ -435,7 +428,6 @@ export default function Register() {
                           Shirt Size
                         </div>
                         <select
-                          // defaultValue={0}
                           name="shirt"
                           onChange={handleInputChange}
                           value={profileData.shirt}
@@ -460,7 +452,6 @@ export default function Register() {
                           Role
                         </div>
                         <select
-                          // defaultValue={0}
                           name="role"
                           onChange={handleInputChange}
                           value={profileData.role}
@@ -525,11 +516,3 @@ export default function Register() {
     </PageLayout>
   );
 }
-
-// export async function getServerSideProps() {
-//   return {
-//     props: {
-//       csrfToken: await getCsrfToken(),
-//     },
-//   };
-// }
