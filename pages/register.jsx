@@ -26,6 +26,7 @@ export default function Register() {
   const router = useRouter();
   const { data: session, status, loading } = useSession();
   const [imageUpload, setImageUpload] = useState(null);
+  const [imageUploading, setImageUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formFilled, setFormFilled] = useState(false);
   const [profileData, setProfileData] = useState({
@@ -105,10 +106,13 @@ export default function Register() {
     // console.log(acceptedFiles);
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
+      setImageUploading(true);
       // console.log("image react dropzone");
       uploadImageToFirebase(file);
     }
   }, []);
+
+  // console.log(!imageUpload);
 
   const uploadImageToFirebase = async (file) => {
     // console.log(storage.app);
@@ -128,6 +132,7 @@ export default function Register() {
         ...prevSettings,
         image_url: donwloadUrl,
       }));
+      setImageUploading(false);
       // console.log("Image uploaded");
     } catch (error) {
       console.error("Error uploading image", error);
@@ -326,18 +331,28 @@ export default function Register() {
                             "relative flex flex-col items-center justify-center text-center  border-gray-400 w-[6rem] h-[6rem] overflow-hidden rounded-full cursor-pointer"
                           )}
                         >
-                          {session?.user?.image || imageUpload ? (
-                            <Image
-                              src={
-                                imageUpload ? imageUpload : session?.user?.image
-                              }
-                              layout="fill"
-                              objectFit="cover"
-                              alt="profile picture"
-                            />
+                          {!imageUploading ? (
+                            session?.user?.image || imageUpload ? (
+                              <Image
+                                src={
+                                  imageUpload
+                                    ? imageUpload
+                                    : session?.user?.image
+                                }
+                                layout="fill"
+                                objectFit="cover"
+                                alt="profile picture"
+                              />
+                            ) : (
+                              <div className="text-gray-400">
+                                <CameraIcon className="h-10 w-10" />
+                              </div>
+                            )
                           ) : (
-                            <div className="text-gray-400">
-                              <CameraIcon className="h-10 w-10" />
+                            <div className="animate-pulse">
+                              <div className="flex flex-col items-center justify-center bg-slate-500 w-24 h-24 rounded-full text-slate-300 text-sm">
+                                Uploading
+                              </div>
                             </div>
                           )}
                           <input {...getInputProps()} accept="image/*" />
