@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { SHWhite, JalaLogo } from "@/components/logo/shlogo";
-import { CommandLineIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import {
+  CommandLineIcon,
+  SparklesIcon,
+  PaintBrushIcon,
+} from "@heroicons/react/24/outline";
 
 export function Ticket({ account, session }) {
   useEffect(() => {
@@ -41,10 +45,12 @@ export function Ticket({ account, session }) {
         className="scroll-mt-20 hidden relative md:flex flex-row border-2 border-slate-500 rounded-xl bg-gradient-to-br from-[#ededed] to-[#bdbdbd] divide-x divide-dashed divide-slate-900 ticket-visual"
       >
         <div className="relative flex flex-col justify-between h-[20rem] px-10 py-10 overflow-hidden">
-          {account?.fields.role == "Techies" ? (
+          {account?.fields.role == "Hacker" ? (
             <CommandLineIcon className="w-60 h-60 absolute right-10 bottom-10 text-slate-700 text-opacity-5" />
-          ) : (
+          ) : account?.fields.role == "Hustler" ? (
             <SparklesIcon className="w-60 h-60 absolute right-10 bottom-10 text-slate-700 text-opacity-5" />
+          ) : (
+            <PaintBrushIcon className="w-60 h-60 absolute right-10 bottom-10 text-slate-700 text-opacity-5" />
           )}
 
           <div className="flex flex-row items-center gap-4">
