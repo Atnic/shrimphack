@@ -67,10 +67,16 @@ export default function Register() {
 
   const roles = [
     {
-      role: "Techies",
+      role: "Hacker",
+      jobs: "Engineer, Developer, Technician",
     },
     {
-      role: "Non-tech",
+      role: "Hustler",
+      jobs: "Product Manager, Domain Expert, Marketing & Sales",
+    },
+    {
+      role: "Hipster",
+      jobs: "Product Designer, Visual Designer, Experience Designer",
     },
   ];
 
@@ -129,7 +135,7 @@ export default function Register() {
   };
 
   // console.log(imageUpload);
-  console.log(session, !session);
+  // console.log(session, !session);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -154,18 +160,6 @@ export default function Register() {
         ],
       };
 
-      // const response = await fetch(
-      //   `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration`,
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(airtableBody),
-      //   }
-      // );
-
       const response = await fetch(`/api/register`, {
         method: "POST",
         body: JSON.stringify(airtableBody),
@@ -175,12 +169,14 @@ export default function Register() {
         if (response.status == 200) {
           if (!session) {
             //belum ada session, login dulu
-            signIn("credentials", {
+            await signIn("credentials", {
               username: data.email,
               password: data.phone_number,
             });
+            setIsSubmitting(false);
           } else {
-            router.push("/2023");
+            await router.push("/2023");
+            setIsSubmitting(false);
           }
         }
       } else {
@@ -189,7 +185,6 @@ export default function Register() {
     } catch (error) {
       console.error("An error occurred", error);
     } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -355,7 +350,7 @@ export default function Register() {
                     </div>
 
                     <div className="flex flex-row gap-4">
-                      <div className="flex flex-col w-3/5 gap-2">
+                      <div className="flex flex-col w-full gap-2">
                         <div className="text-white text-sm font-medium">
                           Full Name
                         </div>
@@ -368,6 +363,34 @@ export default function Register() {
                         />
                       </div>
 
+                      {/* <div className="hidden md:flex flex-1 flex-col gap-2">
+                        <div className="text-white text-sm font-medium">
+                          Mobile
+                        </div>
+                        <input
+                          type="tel"
+                          name="phone_number"
+                          className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                          value={profileData.phone_number}
+                          onChange={handleInputChange}
+                        />
+                      </div> */}
+                    </div>
+                    <div className="flex flex-row gap-4">
+                      {!session?.user && (
+                        <div className="flex flex-1 flex-col gap-2">
+                          <div className="text-white text-sm font-medium">
+                            E-mail
+                          </div>
+                          <input
+                            type="email"
+                            name="email"
+                            className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            value={profileData.email}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      )}
                       <div className="flex flex-1 flex-col gap-2">
                         <div className="text-white text-sm font-medium">
                           Mobile
@@ -381,25 +404,9 @@ export default function Register() {
                         />
                       </div>
                     </div>
-                    {!session?.user && (
-                      <div className="flex flex-row gap-4">
-                        <div className="flex flex-1 flex-col gap-2">
-                          <div className="text-white text-sm font-medium">
-                            E-mail
-                          </div>
-                          <input
-                            type="email"
-                            name="email"
-                            className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                            value={profileData.email}
-                            onChange={handleInputChange}
-                          />
-                        </div>
-                      </div>
-                    )}
-
+                    <div className="md:hidden flex flex-row gap-4"></div>
                     <div className="flex flex-row gap-4">
-                      <div className="flex flex-col gap-2">
+                      <div className="flex flex-col w-1/2 md:w-fit gap-2">
                         <div className="text-white text-sm font-medium">
                           Gender
                         </div>
@@ -423,7 +430,7 @@ export default function Register() {
                           )}
                         </select>
                       </div>
-                      <div className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-2 w-1/2 md:w-fit">
                         <div className="text-white text-sm font-medium">
                           Shirt Size
                         </div>
@@ -447,6 +454,33 @@ export default function Register() {
                           )}
                         </select>
                       </div>
+                      <div className="hidden md:flex flex-1 flex-col gap-2">
+                        <div className="text-white text-sm font-medium">
+                          Role
+                        </div>
+                        <select
+                          name="role"
+                          onChange={handleInputChange}
+                          value={profileData.role}
+                          className="block w-full text-slate-800 mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                        >
+                          <option className="text-slate-200" value={""}>
+                            Role
+                          </option>
+                          {roles ? (
+                            roles.map((r, i) => (
+                              <option key={i} value={r.role}>
+                                {r.role} ({r.jobs})
+                              </option>
+                            ))
+                          ) : (
+                            <></>
+                          )}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="md:hidden flex flex-row gap-4">
                       <div className="flex flex-1 flex-col gap-2">
                         <div className="text-white text-sm font-medium">
                           Role
@@ -463,7 +497,7 @@ export default function Register() {
                           {roles ? (
                             roles.map((r, i) => (
                               <option key={i} value={r.role}>
-                                {r.role}
+                                {r.role} ({r.jobs})
                               </option>
                             ))
                           ) : (

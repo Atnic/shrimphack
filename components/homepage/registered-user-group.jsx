@@ -10,18 +10,24 @@ export function RegisteredUserGroups() {
     isLoading: registeredDataLoading,
   } = useSWR(`api/registered`, (url) => fetcher(url));
 
-  const techies = registered
+  const hacker = registered
     ? registered.records.filter((r) => {
-        return r.fields.role == "Techies";
+        return r.fields.role == "Hacker";
       })
     : null;
 
-  const nontech = registered
+  const hustler = registered
     ? registered.records.filter((r) => {
-        return r.fields.role == "Non-tech";
+        return r.fields.role == "Hustler";
       })
     : null;
-  // console.log(techies, nontech);
+
+  const hipster = registered
+    ? registered.records.filter((r) => {
+        return r.fields.role == "Hipster";
+      })
+    : null;
+  // console.log(hacker, hustler);
   // console.log(registered);
 
   if (registeredDataLoading) {
@@ -63,18 +69,18 @@ export function RegisteredUserGroups() {
   }
 
   return (
-    <div className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16">
+    <div className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16">
       <div className="text-4xl font-bold mx-auto">Registered Users</div>
       <div
-        className="mx-auto grid grid-cols-1 md:grid-cols-2 py-6 gap-10 scroll-mt-10 px-4 lg:px-16"
+        className="mx-auto grid grid-cols-1 md:grid-cols-3 py-6 gap-10 scroll-mt-10 px-4 lg:px-16"
         id="registered"
       >
         <div className="flex flex-col gap-3 md:text-xl md:font-medium leading-relaxed w-auto items-center">
-          <div>Tech</div>
-          <div className="text-5xl font-semibold">{techies?.length}</div>
+          <div>Hacker</div>
+          <div className="text-5xl font-semibold">{hacker?.length}</div>
           <div className="flex flex-wrap gap-2 w-[15rem] justify-center">
-            {techies ? (
-              techies.map((t) => (
+            {hacker ? (
+              hacker.map((t) => (
                 <Image
                   key={t.fields.name}
                   src={t.fields.image_url || "/shlogo.jpg"}
@@ -90,11 +96,31 @@ export function RegisteredUserGroups() {
           </div>
         </div>
         <div className="flex flex-col gap-3 md:text-xl md:font-medium leading-relaxed w-auto items-center">
-          <div>Non-tech</div>
-          <div className="text-5xl font-semibold">{nontech?.length}</div>
+          <div>Hipster</div>
+          <div className="text-5xl font-semibold">{hipster?.length}</div>
           <div className="flex flex-wrap gap-2 w-[15rem] justify-center">
-            {nontech ? (
-              nontech.map((t) => (
+            {hipster ? (
+              hipster.map((t) => (
+                <Image
+                  key={t.fields.name}
+                  src={t.fields.image_url || "/shlogo.jpg"}
+                  height={50}
+                  width={50}
+                  alt={t.fields.name}
+                  className="rounded"
+                />
+              ))
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col gap-3 md:text-xl md:font-medium leading-relaxed w-auto items-center">
+          <div>Hustler</div>
+          <div className="text-5xl font-semibold">{hustler?.length}</div>
+          <div className="flex flex-wrap gap-2 w-[15rem] justify-center">
+            {hustler ? (
+              hustler.map((t) => (
                 <Image
                   key={t.fields.name}
                   src={t.fields.image_url || "/shlogo.jpg"}
