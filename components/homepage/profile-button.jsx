@@ -20,17 +20,20 @@ export function ProfileButton({ account, session }) {
       <Menu as="div" className="relative inline-block text-left">
         <Menu.Button className="px-4 py-2 border-white border-2 text-white rounded-xl inline-flex items-center gap-2">
           Profile
-          <Image
-            src={
-              account?.records[0]?.fields?.image
-                ? account?.records[0]?.fields?.image[0]?.url
-                : account?.records[0]?.fields?.image_url || session?.user?.image
-            }
-            width={30}
-            height={30}
-            alt={session?.user?.name}
-            className="rounded-full bg-blue-100"
-          />
+          <div className="relative w-8 h-8 overflow-hidden">
+            <Image
+              src={
+                account?.records[0]?.fields?.image
+                  ? account?.records[0]?.fields?.image[0]?.url
+                  : account?.records[0]?.fields?.image_url ||
+                    session?.user?.image
+              }
+              layout="fill"
+              objectFit="cover"
+              alt={session?.user?.name}
+              className="rounded-full bg-blue-100"
+            />
+          </div>
         </Menu.Button>
         <Transition
           as={Fragment}

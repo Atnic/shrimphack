@@ -12,7 +12,7 @@ export function RegisterUsersList({ registeredUsers, registered }) {
               <div
                 key={i}
                 className={
-                  "border-slate-900 border-2 rounded-full w-10 h-10 overflow-hidden"
+                  "border-slate-900 border-2 rounded-full w-10 h-10 overflow-hidden relative"
                 }
                 style={{ zIndex: i }}
               >
@@ -22,8 +22,8 @@ export function RegisterUsersList({ registeredUsers, registered }) {
                       ? member.fields.image[0]?.url
                       : member.fields.image_url || "/shlogo.jpg"
                   }
-                  width={300}
-                  height={300}
+                  layout="fill"
+                  objectFit="cover"
                   alt={member.fields.name}
                   className="bg-blue-100"
                 />

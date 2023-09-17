@@ -55,15 +55,15 @@ export function Ticket({ account, session }) {
 
           <div className="flex flex-row items-center gap-4">
             {account && session?.user && (
-              <div className="rounded-full w-20 h-20 overflow-hidden">
+              <div className="relative rounded-full w-20 h-20 overflow-hidden">
                 <Image
                   src={
                     account?.fields?.image
                       ? account?.fields?.image[0]?.url
                       : account?.fields?.image_url || session?.user?.image
                   }
-                  width={account?.fields?.image?.width || 300}
-                  height={account?.fields?.image?.height || 300}
+                  layout="fill"
+                  objectFit="cover"
                   alt={"account-profile"}
                   className="rounded-full border-2 border-black bg-blue-100"
                 />
@@ -109,15 +109,15 @@ export function Ticket({ account, session }) {
         <div className="relative flex flex-col w-[17rem] justify-between px-6 py-10 pb-12 overflow-hidden">
           <div className="flex flex-row items-center gap-4">
             {account && session?.user && (
-              <div className="rounded-full w-14 h-14 overflow-hidden">
+              <div className="relative rounded-full w-14 h-14 overflow-hidden">
                 <Image
                   src={
                     account?.fields?.image
                       ? account?.fields?.image[0]?.url
                       : account?.fields?.image_url || session?.user?.image
                   }
-                  width={account?.fields?.image?.width || 300}
-                  height={account?.fields?.image?.height || 300}
+                  layout="fill"
+                  objectFit="cover"
                   alt={"account-profile"}
                   className="rounded-full bg-blue-100"
                 />

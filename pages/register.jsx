@@ -323,7 +323,7 @@ export default function Register() {
                             session?.user?.image || imageUpload
                               ? "overflow-hidden"
                               : "p-3 border border-dashed",
-                            "flex flex-col items-center justify-center text-center  border-gray-400 w-[6rem] h-[6rem] overflow-hidden rounded-full cursor-pointer"
+                            "relative flex flex-col items-center justify-center text-center  border-gray-400 w-[6rem] h-[6rem] overflow-hidden rounded-full cursor-pointer"
                           )}
                         >
                           {session?.user?.image || imageUpload ? (
@@ -331,8 +331,8 @@ export default function Register() {
                               src={
                                 imageUpload ? imageUpload : session?.user?.image
                               }
-                              width={100}
-                              height={100}
+                              layout="fill"
+                              objectFit="cover"
                               alt="profile picture"
                             />
                           ) : (

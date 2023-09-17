@@ -101,14 +101,18 @@ export function RegisteredUserGroups() {
           <div className="flex flex-wrap gap-2 w-[15rem] justify-center">
             {hipster ? (
               hipster.map((t) => (
-                <Image
+                <div
                   key={t.fields.name}
-                  src={t.fields.image_url || "/shlogo.jpg"}
-                  height={50}
-                  width={50}
-                  alt={t.fields.name}
-                  className="rounded"
-                />
+                  className="relative rounded h-12 w-12 overflow-hidden"
+                >
+                  <Image
+                    src={t.fields.image_url || "/shlogo.jpg"}
+                    layout="fill"
+                    objectFit="cover"
+                    alt={t.fields.name}
+                    className="rounded"
+                  />
+                </div>
               ))
             ) : (
               <></>
