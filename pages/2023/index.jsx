@@ -34,13 +34,13 @@ export default function SH2023() {
   useEffect(() => {
     if (
       (!session && status == "unauthenticated") ||
-      account?.records?.length == 0
+      !account?.records?.length
     ) {
       signIn();
     }
   }, [account, session, status]);
 
-  // console.log(account?.records[0]);
+  console.log(account?.records?.length);
 
   if (accountDataLoading || eventDataLoading)
     return (

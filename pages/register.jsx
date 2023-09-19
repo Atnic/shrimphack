@@ -342,6 +342,7 @@ export default function Register() {
                                 layout="fill"
                                 objectFit="cover"
                                 alt="profile picture"
+                                priority
                               />
                             ) : (
                               <div className="text-gray-400">
