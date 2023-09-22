@@ -201,7 +201,7 @@ export default function Home({
                           alt={track.fields.name}
                           height={track.fields.image[0].height}
                           width={track.fields.image[0].width}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+                          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
                         />
                       </div>
                       <div className="text-lg font-semibold text-center">

@@ -10,6 +10,7 @@ import { Ticket } from "@/components/layouts/ticket";
 import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
 import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
+import { LinkIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
 import {
   TimeConverter,
   DateNumericConverter,
@@ -32,15 +33,12 @@ export default function SH2023() {
   } = useSWR(`/api/events`, (url) => fetcher(url));
 
   useEffect(() => {
-    if (
-      (!session && status == "unauthenticated") ||
-      !account?.records?.length
-    ) {
+    if (!session && status == "unauthenticated" && !account?.records?.length) {
       signIn();
     }
   }, [account, session, status]);
 
-  console.log(account?.records?.length);
+  // console.log(account?.records?.length);
 
   if (accountDataLoading || eventDataLoading)
     return (
@@ -118,9 +116,20 @@ export default function SH2023() {
                           <div className="text-lg font-semibold">
                             {event.fields.name}
                           </div>
-                          <div className="text-xs">
+                          <div className="text-xs inline-flex gap-3 items-center">
                             {TimeConverter(event.fields.date)} &bull;{" "}
                             {event.fields.location}
+                            {event.fields.link && (
+                              <a
+                                href={event.fields.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex gap-2 items-center px-3 py-0.5 bg-white text-blue-600 rounded-full"
+                              >
+                                <VideoCameraIcon className="w-4 h-4 " />
+                                Link
+                              </a>
+                            )}
                           </div>
                         </div>
                       </div>
