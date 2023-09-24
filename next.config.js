@@ -10,6 +10,7 @@ const nextConfig = {
       "v5.airtableusercontent.com",
       "lh3.google.com",
       "firebasestorage.googleapis.com",
+      "shrimphack.com",
     ],
   },
   i18n: {

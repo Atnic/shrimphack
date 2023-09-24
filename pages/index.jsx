@@ -1,6 +1,6 @@
 import { PageLayout } from "@/components/layouts/page";
 import { PageContent } from "@/components/layouts/page-contents";
-import Link from "next/link";
+// import Link from "next/link";
 import Container from "@/components/layouts/container";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
@@ -10,6 +10,8 @@ import RegisterButton from "@/components/ui/register-button";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Footer } from "@/components/layouts/footer";
+import useSWR from "swr";
+import { fetcher } from "@/utils/fetcher";
 
 const prizes = [
   {
@@ -36,11 +38,11 @@ const prizes = [
 
 export default function Home({
   seo,
-  repos,
-  galleries,
-  contentImages,
-  testimonies,
-  tracks,
+  // repos,
+  // galleries,
+  // contentImages,
+  // testimonies,
+  // tracks,
 }) {
   const options = {
     type: "loop",
@@ -53,6 +55,36 @@ export default function Home({
   };
 
   // console.log(image);
+
+  const {
+    data: repos,
+    error: reposDataError,
+    isLoading: reposDataLoading,
+  } = useSWR(`/api/home/repositories`, (url) => fetcher(url));
+
+  const {
+    data: galleries,
+    error: galleriesDataError,
+    isLoading: galleriesDataLoading,
+  } = useSWR(`/api/home/galleries`, (url) => fetcher(url));
+
+  const {
+    data: contentImages,
+    error: contentImagesDataError,
+    isLoading: contentImagesDataLoading,
+  } = useSWR(`/api/home/content-images`, (url) => fetcher(url));
+
+  const {
+    data: testimonies,
+    error: testimoniesDataError,
+    isLoading: testimoniesDataLoading,
+  } = useSWR(`/api/home/testimonies`, (url) => fetcher(url));
+
+  const {
+    data: tracks,
+    error: tracksDataError,
+    isLoading: tracksDataLoading,
+  } = useSWR(`/api/home/tracks`, (url) => fetcher(url));
 
   const headerImage = contentImages
     ? contentImages.records.find((r) => {
@@ -72,7 +104,7 @@ export default function Home({
       })
     : null;
 
-  if (!contentImages || !galleries)
+  if (!contentImages || !galleries || !testimonies)
     return (
       <PageLayout>
         <PageContent>
@@ -96,6 +128,12 @@ export default function Home({
         </PageContent>
       </PageLayout>
     );
+
+  if (reposDataError) return <div>Can&apos;t get repositories</div>;
+  if (galleriesDataError) return <div>Can&apos;t get galleries</div>;
+  if (contentImagesDataError) return <div>Can&apos;t get content images</div>;
+  if (testimoniesDataError) return <div>Can&apos;t get testimonies</div>;
+  if (tracksDataError) return <div>Can&apos;t get tracks</div>;
   // console.log(repos);
   // console.log(testimonies);
   // console.log(galleries);
@@ -401,68 +439,6 @@ export default function Home({
 }
 
 export async function getStaticProps() {
-  // const res = await fetch('https://api.github.com/repos/vercel/next.js')
-  // const repo = await res.json()
-
-  const repoRes = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2022_repositories`,
-    {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-      },
-    }
-  );
-  const repos = await repoRes.json();
-
-  const galleriesRes = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/galleries`,
-    {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-      },
-    }
-  );
-
-  const galleries = await galleriesRes.json();
-
-  const contentImageRes = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/content_image`,
-    {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-      },
-    }
-  );
-
-  const contentImages = await contentImageRes.json();
-
-  const testimoniesRes = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/testimonies?filterByFormula=verified`,
-    {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-      },
-    }
-  );
-
-  const testimonies = await testimoniesRes.json();
-
-  const trackRes = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/tracks?sort%5B0%5D%5Bfield%5D=sort`,
-    {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
-      },
-    }
-  );
-
-  const tracks = await trackRes.json();
-
   return {
     props: {
       seo: {
@@ -492,11 +468,6 @@ export async function getStaticProps() {
           cardType: "summary_large_image",
         },
       },
-      repos: repos,
-      galleries: galleries,
-      contentImages: contentImages,
-      testimonies: testimonies,
-      tracks: tracks,
     },
   };
 }
