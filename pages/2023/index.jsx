@@ -16,9 +16,12 @@ import {
   DateNumericConverter,
   DateMonthShortConverter,
 } from "@/utils";
+import clsx from "clsx";
 
 export default function SH2023() {
   const { data: session, status, loading } = useSession();
+
+  const today = Date.now();
 
   const {
     data: account,
@@ -102,7 +105,12 @@ export default function SH2023() {
                     events?.records?.map((event, i) => (
                       <div
                         key={i}
-                        className="flex flex-row gap-4 p-4 items-center"
+                        className={clsx(
+                          today > Date.parse(event.fields.date)
+                            ? "opacity-20"
+                            : "opacity-100",
+                          "flex flex-row gap-4 p-4 items-center"
+                        )}
                       >
                         <div className="flex flex-col justify-center text-center p-2 bg-white text-slate-900 w-20 rounded-xl">
                           <div className="text-2xl font-bold">
@@ -119,17 +127,18 @@ export default function SH2023() {
                           <div className="text-xs inline-flex gap-3 items-center">
                             {TimeConverter(event.fields.date)} &bull;{" "}
                             {event.fields.location}
-                            {event.fields.link && (
-                              <a
-                                href={event.fields.link}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="inline-flex gap-2 items-center px-3 py-0.5 bg-white text-blue-600 rounded-full"
-                              >
-                                <VideoCameraIcon className="w-4 h-4 " />
-                                Link
-                              </a>
-                            )}
+                            {event.fields.link &&
+                              today < Date.parse(event.fields.date) && (
+                                <a
+                                  href={event.fields.link}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="inline-flex gap-2 items-center px-3 py-0.5 bg-white text-blue-600 rounded-full"
+                                >
+                                  <VideoCameraIcon className="w-4 h-4 " />
+                                  Link
+                                </a>
+                              )}
                           </div>
                         </div>
                       </div>
