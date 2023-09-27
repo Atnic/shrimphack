@@ -11,6 +11,11 @@ export default function RegisterButton() {
   const { data: session, loading, status } = useSession();
   const router = useRouter();
 
+  const today = Date.now();
+  const registrationClosedDate = Date.parse("28 Sep 2023 00:00:00 GMT");
+
+  // console.log(today > registrationClosedDate);
+
   const {
     data: account,
     error: accountDataError,
@@ -34,7 +39,7 @@ export default function RegisterButton() {
   // console.log(session?.user?.image);
   // console.log(registered);
   const registeredUsers = registered?.records.length;
-  if (registeredUsers > 40) {
+  if (registeredUsers > 40 || today > registrationClosedDate) {
     return (
       <div className="flex flex-col gap-2">
         <RegisterUsersList

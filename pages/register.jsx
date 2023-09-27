@@ -7,11 +7,7 @@ import { PageContent } from "@/components/layouts/page-contents";
 import Container from "@/components/layouts/container";
 import clsx from "clsx";
 import { SHWhite } from "@/components/logo/shlogo";
-import {
-  ArrowLeftIcon,
-  PlusCircleIcon,
-  CameraIcon,
-} from "@heroicons/react/24/solid";
+import { ArrowLeftIcon, CameraIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { Footer } from "@/components/layouts/footer";
@@ -40,6 +36,9 @@ export default function Register() {
     image_url: session?.user?.image,
     image: "",
   });
+
+  const today = Date.now();
+  const registrationClosedDate = Date.parse("28 Sep 2023 00:00:00 GMT");
 
   // console.log(csrfToken);
 
@@ -97,6 +96,9 @@ export default function Register() {
   } = useSWR(session ? `/api/account` : null, (url) => fetcher(url));
 
   useEffect(() => {
+    if (today > registrationClosedDate) {
+      router.push("/");
+    }
     if (account?.records?.length == 1) {
       router.push("/2023");
     }
@@ -288,7 +290,6 @@ export default function Register() {
         }}
       />
       <PageContent>
-        {/* <Navbar /> */}
         <Container>
           <div className="flex flex-col pb-10">
             <Link href={"/"}>
@@ -378,19 +379,6 @@ export default function Register() {
                           onChange={handleInputChange}
                         />
                       </div>
-
-                      {/* <div className="hidden md:flex flex-1 flex-col gap-2">
-                        <div className="text-white text-sm font-medium">
-                          Mobile
-                        </div>
-                        <input
-                          type="tel"
-                          name="phone_number"
-                          className="mt-1 block w-full rounded-md text-slate-600 border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                          value={profileData.phone_number}
-                          onChange={handleInputChange}
-                        />
-                      </div> */}
                     </div>
                     <div className="flex flex-row gap-4">
                       {!session?.user && (
