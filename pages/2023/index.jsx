@@ -17,6 +17,8 @@ import {
   DateMonthShortConverter,
 } from "@/utils";
 import clsx from "clsx";
+import qs from "qs";
+import { TeamCard } from "@/components/homepage/team-card";
 
 export default function SH2023() {
   const { data: session, status, loading } = useSession();
@@ -28,6 +30,28 @@ export default function SH2023() {
     error: accountDataError,
     isLoading: accountDataLoading,
   } = useSWR(`/api/account`, (url) => fetcher(url));
+
+  const teamsParams = account
+    ? qs.stringify({
+        filterByFormula: `SEARCH('${account.records[0].fields.name}', ARRAYJOIN(full_name, ";"))`,
+      })
+    : null;
+
+  // console.log(teamsParams);
+
+  const {
+    data: teams,
+    error: teamsDataError,
+    isLoading: teamsDataLoading,
+  } = useSWR(teamsParams ? `/api/teams?${teamsParams}` : null, (url) =>
+    fetcher(url)
+  );
+
+  // const {
+  //   data: teams,
+  //   error: teamsDataError,
+  //   isLoading: teamsDataLoading,
+  // } = useSWR(`/api/teams`, (url) => fetcher(url));
 
   const {
     data: events,
@@ -42,6 +66,7 @@ export default function SH2023() {
   }, [account, session, status]);
 
   // console.log(account?.records?.length);
+  console.log(teams, account);
 
   if (accountDataLoading || eventDataLoading)
     return (
@@ -94,6 +119,20 @@ export default function SH2023() {
           {account?.records[0] && session?.user && !loading && (
             <div className="flex flex-col">
               <Ticket account={account?.records[0]} session={session} />
+              <div className="flex flex-col gap-2 mx-auto">
+                <div className="flex flex-col p-4 border border-slate-200 rounded-md">
+                  <div className="">{teams.records[0].fields.name}</div>
+                  <div className="flex flex-row gap-4">
+                    {teams.records[0].fields.members ? (
+                      teams.records[0].fields.members.map((member, i) => (
+                        <TeamCard member={member} key={i} />
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+              </div>
               <RegisteredUserGroups />
               <div
                 className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
