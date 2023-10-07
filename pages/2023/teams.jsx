@@ -17,6 +17,11 @@ import {
   DateNumericConverter,
   DateMonthShortConverter,
 } from "@/utils";
+import {
+  CommandLineIcon,
+  SparklesIcon,
+  PaintBrushIcon,
+} from "@heroicons/react/24/solid";
 import clsx from "clsx";
 
 export default function Teams() {
@@ -114,7 +119,7 @@ export default function Teams() {
                                 3
                               )}deg)`,
                             }}
-                            className=" bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm"
+                            className="relative bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm"
                           >
                             <div
                               className={
@@ -135,6 +140,15 @@ export default function Teams() {
                             </div>
                             <div className="text-slate-800 text-sm text-center font-sans font-semibold">
                               {member.nickname}
+                            </div>
+                            <div className="absolute -top-2 -right-2 bg-white shadow-md rounded-full p-1">
+                              {member.role == "Hacker" ? (
+                                <CommandLineIcon className="w-5 h-5  text-blue-300" />
+                              ) : member.role == "Hustler" ? (
+                                <SparklesIcon className="w-5 h-5  text-amber-300" />
+                              ) : (
+                                <PaintBrushIcon className="w-4 h-4  text-red-300" />
+                              )}
                             </div>
                           </div>
                         ))

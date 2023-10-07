@@ -66,7 +66,7 @@ export default function SH2023() {
   }, [account, session, status]);
 
   // console.log(account?.records?.length);
-  console.log(teams, account);
+  // console.log(teams, account);
 
   if (accountDataLoading || eventDataLoading)
     return (
@@ -119,20 +119,24 @@ export default function SH2023() {
           {account?.records[0] && session?.user && !loading && (
             <div className="flex flex-col">
               <Ticket account={account?.records[0]} session={session} />
-              <div className="flex flex-col gap-2 mx-auto">
-                <div className="flex flex-col p-4 border border-slate-200 rounded-md">
-                  <div className="">{teams.records[0].fields.name}</div>
-                  <div className="flex flex-row gap-4">
-                    {teams.records[0].fields.members ? (
-                      teams.records[0].fields.members.map((member, i) => (
-                        <TeamCard member={member} key={i} />
-                      ))
-                    ) : (
-                      <></>
-                    )}
+              {teams && (
+                <div className="flex flex-col gap-2 mx-auto">
+                  <div className="flex flex-col p-4  items-center gap-4">
+                    <div className="font-semibold text-3xl">
+                      {teams.records[0].fields.name}
+                    </div>
+                    <div className="flex flex-row flex-wrap items-center justify-center gap-4 ">
+                      {teams.records[0].fields.members ? (
+                        teams.records[0].fields.members.map((member, i) => (
+                          <TeamCard memberId={member} key={i} />
+                        ))
+                      ) : (
+                        <></>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
               <RegisteredUserGroups />
               <div
                 className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
