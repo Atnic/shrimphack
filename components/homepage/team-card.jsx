@@ -1,61 +1,54 @@
 import React from "react";
-import useSWR from "swr";
-import { fetcher } from "@/utils/fetcher";
-import Image from "next/image";
-import {
-  CommandLineIcon,
-  SparklesIcon,
-  PaintBrushIcon,
-} from "@heroicons/react/24/solid";
+import { MemberCard } from "./member-card";
+import clsx from "clsx";
 
-export function TeamCard({ memberId }) {
-  const {
-    data: memberData,
-    error: memberDataError,
-    isLoading: memberDataLoading,
-  } = useSWR(memberId ? `api/registered?recordId=${memberId}` : null, (url) =>
-    fetcher(url)
-  );
-
-  const member = memberData?.fields;
-  //   console.log(member);
-  if (memberDataLoading) {
-    return (
-      <div className="w-16 md:w-24 animate-pulse">
-        <div className="w-24  bg-slate-600 h-28 rounded-xl"></div>
-      </div>
-    );
-  }
-
+export function TeamCard({ team }) {
+  console.log(team);
   return (
-    <div className="relative bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm">
-      <div
-        className={
-          "border-slate-900 border w-14 h-12 md:w-20 md:h-20 overflow-hidden relative"
-        }
-      >
-        <Image
-          src={
-            member.image
-              ? member.image[0]?.url
-              : member.image_url || "/shlogo.jpg"
-          }
-          layout="fill"
-          objectFit="cover"
-          alt={member.name}
-          className="bg-blue-100"
-        />
-      </div>
-      <div className="text-slate-800 text-sm text-center font-sans font-semibold">
-        {member.nickname}
-      </div>
-      <div className="absolute -top-2 -right-2 bg-white shadow-md rounded-full p-1">
-        {member.role == "Hacker" ? (
-          <CommandLineIcon className="w-5 h-5  text-blue-300" />
-        ) : member.role == "Hustler" ? (
-          <SparklesIcon className="w-5 h-5  text-amber-300" />
+    <div className="flex flex-col gap-2 mx-auto w-full">
+      <div className="flex flex-col p-4 items-center gap-4">
+        <div className="font-bold text-4xl">Team</div>
+        {team ? (
+          <div className="flex flex-col p-3 md:p-5 w-full lg:w-3/4 gap-4 border border-slate-300 rounded-xl ">
+            <div className="font-semibold text-3xl">{team.fields.name}</div>
+            <div
+              className={clsx(
+                team.fields.members.length > 4
+                  ? "justify-center"
+                  : "justify-left",
+                "flex flex-row flex-wrap items-center  gap-2 md:gap-4 "
+              )}
+            >
+              {team.fields.members ? (
+                team.fields.members.map((member, i) => (
+                  <MemberCard memberId={member} key={i} />
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
+            {/* {team.fields.project_name ? (
+              <div className="grid grid-cols-2 gap-2">
+                <div>Project Name: {team.fields.project_name}</div>
+                <div>Year: {team.fields.year}</div>
+                <div>Theme: {team.fields.theme}</div>
+                <div>Descriptions</div>
+                <div>Repository link</div>
+              </div>
+            ) : (
+              <div className="text-center">
+                <button className="px-4 py-2 bg-red-500 border-white border-2 text-white rounded-xl inline-flex items-center gap-2">
+                  Submit Project
+                </button>
+              </div>
+            )} */}
+          </div>
         ) : (
-          <PaintBrushIcon className="w-4 h-4  text-red-300" />
+          <div>
+            <div className="font-semibold">
+              No team. Please wait for the team drawing on 14 October 2023.
+            </div>
+          </div>
         )}
       </div>
     </div>

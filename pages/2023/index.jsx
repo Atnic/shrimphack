@@ -33,7 +33,7 @@ export default function SH2023() {
 
   const teamsParams = account
     ? qs.stringify({
-        filterByFormula: `SEARCH('${account.records[0].fields.name}', ARRAYJOIN(full_name, ";"))`,
+        filterByFormula: `AND(SEARCH('${account.records[0].fields.name}', ARRAYJOIN(full_name, ";")), year=2023)`,
       })
     : null;
 
@@ -46,12 +46,6 @@ export default function SH2023() {
   } = useSWR(teamsParams ? `/api/teams?${teamsParams}` : null, (url) =>
     fetcher(url)
   );
-
-  // const {
-  //   data: teams,
-  //   error: teamsDataError,
-  //   isLoading: teamsDataLoading,
-  // } = useSWR(`/api/teams`, (url) => fetcher(url));
 
   const {
     data: events,
@@ -67,8 +61,9 @@ export default function SH2023() {
 
   // console.log(account?.records?.length);
   // console.log(teams, account);
+  // console.log(teams);
 
-  if (accountDataLoading || eventDataLoading)
+  if (accountDataLoading || eventDataLoading || teamsDataLoading)
     return (
       <PageLayout>
         <PageContent>
@@ -119,24 +114,7 @@ export default function SH2023() {
           {account?.records[0] && session?.user && !loading && (
             <div className="flex flex-col">
               <Ticket account={account?.records[0]} session={session} />
-              {teams && (
-                <div className="flex flex-col gap-2 mx-auto">
-                  <div className="flex flex-col p-4  items-center gap-4">
-                    <div className="font-semibold text-3xl">
-                      {teams.records[0].fields.name}
-                    </div>
-                    <div className="flex flex-row flex-wrap items-center justify-center gap-4 ">
-                      {teams.records[0].fields.members ? (
-                        teams.records[0].fields.members.map((member, i) => (
-                          <TeamCard memberId={member} key={i} />
-                        ))
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
+              <TeamCard team={teams?.records[0]} />
               <RegisteredUserGroups />
               <div
                 className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"

@@ -8,7 +8,16 @@ export default async function handler(req, res) {
     view: view,
     sort: sort,
     pageSize: pageSize,
-    fields: ["name", "members"],
+    fields: [
+      "name",
+      "members",
+      "project_name",
+      "descriptions",
+      "year",
+      "theme",
+      "repo_link",
+      "images",
+    ],
   });
 
   const teams = await fetch(
@@ -23,7 +32,7 @@ export default async function handler(req, res) {
     }
   );
 
-  console.log(teamsParams);
+  // console.log(teamsParams);
 
   // console.log(peserta.size);
   const response = await teams.json();
