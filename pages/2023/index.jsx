@@ -19,7 +19,6 @@ import {
 import clsx from "clsx";
 import qs from "qs";
 import { TeamCard } from "@/components/homepage/team-card";
-import { TeamSubmission } from "@/components/teams/team-submission";
 
 export default function SH2023() {
   const { data: session, status, loading } = useSession();
@@ -116,7 +115,6 @@ export default function SH2023() {
             <div className="flex flex-col">
               <Ticket account={account?.records[0]} session={session} />
               <TeamCard team={teams?.records[0]} />
-              <TeamSubmission team={teams?.records[0]} />
               <RegisteredUserGroups />
               <div
                 className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
