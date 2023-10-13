@@ -42,16 +42,19 @@ export default function Teams() {
   const filteredTeams = {
     teams: teams?.records?.map((item) => {
       const members = [];
-      for (let i = 0; i < item.fields.members.length; i++) {
-        const member = {
-          name: item.fields.members[i],
-          role: item.fields.role[i],
-          image_url: item.fields.image_url[i],
-          nickname: item.fields.nickname[i],
-          // image: item.fields.image ? item.fields.image[i] : undefined,
-        };
-        members.push(member);
+      if (item.fields.members) {
+        for (let i = 0; i < item.fields.members.length; i++) {
+          const member = {
+            name: item.fields.members[i],
+            role: item.fields.role[i],
+            image_url: item.fields.image_url[i],
+            nickname: item.fields.nickname[i],
+            // image: item.fields.image ? item.fields.image[i] : undefined,
+          };
+          members.push(member);
+        }
       }
+
       return {
         name: item.fields.name,
         members: members,
