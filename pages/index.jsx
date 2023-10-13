@@ -9,6 +9,7 @@ import { Navbar } from "@/components/layouts/navbar";
 import RegisterButton from "@/components/ui/register-button";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { Agenda } from "@/components/teams/agenda";
 import { Footer } from "@/components/layouts/footer";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
@@ -277,6 +278,7 @@ export default function Home({
                 )}
               </div>
             </div>
+            <Agenda />
             <div
               className="flex flex-col gap-4 py-20 scroll-mt-10 "
               id="projects"

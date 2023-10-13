@@ -11,6 +11,7 @@ import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
 import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
 import { LinkIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
+import { Agenda } from "@/components/teams/agenda";
 import {
   TimeConverter,
   DateNumericConverter,
@@ -116,6 +117,7 @@ export default function SH2023() {
               <Ticket account={account?.records[0]} session={session} />
               <TeamCard team={teams?.records[0]} />
               <RegisteredUserGroups />
+              <Agenda />
               <div
                 className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
                 id="events"

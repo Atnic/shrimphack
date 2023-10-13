@@ -70,7 +70,7 @@ export function RegisteredUserGroups() {
 
   return (
     <div className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16">
-      <div className="text-4xl font-bold mx-auto">Registered Users</div>
+      <div className="text-4xl font-bold mx-auto">Registered Participants</div>
       <div
         className="mx-auto grid grid-cols-1 md:grid-cols-3 py-6 gap-10 scroll-mt-10 px-4 lg:px-16"
         id="registered"
