@@ -6,17 +6,7 @@ import Image from "next/image";
 import useSWR from "swr";
 import { SHWhite } from "@/components/logo/shlogo";
 import { fetcher } from "@/utils/fetcher";
-import { useSession, signIn } from "next-auth/react";
-import { Ticket } from "@/components/layouts/ticket";
-import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
-import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
-import { LinkIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
-import {
-  TimeConverter,
-  DateNumericConverter,
-  DateMonthShortConverter,
-} from "@/utils";
 import {
   CommandLineIcon,
   SparklesIcon,
