@@ -36,8 +36,15 @@ export default function Awards() {
     data: registered,
     error: registeredDataError,
     isLoading: registeredDataLoading,
-  } = useSWR(`${process.env.NEXT_PUBLIC_HOSTNAME}/api/registered`, (url) =>
-    fetcher(url)
+  } = useSWR(
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?`,
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      })
   );
 
   const handleConfetti = () => {

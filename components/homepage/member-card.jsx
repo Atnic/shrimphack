@@ -10,15 +10,32 @@ import {
 
 export function MemberCard({ memberId }) {
   // console.log(memberId);
+  // const {
+  //   data: memberData,
+  //   error: memberDataError,
+  //   isLoading: memberDataLoading,
+  // } = useSWR(
+  //   memberId
+  //     ? `${process.env.NEXT_PUBLIC_HOSTNAME}/api/registered?recordId=${memberId}`
+  //     : null,
+  //   (url) => fetcher(url)
+  // );
+
   const {
     data: memberData,
     error: memberDataError,
     isLoading: memberDataLoading,
   } = useSWR(
     memberId
-      ? `${process.env.NEXT_PUBLIC_HOSTNAME}/api/registered?recordId=${memberId}`
+      ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration/${memberId}`
       : null,
-    (url) => fetcher(url)
+    (url) =>
+      fetcher(url, {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      })
   );
 
   const member = memberData?.fields;
