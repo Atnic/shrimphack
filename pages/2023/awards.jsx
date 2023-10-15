@@ -7,6 +7,7 @@ import useSWR from "swr";
 import { SHWhite } from "@/components/logo/shlogo";
 import { fetcher } from "@/utils/fetcher";
 import { AwardDisclosureSection } from "@/components/awards/award-disclosure-section";
+import { IndividualAwardDisclosureSection } from "@/components/awards/award-disclosure-section-individual";
 
 import JSConfetti from "js-confetti";
 
@@ -41,7 +42,7 @@ export default function Awards() {
 
   const handleConfetti = () => {
     jsConfetti.addConfetti({
-      emojis: ["🍤"],
+      emojis: ["🍤", "🦐"],
     });
   };
 
@@ -69,9 +70,9 @@ export default function Awards() {
     return m?.fields?.awards?.includes("Best Contributors");
   });
 
-  console.log(registered);
-  console.log("contributors", contributors);
-  console.log("new", newcomers);
+  // console.log(registered);
+  // console.log("contributors", contributors);
+  // console.log("new", newcomers);
 
   //   console.log(teams);
   //   console.log("favor", favorite);
@@ -120,6 +121,16 @@ export default function Awards() {
               </div> */}
             </div>
             <div className="flex flex-col md:gap-4 py-20 scroll-mt-10 px-4 md:px-16 min-w-full mx-auto">
+              <IndividualAwardDisclosureSection
+                winners={newcomers}
+                title={"Best Newcomers"}
+                handleConfetti={handleConfetti}
+              />
+              <IndividualAwardDisclosureSection
+                winners={contributors}
+                title={"Best Contributors"}
+                handleConfetti={handleConfetti}
+              />
               <AwardDisclosureSection
                 team={favorite}
                 title={"Favorite Team"}

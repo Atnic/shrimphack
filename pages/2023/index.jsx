@@ -9,7 +9,7 @@ import { useSession, signIn } from "next-auth/react";
 import { Ticket } from "@/components/layouts/ticket";
 import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
-import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
+// import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
 import { LinkIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
 import { Agenda } from "@/components/teams/agenda";
 import {
@@ -116,7 +116,7 @@ export default function SH2023() {
             <div className="flex flex-col">
               <Ticket account={account?.records[0]} session={session} />
               <TeamCard team={teams?.records[0]} />
-              <RegisteredUserGroups />
+              {/* <RegisteredUserGroups /> */}
               <Agenda />
               <div
                 className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
