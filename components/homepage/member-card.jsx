@@ -9,16 +9,20 @@ import {
 } from "@heroicons/react/24/solid";
 
 export function MemberCard({ memberId }) {
+  // console.log(memberId);
   const {
     data: memberData,
     error: memberDataError,
     isLoading: memberDataLoading,
-  } = useSWR(memberId ? `api/registered?recordId=${memberId}` : null, (url) =>
-    fetcher(url)
+  } = useSWR(
+    memberId
+      ? `${process.env.NEXT_PUBLIC_HOSTNAME}/api/registered?recordId=${memberId}`
+      : null,
+    (url) => fetcher(url)
   );
 
   const member = memberData?.fields;
-  //   console.log(member);
+  // console.log(member);
   if (memberDataLoading) {
     return (
       <div className="w-16 md:w-24 animate-pulse">
