@@ -116,7 +116,7 @@ export function ProfileButton({ account, session }) {
   if (!session) {
     return (
       <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button className="px-4 py-2 border-white border-2 text-white rounded-xl inline-flex items-center gap-2">
+        <Menu.Button className="px-6 py-2 hover:border-blue-600 border-2 text-white hover:text-blue-600 hover:bg-white bg-blue-600 rounded-xl inline-flex items-center gap-2">
           Login
         </Menu.Button>
         <Transition
