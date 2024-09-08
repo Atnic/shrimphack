@@ -9,6 +9,7 @@ import { Navbar } from "@/components/layouts/navbar";
 import RegisterButton from "@/components/ui/register-button";
 import { Hero } from "@/components/homepage/hero";
 import { About } from "@/components/homepage/about";
+import { Tracks } from "@/components/homepage/tracks";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Agenda } from "@/components/teams/agenda";
@@ -175,43 +176,8 @@ export default function Home({
           <div className="flex flex-col">
             {headerImage && <Hero headerImage={headerImage} />}
             {aboutImage && <About aboutImage={aboutImage} />}
+            {tracks && <Tracks tracks={tracks} />}
 
-            <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16"
-              id="tracks"
-            >
-              <div className="text-4xl font-bold text-left border-b border-jala-insight border-dotted py-4">
-                Tracks
-              </div>
-              <div className="flex flex-row flex-wrap justify-center gap-4 mx-auto py-6">
-                {tracks?.records ? (
-                  tracks?.records?.map((track, i) => (
-                    <div
-                      key={i}
-                      className="flex flex-col gap-2 py-4 md:w-72 items-center"
-                    >
-                      <div className="max-w-[14rem] max-h-[10rem] lg:max-w-[18rem] lg:max-h-[18rem] overflow-hidden rounded-lg ">
-                        <Image
-                          src={track.fields.image[0].url}
-                          alt={track.fields.name}
-                          height={track.fields.image[0].height}
-                          width={track.fields.image[0].width}
-                          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
-                        />
-                      </div>
-                      <div className="text-lg font-semibold text-center">
-                        {track.fields.name}
-                      </div>
-                      <div className="text-center">
-                        {track.fields.descriptions}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </div>
-            </div>
             <div
               className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16"
               id="prizes"
