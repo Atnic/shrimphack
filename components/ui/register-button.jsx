@@ -7,12 +7,12 @@ import { fetcher } from "@/utils/fetcher";
 import { RegisterUsersList } from "../homepage/registered-user-list";
 // import Image from "next/image";
 
-export default function RegisterButton() {
+export function RegisterButton() {
   const { data: session, loading, status } = useSession();
   const router = useRouter();
 
   const today = Date.now();
-  const registrationClosedDate = Date.parse("28 Sep 2023 00:00:00 GMT");
+  const registrationClosedDate = Date.parse("7 Oct 2024 00:00:00 GMT");
 
   // console.log(today > registrationClosedDate);
 
@@ -39,7 +39,7 @@ export default function RegisterButton() {
   // console.log(session?.user?.image);
   // console.log(registered);
   const registeredUsers = registered?.records.length;
-  if (registeredUsers > 40 || today > registrationClosedDate) {
+  if (today > registrationClosedDate) {
     return (
       <div className="flex flex-col gap-2">
         <RegisterUsersList
@@ -85,15 +85,17 @@ export default function RegisterButton() {
         registeredUsers={registeredUsers}
       />
       <button
-        className="px-4 py-2 bg-white text-slate-800 rounded-xl text-lg border-2 hover:border-2 hover:border-white hover:text-white hover:bg-transparent w-full md:w-fit"
+        className="px-4 py-2 bg-white hover:bg-jala-insight text-jala-insight rounded-xl text-lg border-2 border-jala-insight hover:border-2 hover:border-white hover:text-white hover:bg-transparent w-full md:w-fit"
         onClick={() => signIn("google", { callbackUrl: "/2023" })}
       >
         Continue with JALA&apos;s email
       </button>
       <Link href={"/register"}>
-        <div className="cursor-pointer font-semibold text-white">
+        <div className="cursor-pointer font-semibold text-slate-700">
           Don&apos;t have JALA&apos;s email?{" "}
-          <span className="text-red-500">Register here!</span>
+          <span className="text-jala-insight hover:underline">
+            Register here!
+          </span>
         </div>
       </Link>
     </div>

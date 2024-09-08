@@ -7,6 +7,7 @@ import Image from "next/image";
 import "@splidejs/react-splide/css/skyblue";
 import { Navbar } from "@/components/layouts/navbar";
 import RegisterButton from "@/components/ui/register-button";
+import { Hero } from "@/components/homepage/hero";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Agenda } from "@/components/teams/agenda";
@@ -135,7 +136,7 @@ export default function Home({
   if (contentImagesDataError) return <div>Can&apos;t get content images</div>;
   if (testimoniesDataError) return <div>Can&apos;t get testimonies</div>;
   if (tracksDataError) return <div>Can&apos;t get tracks</div>;
-  // console.log(repos);
+  console.log(repos);
   // console.log(testimonies);
   // console.log(galleries);
   // console.log(tracks);
@@ -171,37 +172,12 @@ export default function Home({
         <Navbar />
         <Container>
           <div className="flex flex-col">
-            <div className="grid grid-cols-1 md:grid-cols-2 py-20 gap-5 lg:h-screen items-center px-4 lg:px-16">
-              <div className="flex flex-col gap-5 lg:gap-10">
-                <div className="text-5xl lg:text-6xl font-bold">
-                  ShrimpHack &apos;24
-                </div>
-                <div className="flex flex-col text-2xl lg:text-3xl">
-                  <div className="font-semibold">19 - 20 October</div>
-                  <div className="text-xl lg:text-2xl">JALA HQ - Sahid</div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <RegisterButton />
-                </div>
-              </div>
-              <div className="order-first md:order-last py-10">
-                <Image
-                  src={headerImage?.fields.image[0].url}
-                  height={headerImage?.fields.image[0].height}
-                  width={headerImage?.fields.image[0].width}
-                  alt={"header shrimphack"}
-                  className="rounded-lg"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
-                  priority
-                />
-              </div>
-            </div>
-
+            {headerImage && <Hero headerImage={headerImage} />}
             <div
               className="mx-auto grid grid-cols-1 md:grid-cols-2 py-20 gap-10 items-center scroll-mt-10 px-4 lg:px-16"
               id="about"
             >
-              <div className="md:text-xl md:font-medium leading-relaxed w-auto">
+              <div className="md:text-lg leading-relaxed w-auto">
                 ShrimpHack is a competitive weekend-long internal event of JALA
                 where WargaJALA come together to work on cool projects.
                 You&apos;ll have the freedom to create a product, learn new
@@ -221,10 +197,12 @@ export default function Home({
               </div>
             </div>
             <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
+              className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16"
               id="tracks"
             >
-              <div className="text-4xl font-bold mx-auto">Tracks</div>
+              <div className="text-4xl font-bold text-left border-b border-jala-insight border-dotted py-4">
+                Tracks
+              </div>
               <div className="flex flex-row flex-wrap justify-center gap-4 mx-auto py-6">
                 {tracks?.records ? (
                   tracks?.records?.map((track, i) => (
@@ -258,7 +236,9 @@ export default function Home({
               className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16"
               id="prizes"
             >
-              <div className="text-4xl font-bold mx-auto">Prizes</div>
+              <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
+                Prizes
+              </div>
               <div className="flex flex-row flex-wrap justify-center gap-2 mx-auto py-6">
                 {prizes ? (
                   prizes.map((prize, i) => (
@@ -278,21 +258,23 @@ export default function Home({
             </div>
             <Agenda />
             <div
-              className="flex flex-col gap-4 py-20 scroll-mt-10 "
+              className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16 "
               id="projects"
             >
-              <div className="text-4xl font-bold mx-auto">Past Projects</div>
-              <div className="flex flex-wrap gap-4 mx-auto px-4 lg:px-16 py-6 justify-center">
+              <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
+                Past Projects
+              </div>
+              <div className="flex flex-wrap gap-4 mx-auto py-6 justify-center">
                 {repos?.records[0] ? (
                   repos?.records.map((repo, i) => (
                     <div
                       key={repo.id}
-                      className="flex flex-col shrink-0 gap-3 text-center p-4 w-full md:w-72 border-slate-600 border rounded-lg items-center"
+                      className="flex flex-col gap-3 text-center p-4 w-full md:w-72 border-slate-200 border rounded-xl items-center"
                     >
                       <div className="text-lg font-bold">
                         {repo.fields.project_name}
                       </div>
-                      <div className="overflow-hidden max-w-[15rem] max-h-[10rem] rounded-lg ">
+                      <div className="overflow-hidden max-w-[15rem] min-h-[6rem] max-h-[6rem] rounded-lg ">
                         {repo.fields?.image ? (
                           <Image
                             src={
@@ -315,32 +297,49 @@ export default function Home({
                           </div>
                         )}
                       </div>
-                      <div className="text-sm font-light min-h-[4rem]">
+                      <p className="text-sm font-light line-clamp-3 min-h-[4rem]">
                         {repo.fields.descriptions}
-                      </div>
+                      </p>
                       <div className="flex flex-col">
-                        <div className="text-xs font-light">Built by</div>
-                        <div className="font-medium">
-                          {repo.fields.team_name}
+                        <div className="flex flex-row justify-between items-center">
+                          <div>
+                            <div className="text-xs font-light">Built by</div>
+                            <div className="font-medium">
+                              {repo.fields.team_name}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-xs font-light">Year</div>
+                            <div className="font-medium">
+                              {repo.fields.year}
+                            </div>
+                          </div>
                         </div>
+
                         <div className="flex mx-auto pt-2 -space-x-2">
-                          {repo.fields.members_image ? (
-                            repo.fields.members_image.map((member, i) => (
-                              <div
-                                key={i}
-                                className={
-                                  "border-slate-900 border-2 rounded-full w-10 h-10 overflow-hidden"
-                                }
-                                style={{ zIndex: i }}
-                              >
-                                <Image
-                                  src={member.url}
-                                  width={300}
-                                  height={300}
-                                  alt={member.filename}
-                                />
-                              </div>
-                            ))
+                          {repo.fields.members_name ? (
+                            repo.fields.members_name.map((member, i) => {
+                              return (
+                                <div
+                                  key={i}
+                                  className={
+                                    "border-jala-insight border-2 rounded-full w-10 h-10 overflow-hidden"
+                                  }
+                                  style={{ zIndex: i }}
+                                >
+                                  <Image
+                                    src={
+                                      repo.fields?.members_image?.[i]?.url ||
+                                      repo.fields?.image_url?.[i] ||
+                                      "/shlogo.jpg"
+                                    }
+                                    width={300}
+                                    height={300}
+                                    alt={member}
+                                  />
+                                </div>
+                              );
+                            })
                           ) : (
                             <></>
                           )}
@@ -353,7 +352,7 @@ export default function Home({
                           className="inline-flex items-center"
                         >
                           Github Repo
-                          <ArrowTopRightOnSquareIcon className="w-5 h-5 text-white ml-2" />
+                          <ArrowTopRightOnSquareIcon className="w-5 h-5 text-jala-insight ml-2" />
                         </a>
                       </div>
                     </div>

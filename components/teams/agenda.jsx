@@ -1,10 +1,12 @@
 export function Agenda() {
   return (
     <div
-      className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
+      className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16 space-y-6"
       id="events"
     >
-      <div className="text-4xl font-bold mx-auto">Agenda</div>
+      <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
+        Agenda
+      </div>
       <table className="table-fixed mx-auto text-sm md:text-base">
         <thead className=" text-gray-700 bg-gray-50 ">
           <tr>
