@@ -198,7 +198,6 @@ export default function Home({ seo }) {
             <Agenda />
             {testimonies && <Testimonies testimonies={testimonies} />}
             {images && <Galleries images={images} />}
-
             <Footer />
           </div>
         </Container>
