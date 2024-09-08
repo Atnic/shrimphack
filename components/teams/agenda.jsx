@@ -19,7 +19,9 @@ export function Agenda() {
           <tr className="">
             <td rowSpan={5} className="border p-2">
               Day 1 <br></br>
-              <span className="font-semibold">14 October 2023</span>
+              <span className="font-semibold text-jala-insight">
+                14 October 2023
+              </span>
             </td>
             <td className="border p-2">08:00 - 09:00</td>
             <td className="border p-2">
@@ -47,7 +49,9 @@ export function Agenda() {
           <tr className="">
             <td rowSpan={7} className="border p-2">
               Day 2 <br></br>
-              <span className="font-semibold">15 October 2023</span>
+              <span className="font-semibold text-jala-insight">
+                15 October 2023
+              </span>
             </td>
             <td className="border p-2">09:00 - 09:30</td>
             <td className="border p-2">Daily check in</td>
@@ -79,7 +83,7 @@ export function Agenda() {
             <td className="border p-2">Awarding</td>
           </tr>
           <tr>
-            <td className="border p-2">17:00 - selesai</td>
+            <td className="border p-2">17:00 - finish</td>
             <td className="border p-2">Closing ceremonies and dinner</td>
           </tr>
         </tbody>
