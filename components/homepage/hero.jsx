@@ -4,7 +4,6 @@ import Image from "next/image";
 import { rgbDataURL } from "@/utils/blur-url";
 
 export function Hero({ headerImage }) {
-  console.log(headerImage);
   return (
     <div className="grid grid-cols-1 md:grid-cols-5 py-20 gap-5 lg:h-screen items-center px-4 lg:px-16">
       <div className="flex flex-col gap-5 lg:gap-10 md:col-span-2">
