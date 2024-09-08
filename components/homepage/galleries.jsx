@@ -35,7 +35,6 @@ export function Galleries({ images }) {
                       alt={image.filename}
                       height={image.thumbnails.large.height}
                       width={image.thumbnails.large.width}
-                      blurDataURL={rgbDataURL(243, 249, 252)}
                       placeholder="blur"
                     />
                   </div>

@@ -43,17 +43,6 @@ const prizes = [
 ];
 
 export default function Home({ seo }) {
-  const options = {
-    type: "loop",
-    perPage: 2,
-    arrows: false,
-    gap: "1rem",
-    autoplay: true,
-    pauseOnHover: true,
-    resetProgress: false,
-    pagination: false,
-  };
-
   // console.log(image);
 
   const {
@@ -154,7 +143,7 @@ export default function Home({ seo }) {
   if (contentImagesDataError) return <div>Can&apos;t get content images</div>;
   if (testimoniesDataError) return <div>Can&apos;t get testimonies</div>;
   if (tracksDataError) return <div>Can&apos;t get tracks</div>;
-  console.log(repos);
+  // console.log(repos);
   // console.log(testimonies);
   // console.log(galleries);
   // console.log(tracks);
@@ -183,6 +172,8 @@ export default function Home({ seo }) {
           siteName: "ShrimpHack 2024 🍤",
         }}
         twitter={{
+          handle: "@jalaindonesia",
+          site: "@site",
           cardType: "summary_large_image",
         }}
       />

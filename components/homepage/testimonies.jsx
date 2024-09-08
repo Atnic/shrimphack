@@ -18,7 +18,7 @@ export function Testimonies({ testimonies }) {
     pagination: false,
   };
 
-  console.log(testimonies);
+  //   console.log(testimonies);
   return (
     <div
       className="flex flex-col w-full gap-4 py-20 scroll-mt-10 px-4 lg:px-16"
