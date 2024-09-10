@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (!recordId) {
     peserta = await fetch(
       paramRegistered
-        ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration`
+        ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2024_registration`
         : null,
       {
         method: "GET",
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   } else {
     peserta = await fetch(
       paramRegistered
-        ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration/${recordId}`
+        ? `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2024_registration/${recordId}`
         : null,
       {
         method: "GET",

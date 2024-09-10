@@ -28,7 +28,7 @@ export const authOptions = {
         // console.log(credentials);
         // console.log(credentials?.username, credentials?.password);
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2023_registration?filterByFormula=AND({email}="${credentials?.username}",{phone_number}="${credentials?.password}")`,
+          `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2024_registration?filterByFormula=AND({email}="${credentials?.username}",{phone_number}="${credentials?.password}")`,
           {
             method: "GET",
             headers: {
@@ -59,7 +59,7 @@ export const authOptions = {
   pages: {
     signIn: "/register",
     error: "/",
-    newUser: "/2023",
+    newUser: "/2024",
   },
 
   callbacks: {

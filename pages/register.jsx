@@ -120,7 +120,7 @@ export default function Register() {
     // console.log(storage.app);
     try {
       const image_id = uuidv4();
-      const imageRef = ref(storage, `2023/${image_id + file.name}`);
+      const imageRef = ref(storage, `2024/${image_id + file.name}`);
       const uploadTask = await uploadBytes(imageRef, file);
 
       // console.log("image ke firebase");
@@ -182,7 +182,7 @@ export default function Register() {
             });
             setIsSubmitting(false);
           } else {
-            await router.push("/2023");
+            await router.push("/2024");
             setIsSubmitting(false);
           }
         }
@@ -537,8 +537,8 @@ export default function Register() {
                       className={clsx(
                         isSubmitting
                           ? "bg-slate-300 "
-                          : "bg-red-500 text-slate-800",
-                        "py-3 rounded-md  w-full text-center font-semibold disabled:bg-slate-300 disabled:text-slate-400"
+                          : "bg-red-500 text-white",
+                        "py-3 rounded-xl  w-full text-center font-semibold disabled:bg-slate-300 disabled:text-slate-400"
                       )}
                     >
                       Register
