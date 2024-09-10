@@ -18,9 +18,9 @@ export function ProfileButton({ account, session }) {
   if (session && account) {
     return (
       <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button className="px-4 py-2 border-white border-2 text-white rounded-xl inline-flex items-center gap-2">
+        <Menu.Button className="group px-4 py-2 border-jala-insight border-2 text-jala-insight rounded-xl inline-flex items-center gap-2 hover:bg-jala-insight hover:text-white">
           Profile
-          <div className="relative w-8 h-8 overflow-hidden">
+          <div className="relative w-8 h-8 overflow-hidden group-hover:border-white border rounded-full">
             <Image
               src={
                 account?.records[0]?.fields?.image
@@ -31,7 +31,7 @@ export function ProfileButton({ account, session }) {
               layout="fill"
               objectFit="cover"
               alt={session?.user?.name}
-              className="rounded-full bg-blue-100"
+              className="rounded-full bg-blue-100 "
             />
           </div>
         </Menu.Button>
@@ -51,10 +51,10 @@ export function ProfileButton({ account, session }) {
                   <button
                     className={`${
                       active
-                        ? "bg-red-600 text-white font-semibold"
+                        ? "bg-jala-insight text-white font-semibold"
                         : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-3 `}
-                    onClick={() => router.push("/2023")}
+                    onClick={() => router.push("/2024")}
                   >
                     {active ? (
                       <UserCircleIcon
@@ -76,7 +76,7 @@ export function ProfileButton({ account, session }) {
                   <button
                     className={`${
                       active
-                        ? "bg-red-600 text-white font-semibold"
+                        ? "bg-jala-insight text-white font-semibold"
                         : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-3`}
                     onClick={() => signOut({ callbackUrl: "/" })}
@@ -135,7 +135,7 @@ export function ProfileButton({ account, session }) {
                   <button
                     className={`${
                       active
-                        ? "bg-red-600 text-white font-semibold"
+                        ? "bg-jala-insight text-white font-semibold"
                         : "text-gray-900"
                     } group flex w-full items-center rounded-md px-2 py-3 `}
                     onClick={() => signIn("google", { callbackUrl: "/" })}

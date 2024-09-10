@@ -43,7 +43,8 @@ export function RegisterUsersList({ registeredUsers, registered }) {
         </div>
       </div>
       <div className="text-lg text-slate-700 font-semibold">
-        {registeredUsers} Warga JALA Registered!!
+        {registeredUsers} Warga JALA {registeredUsers > 1 ? "are" : "is"}{" "}
+        Registered!!
       </div>
     </>
   );

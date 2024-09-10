@@ -55,8 +55,8 @@ export function RegisterButton() {
   if (session && account?.records) {
     return (
       <button
-        className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit"
-        onClick={() => router.push("/2023")}
+        className="px-8 py-2 border-jala-insight border-2 text-jala-insight hover:bg-jala-insight hover:text-white rounded-xl text-lg font-semibold w-full md:w-fit"
+        onClick={() => router.push("/2024")}
       >
         Your Profile
       </button>
@@ -70,7 +70,7 @@ export function RegisterButton() {
           registeredUsers={registeredUsers}
         />
         <Link href="/register">
-          <div className="px-8 py-2 border-white border-2 text-white rounded-xl text-lg font-semibold w-full md:w-fit text-center cursor-pointer">
+          <div className="px-8 py-2 border-jala-insight border-2 text-jala-insight rounded-xl text-lg font-semibold w-full md:w-fit text-center cursor-pointer">
             Complete Registration
           </div>
         </Link>
@@ -85,8 +85,8 @@ export function RegisterButton() {
         registeredUsers={registeredUsers}
       />
       <button
-        className="px-4 py-2 bg-white hover:bg-jala-insight text-jala-insight rounded-xl text-lg border-2 border-jala-insight hover:border-2 hover:border-white hover:text-white hover:bg-transparent w-full md:w-fit"
-        onClick={() => signIn("google", { callbackUrl: "/2023" })}
+        className="px-4 py-2 hover:bg-white bg-jala-insight text-white rounded-xl text-lg border-2 border-jala-insight hover:border-2 hover:border-jala-insight hover:text-jala-insight hover:bg-transparent w-full md:w-fit"
+        onClick={() => signIn("google", { callbackUrl: "/2024" })}
       >
         Continue with JALA&apos;s email
       </button>
