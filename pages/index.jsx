@@ -107,6 +107,12 @@ export default function Home({ seo }) {
       })
     : null;
 
+  const prizeImage = contentImages
+    ? contentImages.records.find((r) => {
+        return r.fields.name == "prize";
+      })
+    : null;
+
   const images = galleries
     ? galleries.records.filter((g) => {
         return g.fields.name == "galleries";
@@ -184,7 +190,7 @@ export default function Home({ seo }) {
             {headerImage && <Hero headerImage={headerImage} />}
             {aboutImage && <About aboutImage={aboutImage} />}
             {tracks && <Tracks tracks={tracks} />}
-            {prizes && <Prizes prizes={prizes} />}
+            {prizes && <Prizes prizes={prizes} prizeImage={prizeImage} />}
             {repos && <Projects repos={repos} />}
             <Agenda />
             {testimonies && <Testimonies testimonies={testimonies} />}

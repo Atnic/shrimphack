@@ -106,7 +106,7 @@ export function ProfileButton({ account, session }) {
   if (session && !account) {
     return (
       <Link href={"/register"}>
-        <div className="px-4 py-2 border-white border-2 text-white rounded-xl inline-flex text-sm md:text-base items-center gap-2">
+        <div className="px-4 py-2 border-jala-insight border-2 hover:bg-jala-insight hover:text-white text-jala-insight rounded-xl inline-flex text-sm md:text-base items-center gap-2 cursor-pointer">
           Complete Registration
         </div>
       </Link>

@@ -51,7 +51,7 @@ export default async function handler(req, res) {
 
   if (!account?.records[0]) {
     account = await panitia.json();
-    console.log("panitia");
+    // console.log("panitia");
     if (!account.records[0]) {
       console.log("account not found, register first");
       account = null;

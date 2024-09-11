@@ -70,7 +70,7 @@ export function RegisterButton() {
           registeredUsers={registeredUsers}
         />
         <Link href="/register">
-          <div className="px-8 py-2 border-jala-insight border-2 text-jala-insight rounded-xl text-lg font-semibold w-full md:w-fit text-center cursor-pointer">
+          <div className="px-8 py-2 border-jala-insight hover:bg-jala-insight hover:text-white border-2 text-jala-insight rounded-xl text-lg font-semibold w-full md:w-fit text-center cursor-pointer">
             Complete Registration
           </div>
         </Link>
