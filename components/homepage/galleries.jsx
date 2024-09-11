@@ -15,7 +15,7 @@ export function Galleries({ images }) {
       </div>
 
       <Gallery>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mx-auto py-6 pswp-gallery">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mx-auto py-6 pswp-gallery">
           {images ? (
             images[0].fields.image.map((image, i) => (
               <Item
@@ -26,7 +26,7 @@ export function Galleries({ images }) {
                 key={i}
               >
                 {({ ref, open }) => (
-                  <div className="rounded-lg max-w-[45rem] max-h-[9rem] md:max-h-[13rem] lg:max-h-[15rem] xl:max-h-[20rem] overflow-hidden object-cover">
+                  <div className="rounded-xl max-w-[45rem] max-h-[9rem] md:max-h-[13rem] lg:max-h-[9rem] xl:max-h-[14rem] overflow-hidden object-cover">
                     <img
                       ref={ref}
                       onClick={open}
