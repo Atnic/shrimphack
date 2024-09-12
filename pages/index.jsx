@@ -215,7 +215,7 @@ export async function getStaticProps() {
             "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 19 - 20 October, 2024.",
           images: [
             {
-              url: "https://www.shrimphack.com/shrimphack-800.jpg",
+              url: "https://www.shrimphack.com/shrimphack-2024.jpg",
               width: 800,
               height: 600,
               alt: "ShrimpHack 2024",
