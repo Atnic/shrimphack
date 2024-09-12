@@ -18,22 +18,24 @@
     "next": "12.3.1",
     "next-auth": "^4.23.1",
     "next-seo": "^6.1.0",
+    "photoswipe": "^5.4.4",
     "qs": "^6.11.2",
     "react": "18.2.0",
     "react-canvas-confetti": "^1.4.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-photoswipe-gallery": "^3.0.2",
     "sharp": "^0.32.6",
     "swr": "^2.2.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.6",
-    "autoprefixer": "^10.4.12",
+    "autoprefixer": "^10.4.20",
     "eslint": "8.24.0",
     "eslint-config-next": "12.3.1",
-    "postcss": "^8.4.17",
+    "postcss": "^8.4.45",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^3.4.10"
   }
 }

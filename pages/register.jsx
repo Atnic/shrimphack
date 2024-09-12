@@ -38,7 +38,7 @@ export default function Register() {
   });
 
   const today = Date.now();
-  const registrationClosedDate = Date.parse("28 Sep 2023 00:00:00 GMT");
+  const registrationClosedDate = Date.parse("08 Oct 2024 00:00:00 GMT");
 
   // console.log(csrfToken);
 
@@ -120,7 +120,7 @@ export default function Register() {
     // console.log(storage.app);
     try {
       const image_id = uuidv4();
-      const imageRef = ref(storage, `2023/${image_id + file.name}`);
+      const imageRef = ref(storage, `2024/${image_id + file.name}`);
       const uploadTask = await uploadBytes(imageRef, file);
 
       // console.log("image ke firebase");
@@ -182,7 +182,7 @@ export default function Register() {
             });
             setIsSubmitting(false);
           } else {
-            await router.push("/2023");
+            await router.push("/2024");
             setIsSubmitting(false);
           }
         }
@@ -263,25 +263,25 @@ export default function Register() {
   return (
     <PageLayout>
       <NextSeo
-        title="Register | ShrimpHack 2023 🍤"
+        title="Register | ShrimpHack 2024 🍤"
         description="ShrimpHack is a competitive weekend-long internal event of JALA
-        where Warga JALA come together to work on cool projects. Join on 14 - 15 October, 2023."
+        where Warga JALA come together to work on cool projects.  Join on 19 - 20 October, 2024."
         canonical="https://www.shrimphack.com/register"
         openGraph={{
           url: "https://www.shrimphack.com/register",
-          title: "Register | ShrimpHack 2023 🍤",
+          title: "Register | ShrimpHack 2024 🍤",
           description:
-            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
+            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects.  Join on 19 - 20 October, 2024.",
           images: [
             {
-              url: "https://www.shrimphack.com/shrimphack-800.jpg",
+              url: "https://www.shrimphack.com/shrimphack-2024.jpg",
               width: 800,
               height: 450,
-              alt: "ShrimpHack 2023",
+              alt: "ShrimpHack 2024",
               type: "image/jpeg",
             },
           ],
-          siteName: "ShrimpHack 2023 🍤",
+          siteName: "ShrimpHack 2024 🍤",
         }}
         twitter={{
           handle: "@jalaindonesia",
@@ -294,18 +294,18 @@ export default function Register() {
           <div className="flex flex-col pb-10">
             <Link href={"/"}>
               <div className="flex p-4 text-lg font-bold cursor-pointer items-center gap-2">
-                <ArrowLeftIcon className="w-5 h-5 text-white" />
+                <ArrowLeftIcon className="w-5 h-5 text-slate-800" />
                 Back to Home
               </div>
             </Link>
 
             <div className="flex flex-col items-center">
-              <SHWhite width={300} height={150} />
+              <SHWhite width={300} height={150} fill={"black"} />
             </div>
 
             <div className="flex flex-col mx-auto py-5 gap-5 items-center md:px-16 px-6 max-w-2xl">
               <div className="text-2xl md:text-3xl font-bold">
-                Register to ShrimpHack&apos;23
+                Register to ShrimpHack&apos;24
               </div>
               <div className="flex flex-col gap-2">
                 <div className="text-center">
@@ -319,7 +319,7 @@ export default function Register() {
                   <div className="flex flex-col gap-3">
                     <div className="text-lg font-semibold">Profile</div>
                     <div className="flex flex-col gap-2">
-                      <div className="text-white text-sm font-medium">
+                      <div className="text-slate-800 text-sm font-medium">
                         Profile Picture
                       </div>
                       <div className="flex flex-row gap-4 items-center">
@@ -368,7 +368,7 @@ export default function Register() {
 
                     <div className="flex flex-row gap-4">
                       <div className="flex flex-col w-full gap-2">
-                        <div className="text-white text-sm font-medium">
+                        <div className="text-slate-800 text-sm font-medium">
                           Full Name
                         </div>
                         <input
@@ -383,7 +383,7 @@ export default function Register() {
                     <div className="flex flex-row gap-4">
                       {!session?.user && (
                         <div className="flex flex-1 flex-col gap-2">
-                          <div className="text-white text-sm font-medium">
+                          <div className="text-slate-800 text-sm font-medium">
                             E-mail
                           </div>
                           <input
@@ -396,7 +396,7 @@ export default function Register() {
                         </div>
                       )}
                       <div className="flex flex-1 flex-col gap-2">
-                        <div className="text-white text-sm font-medium">
+                        <div className="text-slate-800 text-sm font-medium">
                           Mobile
                         </div>
                         <input
@@ -411,7 +411,7 @@ export default function Register() {
                     <div className="md:hidden flex flex-row gap-4"></div>
                     <div className="flex flex-row gap-4">
                       <div className="flex flex-col w-1/2 md:w-fit gap-2">
-                        <div className="text-white text-sm font-medium">
+                        <div className="text-slate-800 text-sm font-medium">
                           Gender
                         </div>
                         <select
@@ -435,7 +435,7 @@ export default function Register() {
                         </select>
                       </div>
                       <div className="flex flex-col gap-2 w-1/2 md:w-fit">
-                        <div className="text-white text-sm font-medium">
+                        <div className="text-slate-800 text-sm font-medium">
                           Shirt Size
                         </div>
                         <select
@@ -459,7 +459,7 @@ export default function Register() {
                         </select>
                       </div>
                       <div className="hidden md:flex flex-1 flex-col gap-2">
-                        <div className="text-white text-sm font-medium">
+                        <div className="text-slate-800 text-sm font-medium">
                           Role
                         </div>
                         <select
@@ -486,7 +486,7 @@ export default function Register() {
 
                     <div className="md:hidden flex flex-row gap-4">
                       <div className="flex flex-1 flex-col gap-2">
-                        <div className="text-white text-sm font-medium">
+                        <div className="text-slate-800 text-sm font-medium">
                           Role
                         </div>
                         <select
@@ -512,7 +512,7 @@ export default function Register() {
                     </div>
                   </div>
                   <div className="flex flex-col gap-3">
-                    <div className="text-white text-sm font-medium">
+                    <div className="text-slate-800 text-sm font-medium">
                       What&apos;s your expectation by joining ShrimpHack?
                     </div>
                     <div className="flex flex-col gap-2">
@@ -538,7 +538,7 @@ export default function Register() {
                         isSubmitting
                           ? "bg-slate-300 "
                           : "bg-red-500 text-white",
-                        "py-3 rounded-md  w-full text-center font-semibold disabled:bg-slate-300 disabled:text-slate-400"
+                        "py-3 rounded-xl  w-full text-center font-semibold disabled:bg-slate-300 disabled:text-slate-400"
                       )}
                     >
                       Register

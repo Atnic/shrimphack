@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const repositories = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/2022_repositories`,
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/repositories`,
     {
       method: "GET",
       headers: {

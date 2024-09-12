@@ -70,7 +70,9 @@ export function RegisteredUserGroups() {
 
   return (
     <div className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16">
-      <div className="text-4xl font-bold mx-auto">Registered Participants</div>
+      <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
+        Registered Participants
+      </div>
       <div
         className="mx-auto grid grid-cols-1 md:grid-cols-3 py-6 gap-10 scroll-mt-10 px-4 lg:px-16"
         id="registered"
@@ -87,7 +89,7 @@ export function RegisteredUserGroups() {
                   height={50}
                   width={50}
                   alt={t.fields.name}
-                  className="rounded"
+                  className="rounded-xl"
                 />
               ))
             ) : (
@@ -110,7 +112,7 @@ export function RegisteredUserGroups() {
                     layout="fill"
                     objectFit="cover"
                     alt={t.fields.name}
-                    className="rounded"
+                    className="rounded-xl"
                   />
                 </div>
               ))
@@ -131,7 +133,7 @@ export function RegisteredUserGroups() {
                   height={50}
                   width={50}
                   alt={t.fields.name}
-                  className="rounded"
+                  className="rounded-xl"
                 />
               ))
             ) : (

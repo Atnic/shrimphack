@@ -1,10 +1,12 @@
 export function Agenda() {
   return (
     <div
-      className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
+      className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16 space-y-6"
       id="events"
     >
-      <div className="text-4xl font-bold mx-auto">Agenda</div>
+      <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
+        Agenda
+      </div>
       <table className="table-fixed mx-auto text-sm md:text-base">
         <thead className=" text-gray-700 bg-gray-50 ">
           <tr>
@@ -17,7 +19,9 @@ export function Agenda() {
           <tr className="">
             <td rowSpan={5} className="border p-2">
               Day 1 <br></br>
-              <span className="font-semibold">14 October 2023</span>
+              <span className="font-semibold text-jala-insight">
+                19 October 2024
+              </span>
             </td>
             <td className="border p-2">08:00 - 09:00</td>
             <td className="border p-2">
@@ -45,7 +49,9 @@ export function Agenda() {
           <tr className="">
             <td rowSpan={7} className="border p-2">
               Day 2 <br></br>
-              <span className="font-semibold">15 October 2023</span>
+              <span className="font-semibold text-jala-insight">
+                20 October 2024
+              </span>
             </td>
             <td className="border p-2">09:00 - 09:30</td>
             <td className="border p-2">Daily check in</td>
@@ -77,7 +83,7 @@ export function Agenda() {
             <td className="border p-2">Awarding</td>
           </tr>
           <tr>
-            <td className="border p-2">17:00 - selesai</td>
+            <td className="border p-2">17:00 - finish</td>
             <td className="border p-2">Closing ceremonies and dinner</td>
           </tr>
         </tbody>

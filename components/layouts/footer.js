@@ -11,12 +11,12 @@ export function Footer() {
           href="https://instagram.com/lifeatjala"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center"
+          className="inline-flex items-center "
         >
           <InstagramLogo
             width={30}
             height={30}
-            fill={"white"}
+            fill={"black"}
             aria-label={"Instagram Life at Jala"}
           />
           lifeatjala

@@ -66,7 +66,7 @@ function LoginDialog() {
         {({ open }) => (
           <>
             <Disclosure.Button
-              className={`hover:bg-red-600 hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-3 justify-between`}
+              className={`hover:bg-jala-insight hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-3 justify-between`}
             >
               <DevicePhoneMobileIcon
                 className="mr-2 h-5 w-5"
@@ -105,14 +105,14 @@ function LoginDialog() {
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                       placeholder=""
                     />
                   </label>
                   <label className="inline-flex items-center text-sm">
                     <input
                       type="checkbox"
-                      className="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+                      className="rounded border-gray-300 text-jala-insight shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
                       onClick={() => showPassword()}
                     />
                     <span className="ml-2">Show Phone Number</span>
@@ -121,8 +121,8 @@ function LoginDialog() {
                     className={clsx(
                       isSubmitting || !formData.username || !formData.password
                         ? "disabled:bg-opacity-50 cursor-not-allowed"
-                        : "hover:bg-red-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
-                      "inline-flex w-full justify-center rounded-lg border border-transparent bg-red-600 px-4 py-2 font-medium text-white text-sm "
+                        : "hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2",
+                      "inline-flex w-full justify-center rounded-lg border border-transparent bg-jala-insight px-4 py-2 font-medium text-white text-sm "
                     )}
                     type="submit"
                     disabled={
