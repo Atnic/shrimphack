@@ -8,9 +8,11 @@ import Image from "next/image";
 export function TeamCard({ team }) {
   // console.log(team);
   return (
-    <div className="flex flex-col gap-2 mx-auto w-full">
+    <div className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16 space-y-6">
+      <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
+        Team
+      </div>
       <div className="flex flex-col p-4 items-center gap-4">
-        <div className="font-bold text-4xl">Team</div>
         {team ? (
           <div className="flex flex-col p-3 md:p-5 w-full lg:w-3/4 gap-4 border border-slate-300 rounded-xl ">
             <div className="font-semibold text-3xl">{team.fields.name}</div>
@@ -79,7 +81,7 @@ export function TeamCard({ team }) {
         ) : (
           <div>
             <div className="font-semibold text-center">
-              No team. Please wait for the team drawing on 14 October 2023.
+              No team. Please wait for the team drawing on 19 October 2024.
             </div>
           </div>
         )}

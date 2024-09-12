@@ -9,7 +9,7 @@ import { useSession, signIn } from "next-auth/react";
 import { Ticket } from "@/components/layouts/ticket";
 import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
-// import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
+import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
 import { LinkIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
 import { Agenda } from "@/components/teams/agenda";
 import {
@@ -21,7 +21,7 @@ import clsx from "clsx";
 import qs from "qs";
 import { TeamCard } from "@/components/homepage/team-card";
 
-export default function SH2023() {
+export default function SH2024() {
   const { data: session, status, loading } = useSession();
 
   const today = Date.now();
@@ -83,25 +83,25 @@ export default function SH2023() {
   return (
     <PageLayout>
       <NextSeo
-        title="ShrimpHack 2023 🍤"
+        title="Profile | ShrimpHack 2024 🍤"
         description="ShrimpHack is a competitive weekend-long internal event of JALA
-        where Warga JALA come together to work on cool projects. Join on 14 - 15 October, 2023."
+        where Warga JALA come together to work on cool projects.  Join on 19 - 20 October, 2024."
         canonical="https://www.shrimphack.com/"
         openGraph={{
           url: "https://www.shrimphack.com/",
-          title: "ShrimpHack 2023 🍤",
+          title: "ShrimpHack 2024 🍤",
           description:
-            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
+            "ShrimpHack is a competitive weekend-long internal event of JALA where Warga JALA come together to work on cool projects.  Join on 19 - 20 October, 2024.",
           images: [
             {
               url: "https://www.shrimphack.com/shrimphack-800.jpg",
               width: 800,
               height: 450,
-              alt: "ShrimpHack 2023",
+              alt: "ShrimpHack 2024",
               type: "image/jpeg",
             },
           ],
-          siteName: "ShrimpHack 2023 🍤",
+          siteName: "ShrimpHack 2024 🍤",
         }}
         twitter={{
           handle: "@jalaindonesia",
@@ -116,13 +116,15 @@ export default function SH2023() {
             <div className="flex flex-col">
               <Ticket account={account?.records[0]} session={session} />
               <TeamCard team={teams?.records[0]} />
-              {/* <RegisteredUserGroups /> */}
+              <RegisteredUserGroups />
               <Agenda />
               <div
                 className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
                 id="events"
               >
-                <div className="text-4xl font-bold mx-auto">Events</div>
+                <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
+                  Events
+                </div>
                 <div className="flex flex-col flex-wrap justify-center gap-1 mx-auto py-6">
                   {events?.records ? (
                     events?.records?.map((event, i) => (

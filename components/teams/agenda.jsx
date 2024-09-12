@@ -20,7 +20,7 @@ export function Agenda() {
             <td rowSpan={5} className="border p-2">
               Day 1 <br></br>
               <span className="font-semibold text-jala-insight">
-                14 October 2023
+                19 October 2024
               </span>
             </td>
             <td className="border p-2">08:00 - 09:00</td>
@@ -50,7 +50,7 @@ export function Agenda() {
             <td rowSpan={7} className="border p-2">
               Day 2 <br></br>
               <span className="font-semibold text-jala-insight">
-                15 October 2023
+                20 October 2024
               </span>
             </td>
             <td className="border p-2">09:00 - 09:30</td>

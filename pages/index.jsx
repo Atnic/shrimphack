@@ -1,9 +1,7 @@
 import { PageLayout } from "@/components/layouts/page";
 import { PageContent } from "@/components/layouts/page-contents";
-// import Link from "next/link";
 import Container from "@/components/layouts/container";
 import { NextSeo } from "next-seo";
-import Image from "next/image";
 import "@splidejs/react-splide/css/skyblue";
 import { Navbar } from "@/components/layouts/navbar";
 import { Hero } from "@/components/homepage/hero";
@@ -13,7 +11,6 @@ import { Prizes } from "@/components/homepage/prizes";
 import { Projects } from "@/components/homepage/projects";
 import { Testimonies } from "@/components/homepage/testimonies";
 import { Galleries } from "@/components/homepage/galleries";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Agenda } from "@/components/teams/agenda";
 import { Footer } from "@/components/layouts/footer";
 import useSWR from "swr";
