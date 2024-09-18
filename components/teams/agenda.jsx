@@ -2,7 +2,7 @@ export function Agenda() {
   return (
     <div
       className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16 space-y-6"
-      id="events"
+      id="agenda"
     >
       <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
         Agenda

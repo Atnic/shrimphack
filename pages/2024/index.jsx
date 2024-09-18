@@ -34,7 +34,7 @@ export default function SH2024() {
 
   const teamsParams = account
     ? qs.stringify({
-        filterByFormula: `AND(SEARCH('${account.records[0].fields.name}', ARRAYJOIN(full_name, ";")), year=2023)`,
+        filterByFormula: `AND(SEARCH('${account.records[0].fields.name}', ARRAYJOIN(full_name, ";")), year=2024)`,
       })
     : null;
 
@@ -60,6 +60,8 @@ export default function SH2024() {
     }
   }, [account, session, status]);
 
+  // console.log(session, status, account);
+
   // console.log(account?.records?.length);
   // console.log(teams, account);
   // console.log(teams);
@@ -71,8 +73,7 @@ export default function SH2024() {
           <Container>
             <div className="flex flex-col animate-pulse">
               <div className="flex flex-col mx-auto py-24 gap-5 items-center px-10 md:px-16 ">
-                <div className="hidden relative md:flex flex-row bg-slate-600 h-80 w-[40rem] lg:w-[45rem] rounded-xl "></div>
-                <div className="relative flex md:hidden flex-col bg-slate-600 rounded-xl h-[35rem] w-72"></div>
+                <div className="relative flex flex-col bg-slate-600 rounded-3xl h-[35rem] w-[22rem]"></div>
               </div>
             </div>
           </Container>
@@ -119,7 +120,7 @@ export default function SH2024() {
               <RegisteredUserGroups />
               <Agenda />
               <div
-                className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 md:px-16"
+                className="flex flex-col gap-4 py-20 scroll-mt-10 px-4 lg:px-16"
                 id="events"
               >
                 <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
