@@ -6,7 +6,7 @@ import { NavbarAgenda } from "@/components/layouts/navbar-agenda";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetcher";
 import { useSession, signIn } from "next-auth/react";
-import { Ticket } from "@/components/layouts/ticket";
+import { Ticket2024 } from "@/components/layouts/ticket-2024";
 import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
 import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
@@ -114,7 +114,7 @@ export default function SH2024() {
         <Container>
           {account?.records[0] && session?.user && !loading && (
             <div className="flex flex-col">
-              <Ticket account={account?.records[0]} session={session} />
+              <Ticket2024 account={account?.records[0]} session={session} />
               <TeamCard team={teams?.records[0]} />
               <RegisteredUserGroups />
               <Agenda />
