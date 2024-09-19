@@ -42,10 +42,12 @@ export function RegisterUsersList({ registeredUsers, registered }) {
           )}
         </div>
       </div>
-      <div className="text-lg text-slate-700 font-semibold">
-        {registeredUsers} Warga JALA {registeredUsers > 1 ? "are" : "is"}{" "}
-        Registered!!
-      </div>
+      {registeredUsers > 0 && (
+        <div className="text-lg text-slate-700 font-semibold">
+          {registeredUsers} Warga JALA {registeredUsers > 1 ? "are" : "is"}{" "}
+          Registered!!
+        </div>
+      )}
     </>
   );
 }
