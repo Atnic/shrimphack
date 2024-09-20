@@ -11,6 +11,7 @@ import { Footer } from "@/components/layouts/footer";
 import { NextSeo } from "next-seo";
 import { RegisteredUserGroups } from "@/components/homepage/registered-user-group";
 import { LinkIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
+import { EditModal } from "@/components/layouts/edit-modal";
 import { Agenda } from "@/components/teams/agenda";
 import {
   TimeConverter,
@@ -116,6 +117,7 @@ export default function SH2024() {
           {account?.records[0] && session?.user && !loading && (
             <div className="flex flex-col">
               <Ticket2024 account={account?.records[0]} session={session} />
+              <EditModal account={account?.records[0]} />
               <TeamCard team={teams?.records[0]} />
               <RegisteredUserGroups />
               <Agenda />

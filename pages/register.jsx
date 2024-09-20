@@ -100,7 +100,7 @@ export default function Register() {
       router.push("/");
     }
     if (account?.records?.length == 1) {
-      router.push("/2023");
+      router.push("/2024");
     }
   }, [account, session, status]);
 
