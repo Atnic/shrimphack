@@ -39,7 +39,7 @@ const prizes = [
   },
 ];
 
-export default function Home({ seo }) {
+export default function Home() {
   // console.log(image);
 
   const {
@@ -173,7 +173,7 @@ export default function Home({ seo }) {
               type: "image/jpeg",
             },
           ],
-          siteName: "ShrimpHack 2024 🍤",
+          siteName: "ShrimpHack",
         }}
         twitter={{
           handle: "@jalaindonesia",
@@ -203,32 +203,6 @@ export default function Home({ seo }) {
 
 export async function getStaticProps() {
   return {
-    props: {
-      seo: {
-        title: "ShrimpHack 2024 🍤",
-        description:
-          "ShrimpHack is a competitive weekend-long internal event of JALA where Warga JALA come together to work on cool projects. Join on 19 - 20 October, 2024.",
-        canonical: "https://www.shrimphack.com/",
-        openGraph: {
-          url: "https://www.shrimphack.com/",
-          title: "ShrimpHack 2024 🍤",
-          description:
-            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 19 - 20 October, 2024.",
-          images: [
-            {
-              url: "https://www.shrimphack.com/shrimphack-2024.jpg",
-              width: 800,
-              height: 600,
-              alt: "ShrimpHack 2024",
-              type: "image/jpeg",
-            },
-          ],
-          siteName: "ShrimpHack 2024 🍤",
-        },
-        twitter: {
-          cardType: "summary_large_image",
-        },
-      },
-    },
+    props: {},
   };
 }
