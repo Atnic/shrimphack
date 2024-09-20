@@ -156,16 +156,17 @@ export default function Home({ seo }) {
   return (
     <PageLayout>
       <NextSeo
-        title={seo.title}
-        description={seo.description}
-        canonical={seo.canonical}
+        title="ShrimpHack 2024 🍤"
+        description="ShrimpHack is a competitive weekend-long internal event of JALA where Warga JALA come together to work on cool projects. Join on 19 - 20 October, 2024."
+        canonical="https://www.shrimphack.com/"
         openGraph={{
-          url: seo.openGraph.url,
-          title: seo.openGraph.title,
-          description: seo.openGraph.description,
+          url: "https://www.shrimphack.com/",
+          title: "ShrimpHack 2024 🍤",
+          description:
+            "ShrimpHack is a competitive weekend-long internal event of JALA where Warga JALA come together to work on cool projects. Join on 19 - 20 October, 2024.",
           images: [
             {
-              url: seo.openGraph.images[0].url,
+              url: "https://www.shrimphack.com/shrimphack-2024.jpg",
               width: 800,
               height: 450,
               alt: "ShrimpHack 2024",
