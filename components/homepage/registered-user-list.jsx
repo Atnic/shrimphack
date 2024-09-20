@@ -32,7 +32,7 @@ export function RegisterUsersList({ registeredUsers, registered }) {
           ) : (
             <></>
           )}
-          {registeredUsers >= 8 && (
+          {registeredUsers > 8 && (
             <div
               className="flex border-jala-insight border-2 rounded-full w-10 h-10 bg-jala-insight text-white p-1 font-medium text-lg text-center items-center justify-center"
               style={{ zIndex: 9 }}

@@ -54,12 +54,18 @@ export function RegisterButton() {
   }
   if (session && account?.records) {
     return (
-      <button
-        className="px-8 py-2 border-jala-insight border-2 text-jala-insight hover:bg-jala-insight hover:text-white rounded-xl text-lg font-semibold w-full md:w-fit"
-        onClick={() => router.push("/2024")}
-      >
-        Your Profile
-      </button>
+      <div className="flex flex-col gap-2">
+        <RegisterUsersList
+          registered={registered}
+          registeredUsers={registeredUsers}
+        />
+        <button
+          className="px-8 py-2 border-jala-insight border-2 text-jala-insight hover:bg-jala-insight hover:text-white rounded-xl text-lg font-semibold w-full md:w-fit"
+          onClick={() => router.push("/2024")}
+        >
+          Your Profile
+        </button>
+      </div>
     );
   }
   if (session?.user && !account?.records) {
