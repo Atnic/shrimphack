@@ -12,7 +12,7 @@ export function RegisterButton() {
   const router = useRouter();
 
   const today = Date.now();
-  const registrationClosedDate = Date.parse("7 Oct 2024 00:00:00 GMT");
+  const registrationClosedDate = Date.parse("9 Oct 2024 00:00:00 GMT");
 
   // console.log(today > registrationClosedDate);
 
@@ -37,7 +37,7 @@ export function RegisterButton() {
   }
   // console.log(account, paramAccount, session?.user, accountDataError);
   // console.log(session?.user?.image);
-  // console.log(registered);
+
   const registeredUsers = registered?.records.length;
   if (today > registrationClosedDate) {
     return (
