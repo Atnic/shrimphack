@@ -35,7 +35,7 @@ export function RegisterButton() {
       </div>
     );
   }
-  // console.log(account, paramAccount, session?.user, accountDataError);
+  // console.log(account, session?.user, accountDataError);
   // console.log(session?.user?.image);
 
   const registeredUsers = registered?.records.length;
