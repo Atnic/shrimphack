@@ -38,7 +38,7 @@ export default function Register() {
   });
 
   const today = Date.now();
-  const registrationClosedDate = Date.parse("9 Oct 2024 00:00:00 GMT");
+  const registrationClosedDate = Date.parse("10 Oct 2024 00:00:00 GMT");
 
   // console.log(csrfToken);
 
