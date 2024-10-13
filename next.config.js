@@ -12,6 +12,7 @@ const nextConfig = {
       "firebasestorage.googleapis.com",
       "shrimphack.com",
     ],
+    unoptimized: true,
   },
   i18n: {
     locales: ["en"],
