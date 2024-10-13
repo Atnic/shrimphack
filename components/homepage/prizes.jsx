@@ -13,6 +13,7 @@ export function Prizes({ prizes, prizeImage }) {
       </div>
       <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center scroll-mt-10 content-center py-2">
         <Image
+          unoptimized
           src={prizeImage?.fields.image[0].url}
           height={prizeImage?.fields.image[0].height}
           width={prizeImage?.fields.image[0].width}

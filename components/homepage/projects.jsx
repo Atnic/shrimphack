@@ -42,6 +42,7 @@ export function Projects({ repos }) {
                 <div className="overflow-hidden max-w-[15rem] min-h-[6rem] max-h-[6rem] rounded-lg ">
                   {repo.fields?.image ? (
                     <Image
+                      unoptimized
                       src={
                         repo.fields?.image
                           ? repo.fields?.image[0]?.url

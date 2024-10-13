@@ -20,6 +20,7 @@ export function Tracks({ tracks }) {
             >
               <div className="max-w-[14rem] max-h-[10rem] lg:max-w-[18rem] lg:max-h-[18rem] overflow-hidden rounded-lg ">
                 <Image
+                  unoptimized
                   src={track.fields.image[0].url}
                   alt={track.fields.name}
                   height={track.fields.image[0].height}

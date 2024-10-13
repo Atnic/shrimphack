@@ -20,6 +20,7 @@ export function Hero({ headerImage }) {
       </div>
       <div className="order-first md:order-last py-10 md:col-span-3">
         <Image
+          unoptimized
           src={headerImage?.fields.image[0].url}
           height={headerImage?.fields.image[0].height}
           width={headerImage?.fields.image[0].width}

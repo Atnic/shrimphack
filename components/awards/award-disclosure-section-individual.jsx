@@ -54,6 +54,7 @@ export function IndividualAwardDisclosureSection({
                         }
                       >
                         <Image
+                          unoptimized
                           src={
                             member.fields.image
                               ? member.fields.image[0]?.url

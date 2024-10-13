@@ -18,6 +18,7 @@ export function About({ aboutImage }) {
       </div>
 
       <Image
+        unoptimized
         src={aboutImage?.fields.image[0].url}
         height={aboutImage?.fields.image[0].height}
         width={aboutImage?.fields.image[0].width}
