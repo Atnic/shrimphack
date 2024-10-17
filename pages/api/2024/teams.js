@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   });
 
   const teams = await fetch(
-    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/teams?${teamsParams}`,
+    `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/teams_2024?${teamsParams}`,
     {
       method: "GET",
       headers: {

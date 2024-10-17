@@ -12,16 +12,18 @@ export function TeamCard({ team }) {
       <div className="text-4xl font-bold text-left py-4 border-b border-jala-insight border-dotted">
         Team
       </div>
-      <div className="flex flex-col p-4 items-center gap-4">
+      <div className="flex flex-col items-center gap-4">
         {team ? (
           <div className="flex flex-col p-3 md:p-5 w-full lg:w-3/4 gap-4 border border-slate-300 rounded-xl ">
-            <div className="font-semibold text-3xl">{team.fields.name}</div>
+            <div className="font-semibold text-3xl text-center">
+              {team.fields.name}
+            </div>
             <div
               className={clsx(
                 team.fields.members.length > 4
                   ? "justify-center"
                   : "justify-left",
-                "flex flex-row flex-wrap items-center  gap-2 md:gap-4 "
+                "flex flex-row flex-wrap items-center  gap-8 lg:gap-4 "
               )}
             >
               {team.fields.members ? (

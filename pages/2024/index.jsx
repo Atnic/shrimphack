@@ -39,13 +39,11 @@ export default function SH2024() {
       })
     : null;
 
-  // console.log(teamsParams);
-
   const {
     data: teams,
     error: teamsDataError,
     isLoading: teamsDataLoading,
-  } = useSWR(teamsParams ? `/api/teams?${teamsParams}` : null, (url) =>
+  } = useSWR(teamsParams ? `/api/2024/teams?${teamsParams}` : null, (url) =>
     fetcher(url)
   );
 

@@ -49,10 +49,10 @@ export function MemberCard({ memberId }) {
   }
 
   return (
-    <div className="relative bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm shadow-sm">
+    <div className="relative bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm shadow-md">
       <div
         className={
-          "border-slate-900 border w-14 h-12 md:w-20 md:h-20 overflow-hidden relative"
+          "border-slate-900 border w-14 h-12 md:w-20 md:h-20 overflow-hidden relative rounded-lg"
         }
       >
         <Image
@@ -67,7 +67,7 @@ export function MemberCard({ memberId }) {
           className="bg-blue-100"
         />
       </div>
-      <div className="text-slate-800 text-sm text-center font-sans font-semibold">
+      <div className="text-slate-800 text-sm text-center font-sans font-medium">
         {member.nickname}
       </div>
       <div className="absolute -top-2 -right-2 bg-white shadow-md rounded-full p-1">
