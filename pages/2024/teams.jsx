@@ -19,7 +19,7 @@ export default function Teams() {
     data: teams,
     error: teamsDataError,
     isLoading: teamsDataLoading,
-  } = useSWR(`${process.env.NEXT_PUBLIC_AIRTABLE_URI}/teams`, (url) =>
+  } = useSWR(`${process.env.NEXT_PUBLIC_AIRTABLE_URI}/teams_2024`, (url) =>
     fetcher(url, {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_AIRTABLE_TOKEN}`,
@@ -60,13 +60,13 @@ export default function Teams() {
   return (
     <PageLayout>
       <NextSeo
-        title="Teams | ShrimpHack 2023 🍤"
+        title="Teams | ShrimpHack 2024 🍤"
         description="ShrimpHack is a competitive weekend-long internal event of JALA
-        where Warga JALA come together to work on cool projects. Join on 14 - 15 October, 2023."
-        canonical="https://www.shrimphack.com/register"
+        where Warga JALA come together to work on cool projects. Join on 19 - 20 October, 2024."
+        canonical="https://www.shrimphack.com"
         openGraph={{
-          url: "https://www.shrimphack.com/register",
-          title: "Teams | ShrimpHack 2023 🍤",
+          url: "https://www.shrimphack.com",
+          title: "Teams | ShrimpHack 2024 🍤",
           description:
             "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
           images: [
@@ -74,11 +74,11 @@ export default function Teams() {
               url: "https://www.shrimphack.com/shrimphack-800.jpg",
               width: 800,
               height: 450,
-              alt: "ShrimpHack 2023",
+              alt: "ShrimpHack 2024",
               type: "image/jpeg",
             },
           ],
-          siteName: "ShrimpHack 2023 🍤",
+          siteName: "ShrimpHack 2024 🍤",
         }}
         twitter={{
           handle: "@jalaindonesia",
@@ -90,17 +90,18 @@ export default function Teams() {
         <Container>
           <div className="flex flex-col py-4">
             <div className="flex flex-col items-center">
-              <SHWhite width={300} height={150} />
+              <SHWhite width={300} height={150} fill={"black"} />
             </div>
+            <div className="text-4xl font-bold text-center">2024 Teams</div>
             <div className="flex flex-wrap p-4 gap-4 mx-auto">
               {filteredTeams?.teams ? (
                 filteredTeams.teams.map((team, i) => (
                   <div
                     key={i}
-                    className="flex flex-col gap-4 mx-auto items-center h-fit p-2 max-w-sm md:p-4"
+                    className="flex flex-col gap-4 mx-auto items-center h-fit max-w-sm md:p-4"
                   >
                     <div className="text-3xl font-semibold">{team.name}</div>
-                    <div className="flex flex-row flex-wrap items-center justify-center gap-2 ">
+                    <div className="flex flex-row flex-wrap items-center justify-center gap-1 md:gap-5 ">
                       {team.members ? (
                         team.members.map((member, i) => (
                           <div
@@ -112,11 +113,11 @@ export default function Teams() {
                                 3
                               )}deg)`,
                             }}
-                            className="relative bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm"
+                            className="relative bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm shadow-md"
                           >
                             <div
                               className={
-                                "border-slate-900 border w-14 h-12 md:w-20 md:h-20 overflow-hidden relative"
+                                "border-slate-900 border w-14 h-12 md:w-20 md:h-20 overflow-hidden relative rounded-lg"
                               }
                             >
                               <Image
