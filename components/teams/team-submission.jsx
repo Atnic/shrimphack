@@ -44,6 +44,9 @@ export function TeamSubmission({ team }) {
     {
       theme: "anything you want",
     },
+    {
+      theme: "indonesia makan udang",
+    },
   ];
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -60,7 +63,7 @@ export function TeamSubmission({ team }) {
     // console.log(storage.app);
     try {
       const image_id = uuidv4();
-      const imageRef = ref(storage, `2023/${image_id + file.name}`);
+      const imageRef = ref(storage, `2024/${image_id + file.name}`);
       const uploadTask = await uploadBytes(imageRef, file);
 
       // console.log("image ke firebase");
@@ -104,7 +107,7 @@ export function TeamSubmission({ team }) {
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/teams`,
+        `${process.env.NEXT_PUBLIC_AIRTABLE_URI}/teams_2024`,
         {
           method: "PATCH",
           headers: {
@@ -119,13 +122,13 @@ export function TeamSubmission({ team }) {
         if (response.status == 200) {
           setIsOpen(false);
           setIsSubmitting(false);
-          await router.push("/2023");
+          await router.push("/2024");
         }
       } else {
         setIsOpen(false);
         setIsSubmitting(false);
         console.error("Registration Failed");
-        await router.push("/2023");
+        await router.push("/2024");
       }
     } catch (error) {
       console.error("An error occurred", error);
