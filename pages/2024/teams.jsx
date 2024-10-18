@@ -60,18 +60,18 @@ export default function Teams() {
   return (
     <PageLayout>
       <NextSeo
-        title="Teams | ShrimpHack 2024 🍤"
+        title="Profile | ShrimpHack 2024 🍤"
         description="ShrimpHack is a competitive weekend-long internal event of JALA
-        where Warga JALA come together to work on cool projects. Join on 19 - 20 October, 2024."
-        canonical="https://www.shrimphack.com"
+        where Warga JALA come together to work on cool projects.  Join on 19 - 20 October, 2024."
+        canonical="https://www.shrimphack.com/"
         openGraph={{
-          url: "https://www.shrimphack.com",
-          title: "Teams | ShrimpHack 2024 🍤",
+          url: "https://www.shrimphack.com/",
+          title: "ShrimpHack 2024 🍤",
           description:
-            "ShrimpHack is a competitive weekend-long internal event of JALA where WargaJALA come together to work on cool projects. Join on 14 - 15 October, 2023.",
+            "ShrimpHack is a competitive weekend-long internal event of JALA where Warga JALA come together to work on cool projects.  Join on 19 - 20 October, 2024.",
           images: [
             {
-              url: "https://www.shrimphack.com/shrimphack-800.jpg",
+              url: "https://www.shrimphack.com/shrimphack-2024.jpg",
               width: 800,
               height: 450,
               alt: "ShrimpHack 2024",
