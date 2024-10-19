@@ -21,7 +21,7 @@ export function IndividualAwardDisclosureSection({
         <>
           <Disclosure.Button
             onClick={open ? "" : handleConfetti}
-            className="flex items-center w-full justify-between rounded-lg px-4 py-2 text-left text-2xl md:text-4xl font-medium text-white hover:border-white border border-slate-900 hover:bg-white hover:text-slate-900 "
+            className="flex items-center w-full justify-between rounded-lg px-4 py-2 text-left text-2xl md:text-4xl font-medium text-slate-700 hover:border-slate-400 border border-slate-200 hover:bg-white hover:text-slate-900 "
           >
             <span>{title}</span>
             <ChevronUpIcon
@@ -46,15 +46,14 @@ export function IndividualAwardDisclosureSection({
                   winners.map((member, i) => (
                     <div
                       key={member.id}
-                      className="relative bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm shadow-sm"
+                      className="relative bg-white p-1 pt-2 md:p-2 md:pt-3 w-16 md:w-24 flex flex-col gap-1 justify-center rounded-sm shadow-md"
                     >
                       <div
                         className={
-                          "border-slate-900 border w-14 h-12 md:w-20 md:h-20 overflow-hidden relative"
+                          "border-slate-900 border w-14 h-12 md:w-20 md:h-20 overflow-hidden relative rounded-xl"
                         }
                       >
                         <Image
-                          unoptimized
                           src={
                             member.fields.image
                               ? member.fields.image[0]?.url

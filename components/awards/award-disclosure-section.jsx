@@ -4,13 +4,14 @@ import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronUpIcon } from "@heroicons/react/20/solid";
 
 export function AwardDisclosureSection({ team, handleConfetti, title }) {
+  // console.log(team);
   return (
     <Disclosure>
       {({ open }) => (
         <>
           <Disclosure.Button
             onClick={open ? "" : handleConfetti}
-            className="flex items-center w-full justify-between rounded-lg px-4 py-2 text-left text-2xl md:text-4xl font-medium text-white hover:border-white border border-slate-900 hover:bg-white hover:text-slate-900 "
+            className="flex items-center w-full justify-between rounded-lg px-4 py-2 text-left text-2xl md:text-4xl font-medium text-slate-700 hover:border-slate-400 border border-slate-200 hover:bg-white hover:text-slate-900  "
           >
             <span>{title}</span>
             <ChevronUpIcon
@@ -27,9 +28,9 @@ export function AwardDisclosureSection({ team, handleConfetti, title }) {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           ></Transition>
-          <Disclosure.Panel className="md:px-4 py-8 pb-20 text-sm text-white mx-auto">
+          <Disclosure.Panel className="md:px-4 py-8 pb-20 text-sm text-slate-800 mx-auto">
             <div className="flex flex-col gap-4 items-center h-fit max-w-sm md:p-4">
-              <div className="text-5xl font-semibold">{team?.fields?.name}</div>
+              <div className="text-4xl font-semibold">{team?.fields?.name}</div>
               <div className="flex flex-row items-center justify-center gap-2 md:gap-6 md:justify-between ">
                 {team?.fields?.members ? (
                   team?.fields?.members.map((member, i) => (
